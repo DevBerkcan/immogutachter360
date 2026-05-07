@@ -1,0 +1,60 @@
+---
+import Reveal from '~/components/animations/Reveal.tsx';
+---
+<section class="section-y bg-paper">
+  <div class="container-x grid gap-16 lg:grid-cols-2 lg:items-center">
+
+    {/* Portrait */}
+    <Reveal client:visible>
+      <div class="relative">
+        {/* Decorative green accent behind the image */}
+        <div
+          class="absolute -bottom-4 -right-4 h-full w-full rounded-2xl"
+          style="background: linear-gradient(135deg, rgba(140,188,148,0.15), rgba(140,188,148,0.05)); border: 1px solid rgba(140,188,148,0.2)"
+          aria-hidden="true"
+        ></div>
+
+        <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-cream">
+          <img
+            src="/me.jpeg"
+            alt="Ihr Sachverständiger — DEKRA-zertifizierter Immobiliengutachter"
+            class="h-full w-full object-cover object-top"
+            loading="lazy"
+            decoding="async"
+          />
+          {/* Subtle bottom gradient for badge readability */}
+          <div
+            class="absolute bottom-0 left-0 right-0 h-28"
+            style="background: linear-gradient(to top, rgba(250,246,240,0.7), transparent)"
+          ></div>
+        </div>
+
+        {/* DEKRA badge */}
+        <div class="absolute bottom-6 left-6 flex items-center gap-2 rounded-full bg-paper px-4 py-2 shadow-md">
+          <span class="h-2 w-2 rounded-full bg-green" style="box-shadow: 0 0 6px rgba(140,188,148,0.6)"></span>
+          <span class="text-xs font-medium tracking-wider text-ink">DEKRA-zertifiziert</span>
+        </div>
+      </div>
+    </Reveal>
+
+    {/* Copy */}
+    <Reveal client:visible delay={0.12}>
+      <p class="eyebrow">Über uns</p>
+      <h2 class="display-2 mt-4">
+        Mehr als Zahlen.<br/>
+        <span class="italic text-green">Vertrauen.</span>
+      </h2>
+      <p class="mt-8 text-lg leading-relaxed" style="color: var(--color-mute)">
+        Seit über 8 Jahren verbinden wir tiefgreifende Expertise mit echter Leidenschaft für Immobilien. Mehr als 500 erfolgreich begleitete Bewertungen stehen für Präzision, Verlässlichkeit und einen Ansatz, der Ihre Immobilie ins richtige Licht rückt.
+      </p>
+      <p class="mt-4 text-lg leading-relaxed" style="color: var(--color-mute)">
+        Regional verwurzelt in Düsseldorf, deutschlandweit geschätzt — wir sind mehr als ein Gutachter. Wir sind Ihr Partner für eine der wichtigsten Entscheidungen Ihres Lebens.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/ueber-uns" class="btn-secondary">Mehr erfahren</a>
+        <a href="/kontakt" class="link-underline text-sm font-medium">Persönliches Gespräch →</a>
+      </div>
+    </Reveal>
+
+  </div>
+</section>

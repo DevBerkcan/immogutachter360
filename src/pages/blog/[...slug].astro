@@ -1,0 +1,104 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/ui/Breadcrumb.astro';
+import { getCollection, render } from 'astro:content';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+import { articleJsonLd, breadcrumbJsonLd } from '~/lib/seo';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.mdx?$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const slug = post.id.replace(/\.mdx?$/, '');
+const { Content } = await render(post);
+
+const readingTime = Math.max(1, Math.ceil(post.body.split(/\s+/).length / 200));
+
+const breadcrumbItems = [
+  { name: 'Start', href: '/' },
+  { name: 'Blog', href: '/blog' },
+  { name: post.data.title, href: `/blog/${slug}` },
+];
+---
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.image ?? '/me.jpeg'}
+  type="article"
+  publishedTime={post.data.date.toISOString()}
+  modifiedTime={(post.data.dateModified ?? post.data.date).toISOString()}
+  section={post.data.category}
+  tags={post.data.tags}
+  authorName={post.data.author}
+  jsonLd={[
+    articleJsonLd({
+      title: post.data.title,
+      description: post.data.description,
+      date: post.data.date,
+      dateModified: post.data.dateModified,
+      author: post.data.author,
+      url: `/blog/${slug}`,
+      image: post.data.image,
+    }),
+    breadcrumbJsonLd(breadcrumbItems.map((b) => ({ name: b.name, url: b.href }))),
+  ]}
+>
+  <article class="section-y bg-cream">
+    <div class="container-x mx-auto max-w-3xl">
+
+      <Breadcrumb items={breadcrumbItems} />
+
+      <div class="flex flex-wrap items-center gap-3 text-xs">
+        <span class="rounded-full px-3 py-1 text-green" style="background-color: rgba(140,188,148,0.12)">{post.data.category}</span>
+        <time datetime={post.data.date.toISOString()} class="text-mute">
+          {post.data.date.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </time>
+        <span class="text-mute">·</span>
+        <span class="text-mute">{post.data.author}</span>
+        <span class="text-mute">·</span>
+        <span class="text-mute">{readingTime} Min. Lesezeit</span>
+      </div>
+
+      <h1 class="display-1 mt-6">{post.data.title}</h1>
+      <p class="mt-6 text-xl text-mute leading-relaxed">{post.data.description}</p>
+
+      {post.data.image && (
+        <div class="mt-10 overflow-hidden rounded-2xl">
+          <img
+            src={post.data.image}
+            alt={post.data.title}
+            class="w-full object-cover"
+            style="aspect-ratio: 16/9"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )}
+
+      <div class="prose prose-lg mt-12 max-w-none prose-headings:font-display prose-headings:font-normal prose-h2:mt-12 prose-h2:text-3xl prose-h3:mt-8 prose-a:text-green prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-blockquote:border-l-green prose-blockquote:text-ink">
+        <Content />
+      </div>
+
+      {/* Author card */}
+      <div class="mt-16 flex items-center gap-5 rounded-2xl border border-line bg-paper p-6">
+        <img
+          src="/me.jpeg"
+          alt="Erdem Tanrikulu"
+          class="h-14 w-14 rounded-full object-cover object-top shrink-0"
+          loading="lazy"
+        />
+        <div>
+          <p class="font-display text-lg">{post.data.author}</p>
+          <p class="mt-0.5 text-sm text-mute">DEKRA-zertifizierter Sachverständiger für Immobilienbewertung · IHK Düsseldorf</p>
+        </div>
+      </div>
+
+    </div>
+  </article>
+  <FinalCTA />
+</BaseLayout>

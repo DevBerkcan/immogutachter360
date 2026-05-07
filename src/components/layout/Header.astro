@@ -1,0 +1,69 @@
+---
+import { NAV, SITE } from '~/lib/site';
+const path = Astro.url.pathname;
+---
+<header id="site-header" class="fixed inset-x-0 top-0 z-40 transition-all duration-500 ease-premium">
+  <div class="container-x flex h-20 items-center justify-between">
+    <a href="/" class="flex items-center">
+      <img src="/logo_immo.png" alt="immogutachter360°" height="40" class="h-10 w-auto" />
+    </a>
+    <nav class="hidden items-center gap-8 lg:flex">
+      {NAV.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "text-sm transition-colors hover:text-green",
+            path.startsWith(item.href) && item.href !== '/' ? 'text-green' : (item.href === '/' && path === '/' ? 'text-green' : 'text-ink')
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href={SITE.phoneHref} class="hidden text-sm text-ink hover:text-green md:inline">{SITE.phone}</a>
+      <a href="/kontakt" class="btn-primary">Kostenlose Anfrage</a>
+      <button id="mobile-menu-btn" aria-label="Menü öffnen" class="lg:hidden p-1">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="fixed inset-0 z-50 bg-cream lg:hidden" style="transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);">
+    <div class="container-x flex h-20 items-center justify-between">
+      <img src="/logo_immo.png" alt="immogutachter360°" height="36" class="h-9 w-auto" />
+      <button id="mobile-menu-close" aria-label="Menü schließen" class="p-1">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+    </div>
+    <nav class="container-x flex flex-col gap-6 pt-12 text-3xl font-display">
+      {NAV.map((item) => <a href={item.href} class="hover:text-green transition-colors">{item.label}</a>)}
+    </nav>
+    <div class="container-x mt-12">
+      <a href="/kontakt" class="btn-primary w-full justify-center">Kostenlose Anfrage</a>
+      <a href={SITE.phoneHref} class="mt-4 block text-center text-mute hover:text-green transition-colors">{SITE.phone}</a>
+    </div>
+  </div>
+</header>
+<div class="h-20"></div>
+<script>
+  const header = document.getElementById('site-header');
+  const onScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 20) header.classList.add('bg-cream/90', 'backdrop-blur-md', 'border-b', 'border-line', 'shadow-sm');
+    else header.classList.remove('bg-cream/90', 'backdrop-blur-md', 'border-b', 'border-line', 'shadow-sm');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const btn = document.getElementById('mobile-menu-btn');
+  const close = document.getElementById('mobile-menu-close');
+  const menu = document.getElementById('mobile-menu') as HTMLElement | null;
+  btn?.addEventListener('click', () => {
+    if (menu) { menu.style.transform = 'translateX(0)'; document.body.style.overflow = 'hidden'; }
+  });
+  const closeMenu = () => {
+    if (menu) { menu.style.transform = 'translateX(100%)'; document.body.style.overflow = ''; }
+  };
+  close?.addEventListener('click', closeMenu);
+  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+</script>

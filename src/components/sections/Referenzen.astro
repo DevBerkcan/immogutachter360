@@ -1,0 +1,50 @@
+---
+import Reveal from '~/components/animations/Reveal.tsx';
+
+const cases = [
+  {
+    type: 'Erbschaft',
+    title: 'Mehrfamilienhaus Düsseldorf-Bilk',
+    result: 'Verkehrswert: €2,8 Mio.',
+    note: 'Finanzamt-anerkanntes Gutachten. Erbauseinandersetzung erfolgreich abgeschlossen.',
+  },
+  {
+    type: 'Scheidung',
+    title: 'Eigentumswohnung Düsseldorf-Oberkassel',
+    result: 'Neutrale Bewertung',
+    note: 'Beide Parteien akzeptierten das Gutachten als Verhandlungsbasis. Einigung außergerichtlich.',
+  },
+  {
+    type: 'Kaufberatung',
+    title: 'Einfamilienhaus Meerbusch',
+    result: '€45.000 verhandelt',
+    note: 'Versteckte Mängel durch Baugutachten identifiziert. Kaufpreis entsprechend angepasst.',
+  },
+];
+---
+<section class="section-y bg-cream">
+  <div class="container-x">
+    <div class="flex items-end justify-between">
+      <div>
+        <p class="eyebrow">Referenzen</p>
+        <h2 class="display-2 mt-4">Vertrauen aus<br/><span class="italic text-green">Erfahrung.</span></h2>
+      </div>
+      <a href="/referenzen" class="hidden link-underline text-sm font-medium md:inline-flex">Alle Referenzen →</a>
+    </div>
+    <div class="mt-16 grid gap-8 md:grid-cols-3">
+      {cases.map((c, i) => (
+        <Reveal client:visible delay={i * 0.08}>
+          <div class="card h-full">
+            <span class="inline-block rounded-full px-3 py-1 text-xs font-medium text-green" style="background-color: rgba(140,188,148,0.12)">{c.type}</span>
+            <h3 class="mt-6 font-display text-xl">{c.title}</h3>
+            <p class="mt-2 font-medium text-green text-lg">{c.result}</p>
+            <p class="mt-3 text-mute text-sm leading-relaxed">{c.note}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+    <div class="mt-10 md:hidden text-center">
+      <a href="/referenzen" class="btn-secondary">Alle Referenzen</a>
+    </div>
+  </div>
+</section>

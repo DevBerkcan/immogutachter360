@@ -1,0 +1,46 @@
+{
+  "name": "immogutachter360",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "immogutachter360 - DEKRA-zertifizierte Immobiliengutachten aus Düsseldorf",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.8",
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.3.0",
+    "@astrojs/vercel": "^8.1.3",
+    "@gsap/react": "^2.1.1",
+    "@react-three/drei": "^10.0.6",
+    "@react-three/fiber": "^9.1.2",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.6",
+    "astro": "^5.7.13",
+    "framer-motion": "^12.9.4",
+    "gsap": "^3.12.7",
+    "lenis": "^1.3.23",
+    "lucide-react": "^0.511.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.3",
+    "resend": "^4.5.1",
+    "tailwindcss": "^4.1.6",
+    "three": "^0.177.0",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.3",
+    "@types/three": "^0.177.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "typescript": "^5.8.3"
+  }
+}

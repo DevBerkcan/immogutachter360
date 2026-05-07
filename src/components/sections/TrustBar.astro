@@ -1,0 +1,19 @@
+---
+import Counter from '~/components/animations/Counter.tsx';
+const items = [
+  { value: 500, suffix: '+', label: 'Gutachten erstellt' },
+  { value: 8, suffix: '+', label: 'Jahre Erfahrung' },
+  { value: 100, suffix: '%', label: 'DEKRA-zertifiziert' },
+  { value: 24, suffix: 'h', label: 'Erstantwort' },
+];
+---
+<section class="border-y border-line bg-paper">
+  <div class="container-x grid grid-cols-2 gap-8 py-12 md:grid-cols-4 md:py-16">
+    {items.map((it) => (
+      <div class="text-center">
+        <div class="font-display text-4xl md:text-5xl text-ink"><Counter client:visible to={it.value} suffix={it.suffix} /></div>
+        <p class="mt-2 text-xs uppercase tracking-[0.2em] text-mute">{it.label}</p>
+      </div>
+    ))}
+  </div>
+</section>

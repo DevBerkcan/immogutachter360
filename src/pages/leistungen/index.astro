@@ -1,0 +1,31 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { SERVICES } from '~/lib/services';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+const grouped = SERVICES.reduce((acc, s) => { (acc[s.category] ||= []).push(s); return acc; }, {} as Record<string, typeof SERVICES>);
+---
+<BaseLayout title="Leistungen — alle Gutachten im Überblick">
+  <section class="section-y bg-cream">
+    <div class="container-x">
+      <p class="eyebrow">Leistungen</p>
+      <h1 class="display-1 mt-6 max-w-4xl">Alle Gutachten und Beratungen.<br/><span class="italic text-green">Ein Ansprechpartner.</span></h1>
+      <div class="mt-20 space-y-20">
+        {Object.entries(grouped).map(([cat, items]) => (
+          <div>
+            <h2 class="display-2 border-b border-line pb-6">{cat}</h2>
+            <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {items.map((s) => (
+                <a href={`/leistungen/${s.slug}`} class="card card-hover group block">
+                  <h3 class="font-display text-2xl">{s.title}</h3>
+                  <p class="mt-3 text-mute">{s.short}</p>
+                  <span class="mt-6 inline-flex items-center gap-2 text-sm text-green">Details <span class="transition-transform duration-500 group-hover:translate-x-1">→</span></span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <FinalCTA />
+</BaseLayout>

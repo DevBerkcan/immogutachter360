@@ -1,0 +1,29 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+<BaseLayout title="Blog — Fachwissen für Eigentümer">
+  <section class="section-y bg-cream">
+    <div class="container-x">
+      <p class="eyebrow">Blog</p>
+      <h1 class="display-1 mt-6 max-w-4xl">Fachwissen für<br/><span class="italic text-green">Eigentümer.</span></h1>
+      <div class="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((p) => (
+          <a href={`/blog/${p.id.replace(/\.mdx?$/, '')}`} class="card card-hover group block h-full">
+            <div class="flex items-center gap-3 text-xs">
+              <span class="rounded-full px-3 py-1 text-green" style="background-color: rgba(140,188,148,0.12)">{p.data.category}</span>
+              <time class="text-mute">{p.data.date.toLocaleDateString('de-DE')}</time>
+            </div>
+            <h2 class="mt-6 font-display text-2xl group-hover:text-green transition-colors">{p.data.title}</h2>
+            <p class="mt-3 text-mute">{p.data.description}</p>
+            <span class="mt-6 inline-flex items-center gap-2 text-sm text-green">Weiterlesen →</span>
+          </a>
+        ))}
+        {posts.length === 0 && <p class="text-mute">Bald geht's los.</p>}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

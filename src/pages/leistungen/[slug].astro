@@ -1,0 +1,93 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/ui/Breadcrumb.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+import { SERVICES } from '~/lib/services';
+import { serviceJsonLd, breadcrumbJsonLd } from '~/lib/seo';
+
+export function getStaticPaths() {
+  return SERVICES.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+const { service } = Astro.props;
+const related = SERVICES.filter((s) => s.category === service.category && s.slug !== service.slug).slice(0, 3);
+
+const breadcrumbItems = [
+  { name: 'Start', href: '/' },
+  { name: 'Leistungen', href: '/leistungen' },
+  { name: service.title, href: `/leistungen/${service.slug}` },
+];
+---
+<BaseLayout
+  title={`${service.title} Düsseldorf — DEKRA-zertifiziert`}
+  description={service.short}
+  jsonLd={[
+    serviceJsonLd({ title: service.title, description: service.short, slug: service.slug, benefits: service.benefits }),
+    breadcrumbJsonLd(breadcrumbItems.map((b) => ({ name: b.name, url: b.href }))),
+  ]}
+>
+  <section class="section-y bg-cream">
+    <div class="container-x">
+      <Breadcrumb items={breadcrumbItems} />
+      <div class="grid gap-16 lg:grid-cols-[1.5fr_1fr]">
+        <div>
+          <p class="eyebrow">{service.category}</p>
+          <h1 class="display-1 mt-6">{service.title}</h1>
+          <p class="mt-8 text-xl text-mute leading-relaxed">{service.short}</p>
+          <div class="mt-12 prose prose-lg max-w-none text-ink">
+            <p class="text-lg leading-relaxed text-ink/80">{service.long}</p>
+          </div>
+          <div class="mt-12">
+            <h2 class="font-display text-2xl">Im Leistungsumfang enthalten</h2>
+            <ul class="mt-6 space-y-3">
+              {service.benefits.map((b) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 inline-block h-1.5 w-1.5 rounded-full bg-green shrink-0"></span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <aside class="lg:sticky lg:top-28 self-start">
+          <div class="rounded-2xl border border-line bg-paper p-8">
+            <p class="eyebrow">Festpreis</p>
+            <h3 class="mt-3 font-display text-2xl">Klarheit von Anfang an</h3>
+            <p class="mt-3 text-mute text-sm">Sie erhalten vor Auftragserteilung ein verbindliches Festpreisangebot — keine versteckten Kosten.</p>
+            <a href="/online-bewertung" class="btn-primary mt-6 w-full">Kostenlose Anfrage</a>
+            <a href="/kontakt" class="btn-secondary mt-3 w-full">Persönliches Gespräch</a>
+          </div>
+          {/* Trust signals */}
+          <div class="mt-4 rounded-2xl border border-line bg-paper p-6 space-y-3">
+            {[
+              'DEKRA-zertifiziert seit 2016',
+              'Bundesweit anerkannte Gutachten',
+              '500+ Gutachten erstellt',
+              'Antwort binnen 24 Stunden',
+            ].map((t) => (
+              <div class="flex items-center gap-2 text-sm">
+                <span class="h-1.5 w-1.5 rounded-full bg-green shrink-0"></span>
+                <span class="text-mute">{t}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  {related.length > 0 && (
+    <section class="section-y bg-paper">
+      <div class="container-x">
+        <h2 class="display-2">Verwandte Leistungen</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {related.map((r) => (
+            <a href={`/leistungen/${r.slug}`} class="card card-hover">
+              <h3 class="font-display text-xl">{r.title}</h3>
+              <p class="mt-3 text-mute text-sm">{r.short}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+  <FinalCTA />
+</BaseLayout>

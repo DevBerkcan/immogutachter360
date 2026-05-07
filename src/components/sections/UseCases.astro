@@ -1,0 +1,30 @@
+---
+import Reveal from '~/components/animations/Reveal.tsx';
+const cases = [
+  { title: 'Verkauf', text: 'Den marktgerechten Preis kennen — und durchsetzen.', icon: '🏷️' },
+  { title: 'Kauf', text: 'Vor dem Notar wissen, was Sie wirklich erwerben.', icon: '🔑' },
+  { title: 'Erbe', text: 'Verkehrswertgutachten für Erbauseinandersetzung & Finanzamt.', icon: '📜' },
+  { title: 'Scheidung', text: 'Neutrale Bewertung als Verhandlungsbasis.', icon: '⚖️' },
+  { title: 'Finanzamt', text: 'Steuerlast senken durch Restnutzungsdauer-Gutachten.', icon: '🏛️' },
+  { title: 'Versicherung', text: 'Schäden objektiv dokumentieren, Ansprüche durchsetzen.', icon: '🛡️' },
+];
+---
+<section class="section-y bg-cream">
+  <div class="container-x">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Anlässe</p>
+      <h2 class="display-2 mt-4">Wann brauchen Sie ein Gutachten?</h2>
+    </div>
+    <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {cases.map((c, i) => (
+        <Reveal client:visible delay={i * 0.05}>
+          <div class="card card-hover h-full">
+            <div class="text-4xl">{c.icon}</div>
+            <h3 class="mt-6 font-display text-2xl">{c.title}</h3>
+            <p class="mt-3 text-mute">{c.text}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  </div>
+</section>

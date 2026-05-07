@@ -1,0 +1,42 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+---
+<BaseLayout title="404 — Seite nicht gefunden" description="Diese Seite existiert nicht oder wurde verschoben.">
+  <section class="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-cream">
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    {/* Decorative glow */}
+    <div
+      class="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[140px]"
+      style="background: radial-gradient(circle, rgba(140,188,148,0.1), transparent 70%)"
+      aria-hidden="true"
+    ></div>
+
+    <div class="container-x relative z-10 text-center">
+      {/* Giant outlined 404 */}
+      <p
+        class="select-none font-display font-light leading-none"
+        style="-webkit-text-stroke: 1px rgba(24,27,49,0.1); color: transparent; font-size: clamp(7rem, 28vw, 22rem); letter-spacing: -0.03em"
+        aria-hidden="true"
+      >
+        404
+      </p>
+
+      <div class="-mt-8 md:-mt-16 relative z-10">
+        <h1 class="display-2">Hier ist nichts.</h1>
+        <p class="mt-6 text-xl text-mute max-w-md mx-auto leading-relaxed">
+          Diese Seite wurde entfernt, umgezogen oder existiert nicht. Vielleicht hilft ein Blick auf die Startseite weiter.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="/" class="btn-primary">Zur Startseite</a>
+          <a href="/kontakt" class="btn-secondary">Kontakt aufnehmen</a>
+        </div>
+
+        {/* Easter egg */}
+        <p class="mt-20 text-xs text-mute opacity-50">
+          Fehler 404 · Der Gutachter konnte diese Seite nicht bewerten — sie hat keinen Verkehrswert.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,86 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import TrustBar from '~/components/sections/TrustBar.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+import Reveal from '~/components/animations/Reveal.tsx';
+
+const cases = [
+  {
+    type: 'Erbschaft',
+    title: 'Mehrfamilienhaus Düsseldorf-Bilk',
+    result: 'Verkehrswert: €2,8 Mio.',
+    details: 'Nach dem Tod der Eigentümerin musste das Mehrfamilienhaus für vier Erben bewertet werden. Das Finanzamt-anerkannte Gutachten schaffte die Grundlage für eine einvernehmliche Erbauseinandersetzung.',
+    tags: ['MFH', 'Erbschaft', 'Finanzamt'],
+  },
+  {
+    type: 'Scheidung',
+    title: 'Eigentumswohnung Düsseldorf-Oberkassel',
+    result: 'Neutrale Bewertung €685.000',
+    details: 'In einem Scheidungsverfahren bestand Uneinigkeit über den Wert der gemeinsamen Wohnung. Das neutrale Gutachten wurde von beiden Anwälten akzeptiert — Einigung ohne Gerichtsverfahren.',
+    tags: ['ETW', 'Scheidung', 'Gerichtsfest'],
+  },
+  {
+    type: 'Kaufberatung',
+    title: 'Einfamilienhaus Meerbusch-Büderich',
+    result: '€45.000 Kaufpreis reduziert',
+    details: 'Vor dem Notartermin beauftragte der Käufer eine vollständige Bau- und Wertbegutachtung. Versteckte Feuchtigkeitsschäden wurden identifiziert — Kaufpreis entsprechend angepasst.',
+    tags: ['EFH', 'Kaufberatung', 'Baumängel'],
+  },
+  {
+    type: 'Verkauf',
+    title: 'Doppelhaushälfte Düsseldorf-Gerresheim',
+    result: 'Verkauf €32.000 über Erstangebot',
+    details: 'Der Eigentümer zweifelte am Angebot des ersten Maklers. Das unabhängige Gutachten bestätigte einen deutlich höheren Marktwert — mit Erfolg.',
+    tags: ['DHH', 'Verkauf', 'Marktwert'],
+  },
+  {
+    type: 'Steuer',
+    title: 'Vermietetes EFH Ratingen',
+    result: 'AfA-Optimierung, €12.000 Steuerersparnis',
+    details: 'Durch ein Restnutzungsdauer-Gutachten konnte die tatsächliche wirtschaftliche Restnutzungsdauer belegt und die jährliche Abschreibung signifikant erhöht werden.',
+    tags: ['EFH', 'Steuer', 'Restnutzungsdauer'],
+  },
+  {
+    type: 'Versicherungsschaden',
+    title: 'Dachgeschosswohnung Düsseldorf-Pempelfort',
+    result: 'Schadensersatz €78.000 durchgesetzt',
+    details: 'Nach einem Wasserschaden weigerte sich die Versicherung, die vollen Kosten zu übernehmen. Das Gutachten dokumentierte den Schaden lückenlos — Versicherung zahlte vollständig.',
+    tags: ['ETW', 'Versicherung', 'Wasserschaden'],
+  },
+];
+---
+<BaseLayout
+  title="Referenzen — Erfolgreiche Gutachten aus Düsseldorf"
+  description="Anonymisierte Fallbeispiele aus unserer Gutachter-Praxis: Erbschaft, Scheidung, Kaufberatung, Steuer und Versicherungsschäden."
+>
+  <section class="section-y bg-cream">
+    <div class="container-x">
+      <p class="eyebrow">Referenzen</p>
+      <h1 class="display-1 mt-6 max-w-4xl">Vertrauen aus<br/><span class="italic text-green">Erfahrung.</span></h1>
+      <p class="mt-8 text-xl text-mute max-w-2xl leading-relaxed">Jedes Gutachten ist eine Geschichte. Hier sind einige der Fälle, bei denen wir Klarheit geschaffen haben — anonymisiert, aber echt.</p>
+    </div>
+  </section>
+  <TrustBar />
+  <section class="section-y bg-paper">
+    <div class="container-x">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {cases.map((c, i) => (
+          <Reveal client:visible delay={i * 0.06}>
+            <div class="card h-full">
+              <span class="inline-block rounded-full px-3 py-1 text-xs font-medium text-green" style="background-color: rgba(140,188,148,0.12)">{c.type}</span>
+              <h2 class="mt-6 font-display text-2xl">{c.title}</h2>
+              <p class="mt-2 text-lg font-medium text-green">{c.result}</p>
+              <p class="mt-4 text-mute leading-relaxed">{c.details}</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                {c.tags.map(tag => (
+                  <span class="rounded-full border border-line px-2 py-0.5 text-xs text-mute">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+  <FinalCTA />
+</BaseLayout>

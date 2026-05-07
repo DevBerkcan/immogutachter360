@@ -1,0 +1,78 @@
+---
+import { SITE, NAV } from '~/lib/site';
+import { SERVICES } from '~/lib/services';
+---
+<footer class="bg-ink text-paper">
+
+  {/* Giant wordmark — outline only, hover reveals fill */}
+  <div class="overflow-hidden border-b px-6 py-12 md:px-12" style="border-color: rgba(255,255,255,0.06)">
+    <p class="wordmark-outline">immogutachter360°</p>
+  </div>
+
+  <div class="container-x section-y">
+    <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <a href="/">
+          <img src="/logo_immo.png" alt="immogutachter360°" height="44" class="h-11 w-auto brightness-0 invert" />
+        </a>
+        <p class="mt-6 text-sm text-paper/70 max-w-xs">DEKRA-zertifizierte Immobiliengutachten aus Düsseldorf. Belastbar, transparent, deutschlandweit.</p>
+        <p class="mt-6 text-xs uppercase tracking-[0.2em] text-green">Erreichbarkeit</p>
+        <p class="mt-2 text-sm text-paper/70">{SITE.hours}</p>
+      </div>
+      <div>
+        <h4 class="text-xs uppercase tracking-[0.2em] text-green font-sans">Leistungen</h4>
+        <ul class="mt-4 space-y-2 text-sm">
+          {SERVICES.slice(0, 6).map((s) => (
+            <li><a href={`/leistungen/${s.slug}`} class="text-paper/70 hover:text-paper transition-colors">{s.title}</a></li>
+          ))}
+          <li><a href="/leistungen" class="text-green hover:text-green-soft transition-colors">Alle Leistungen →</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs uppercase tracking-[0.2em] text-green font-sans">Navigation</h4>
+        <ul class="mt-4 space-y-2 text-sm">
+          {NAV.map((n) => (
+            <li><a href={n.href} class="text-paper/70 hover:text-paper transition-colors">{n.label}</a></li>
+          ))}
+          <li><a href="/referenzen" class="text-paper/70 hover:text-paper transition-colors">Referenzen</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs uppercase tracking-[0.2em] text-green font-sans">Kontakt</h4>
+        <address class="mt-4 not-italic text-sm text-paper/70 space-y-1">
+          <div>{SITE.address.street}</div>
+          <div>{SITE.address.zip} {SITE.address.city}</div>
+          <div class="pt-3"><a href={SITE.phoneHref} class="hover:text-paper transition-colors">{SITE.phone}</a></div>
+          <div><a href={`mailto:${SITE.email}`} class="hover:text-paper transition-colors">{SITE.email}</a></div>
+          <div class="pt-3"><a href={SITE.whatsapp} class="text-green hover:text-green-soft transition-colors">WhatsApp</a></div>
+        </address>
+      </div>
+    </div>
+    <div class="mt-16 flex flex-col items-start justify-between gap-4 border-t pt-8 text-xs md:flex-row md:items-center" style="border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4)">
+      <p>© {new Date().getFullYear()} {SITE.name}. Alle Rechte vorbehalten.</p>
+      <div class="flex gap-6">
+        <a href="/impressum" class="hover:text-paper transition-colors">Impressum</a>
+        <a href="/datenschutz" class="hover:text-paper transition-colors">Datenschutz</a>
+        <a href="/agb" class="hover:text-paper transition-colors">AGB</a>
+      </div>
+      <button
+        id="back-to-top"
+        aria-label="Zurück nach oben"
+        class="hidden items-center gap-2 rounded-full border px-4 py-2 text-xs transition-all hover:border-green hover:text-green md:flex"
+        style="border-color: rgba(255,255,255,0.15)"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})"
+      >
+        ↑ Nach oben
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('back-to-top');
+  if (btn) {
+    const toggle = () => btn.style.display = window.scrollY > window.innerHeight ? 'flex' : 'none';
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+  }
+</script>

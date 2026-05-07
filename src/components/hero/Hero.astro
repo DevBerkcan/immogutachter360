@@ -1,0 +1,76 @@
+---
+import HeroScene from '~/components/three/HeroScene.tsx';
+import HeroHeadline from '~/components/hero/HeroHeadline.tsx';
+import { SITE } from '~/lib/site';
+---
+<section class="relative flex min-h-[90vh] flex-col overflow-hidden bg-cream">
+
+  {/* Animated grain noise */}
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  {/* Ambient glow blobs */}
+  <div
+    class="pointer-events-none absolute -right-32 -top-32 h-[600px] w-[600px] rounded-full blur-[120px]"
+    style="background: radial-gradient(circle, rgba(140,188,148,0.12), transparent 70%)"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="pointer-events-none absolute -bottom-32 -left-32 h-[500px] w-[500px] rounded-full blur-[100px]"
+    style="background: radial-gradient(circle, rgba(197,222,201,0.14), transparent 70%)"
+    aria-hidden="true"
+  ></div>
+
+  {/* Main content */}
+  <div class="container-x relative z-10 flex flex-1 items-center py-16 md:py-24">
+    <div class="grid w-full items-center gap-12 lg:grid-cols-2">
+
+      {/* Left: Copy */}
+      <div class="relative z-10">
+        <p
+          class="eyebrow opacity-0"
+          style="animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0ms forwards"
+        >
+          DEKRA-zertifiziert · Düsseldorf · Deutschlandweit
+        </p>
+
+        <HeroHeadline client:load />
+
+        <p
+          class="mt-8 max-w-lg text-lg leading-relaxed opacity-0"
+          style="color: var(--color-mute); animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.55s forwards"
+        >
+          Verkehrswertgutachten, Immobilienbewertungen und Kaufberatung — präzise, gerichtsfest und transparent. Ihr Sachverständiger aus Düsseldorf.
+        </p>
+
+        <div
+          class="mt-10 flex flex-wrap items-center gap-4 opacity-0"
+          style="animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.68s forwards"
+        >
+          <a href="/online-bewertung" class="btn-primary">Kostenlose Ersteinschätzung</a>
+          <a href={SITE.phoneHref} class="link-underline text-sm font-medium">{SITE.phone} anrufen →</a>
+        </div>
+      </div>
+
+      {/* Right: 3D Scene */}
+      <div class="relative aspect-square w-full lg:aspect-[4/5]">
+        <HeroScene client:only="react" />
+        <noscript>
+          <div class="absolute inset-0 grid place-items-center text-mute">
+            DEKRA-zertifizierte Immobilienbewertung
+          </div>
+        </noscript>
+      </div>
+    </div>
+  </div>
+
+  {/* Scroll indicator */}
+  <div
+    class="relative z-10 flex justify-center pb-10 opacity-0"
+    style="animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 1.1s forwards"
+    aria-hidden="true"
+  >
+    <div class="scroll-indicator">
+      <div class="scroll-indicator-line"></div>
+    </div>
+  </div>
+</section>

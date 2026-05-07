@@ -1,0 +1,140 @@
+---
+import '~/styles/global.css';
+import Header from '~/components/layout/Header.astro';
+import Footer from '~/components/layout/Footer.astro';
+import MagneticCursor from '~/components/ui/MagneticCursor.tsx';
+import StickyContactCTA from '~/components/ui/StickyContactCTA.tsx';
+import CookieBanner from '~/components/ui/CookieBanner.tsx';
+import { SITE } from '~/lib/site';
+import { buildTitle, localBusinessJsonLd } from '~/lib/seo';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  jsonLd?: object[];
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  section?: string;
+  tags?: string[];
+  authorName?: string;
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = '/logo_immo.png',
+  jsonLd = [],
+  type = 'website',
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+  section,
+  tags,
+  authorName,
+} = Astro.props;
+
+const fullTitle = buildTitle(title);
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const ogImage = new URL(image, SITE.url).toString();
+const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="theme-color" content="#181b31" />
+
+  {/* ── Core SEO ── */}
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  {!noindex && <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
+  {authorName && <meta name="author" content={authorName} />}
+
+  {/* ── Open Graph ── */}
+  <meta property="og:type" content={type} />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={fullTitle} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content="de_DE" />
+
+  {/* ── Article OG (blog posts only) ── */}
+  {type === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+  {type === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+  {type === 'article' && section && <meta property="article:section" content={section} />}
+  {type === 'article' && tags?.map((tag) => <meta property="article:tag" content={tag} />)}
+
+  {/* ── Twitter / X Card ── */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@immogutachter360" />
+  <meta name="twitter:creator" content="@immogutachter360" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  {/* ── Favicon ── */}
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  {/* ── Fonts ── */}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+  {/* ── DNS Prefetch for third-party resources ── */}
+  <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+  <link rel="dns-prefetch" href="https://maps.gstatic.com" />
+  <link rel="dns-prefetch" href="https://plausible.io" />
+
+  {/* ── RSS Feed ── */}
+  <link rel="alternate" type="application/rss+xml" title={`${SITE.name} Blog`} href="/rss.xml" />
+
+  {/* ── JSON-LD ── */}
+  {allJsonLd.map((ld) => (
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  ))}
+
+  {/* ── Analytics (cookieless) ── */}
+  <script defer data-domain="immogutachter360.de" src="https://plausible.io/js/script.js"></script>
+
+  <ClientRouter />
+</head>
+<body>
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
+    Zum Inhalt springen
+  </a>
+  <Header />
+  <main id="main"><slot /></main>
+  <Footer />
+  <MagneticCursor client:only="react" />
+  <StickyContactCTA client:only="react" />
+  <CookieBanner client:only="react" />
+</body>
+</html>
+
+<script>
+  import Lenis from 'lenis';
+
+  const initLenis = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const prev = (window as any).__lenis as Lenis | undefined;
+    prev?.destroy();
+    const lenis = new Lenis({ autoRaf: true, lerp: 0.1 });
+    (window as any).__lenis = lenis;
+  };
+
+  initLenis();
+  document.addEventListener('astro:page-load', initLenis);
+</script>

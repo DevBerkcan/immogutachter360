@@ -1,0 +1,103 @@
+---
+import Counter from '~/components/animations/Counter.tsx';
+
+// Sparkline bar heights per market (normalized 0-100, last = current)
+const sparklines = {
+  etw: [62, 68, 71, 75, 77, 80, 83, 86, 88, 90, 93, 100],
+  efh: [58, 64, 68, 72, 76, 79, 82, 85, 87, 91, 96, 100],
+  rendite: [100, 96, 93, 90, 88, 85, 83, 80, 78, 76, 73, 70],
+  vol: [55, 60, 58, 65, 70, 67, 72, 78, 82, 80, 88, 100],
+};
+
+const items = [
+  {
+    label: 'ETW Düsseldorf',
+    value: 4800,
+    unit: ' €/m²',
+    trend: '+2,1 %',
+    up: true,
+    note: 'Ø Kaufpreis Q1 2026',
+    spark: sparklines.etw,
+  },
+  {
+    label: 'EFH Düsseldorf',
+    value: 6200,
+    unit: ' €/m²',
+    trend: '+1,4 %',
+    up: true,
+    note: 'Ø Kaufpreis Q1 2026',
+    spark: sparklines.efh,
+  },
+  {
+    label: 'Mietrendite Ø',
+    value: 3,
+    unit: ',2 %',
+    trend: '-0,3 %',
+    up: false,
+    note: 'Brutto, Bestand',
+    spark: sparklines.rendite,
+  },
+  {
+    label: 'Gutachten 2025',
+    value: 500,
+    unit: '+',
+    trend: '+18 %',
+    up: true,
+    note: 'Eigene Marktbeobachtung',
+    spark: sparklines.vol,
+  },
+];
+---
+<section class="section-y bg-charcoal text-paper">
+  <div class="container-x">
+    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="eyebrow" style="color: var(--color-green)">Marktdaten</p>
+        <h2 class="display-2 mt-4 text-paper">
+          Düsseldorf aktuell —<br/>
+          <span class="italic" style="color: var(--color-green)">Stand Q1 2026.</span>
+        </h2>
+      </div>
+      <p class="text-xs max-w-xs md:text-right" style="color: rgba(255,255,255,0.45)">
+        Eigene Marktbeobachtung auf Basis veröffentlichter Gutachterausschuss-Daten und Angebotsanalysen. Keine Anlageberatung.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {items.map((item) => (
+        <div
+          class="group rounded-2xl border p-6 transition-all duration-500 hover:-translate-y-1"
+          style="border-color: rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); hover:border-color: rgba(140,188,148,0.3)"
+        >
+          <p class="text-xs uppercase tracking-[0.2em]" style="color: rgba(255,255,255,0.5)">{item.label}</p>
+
+          <div class="mt-4 flex items-end justify-between gap-2">
+            <div class="font-display text-4xl font-light text-paper">
+              <Counter client:visible to={item.value} suffix={item.unit} duration={1.8} />
+            </div>
+            <span
+              class="rounded-full px-2 py-0.5 text-xs font-medium"
+              style={item.up
+                ? 'background: rgba(140,188,148,0.15); color: #8CBC94'
+                : 'background: rgba(255,100,100,0.12); color: rgba(255,120,120,0.9)'}
+            >
+              {item.up ? '↑' : '↓'} {item.trend}
+            </span>
+          </div>
+
+          {/* Sparkline */}
+          <div class="sparkline mt-4">
+            {item.spark.map((h) => (
+              <div
+                class="sparkline-bar"
+                style={`height: ${h * 0.24}px; opacity: ${0.3 + h * 0.007}`}
+              ></div>
+            ))}
+          </div>
+
+          <p class="mt-3 text-xs" style="color: rgba(255,255,255,0.35)">{item.note}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import ValuationFunnel from '~/components/forms/ValuationFunnel.tsx';
+---
+<BaseLayout title="Kostenlose Online-Immobilienbewertung" description="In 2 Minuten zur kostenlosen Ersteinschätzung Ihrer Immobilie. Unverbindlich, DSGVO-konform.">
+  <section class="section-y bg-cream">
+    <div class="container-x">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow justify-center">Online-Bewertung</p>
+        <h1 class="display-1 mt-6">Kostenlose Ersteinschätzung.</h1>
+        <p class="mt-6 text-lg text-mute">In 2 Minuten zu Ihrer unverbindlichen Markteinschätzung. Persönlich geprüft — keine Algorithmen.</p>
+      </div>
+      <div class="mt-16 mx-auto max-w-3xl rounded-2xl border border-line bg-paper p-8 md:p-12">
+        <ValuationFunnel client:load />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
