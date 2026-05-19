@@ -3,29 +3,36 @@ import HeroScene from '~/components/three/HeroScene.tsx';
 import HeroHeadline from '~/components/hero/HeroHeadline.tsx';
 import { SITE } from '~/lib/site';
 ---
-<section class="relative flex min-h-[90vh] flex-col overflow-hidden bg-cream">
+<section class="relative flex min-h-[auto] flex-col overflow-hidden bg-cream lg:min-h-[92vh]">
 
   {/* Animated grain noise */}
   <div class="noise-overlay" aria-hidden="true"></div>
 
-  {/* Ambient glow blobs */}
+  {/* Ambient glow blobs — animated */}
   <div
-    class="pointer-events-none absolute -right-32 -top-32 h-[600px] w-[600px] rounded-full blur-[120px]"
-    style="background: radial-gradient(circle, rgba(140,188,148,0.12), transparent 70%)"
+    class="hero-glow-1 pointer-events-none absolute -right-32 -top-32 h-[500px] w-[500px] rounded-full blur-[120px]"
+    style="background: radial-gradient(circle, rgba(140,188,148,0.15), transparent 70%)"
     aria-hidden="true"
   ></div>
   <div
-    class="pointer-events-none absolute -bottom-32 -left-32 h-[500px] w-[500px] rounded-full blur-[100px]"
-    style="background: radial-gradient(circle, rgba(197,222,201,0.14), transparent 70%)"
+    class="hero-glow-2 pointer-events-none absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full blur-[100px]"
+    style="background: radial-gradient(circle, rgba(197,222,201,0.18), transparent 70%)"
+    aria-hidden="true"
+  ></div>
+
+  {/* Decorative dot grid — right half only */}
+  <div
+    class="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-[0.04]"
+    style="background-image: radial-gradient(circle, var(--color-ink) 1px, transparent 1px); background-size: 28px 28px;"
     aria-hidden="true"
   ></div>
 
   {/* Main content */}
-  <div class="container-x relative z-10 flex flex-1 items-center py-16 md:py-24">
-    <div class="grid w-full items-center gap-12 lg:grid-cols-2">
+  <div class="container-x relative z-10 flex flex-1 items-center py-20 md:py-28 lg:py-24">
+    <div class="grid w-full items-center gap-8 md:gap-12 lg:grid-cols-[1fr_44%]">
 
       {/* Left: Copy */}
-      <div class="relative z-10">
+      <div class="relative z-10 max-w-xl lg:max-w-none">
         <p
           class="eyebrow opacity-0"
           style="animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0ms forwards"
@@ -36,23 +43,47 @@ import { SITE } from '~/lib/site';
         <HeroHeadline client:load />
 
         <p
-          class="mt-8 max-w-lg text-lg leading-relaxed opacity-0"
+          class="mt-6 max-w-lg text-lg leading-relaxed opacity-0"
           style="color: var(--color-mute); animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.55s forwards"
         >
           Verkehrswertgutachten, Immobilienbewertungen und Kaufberatung — präzise, gerichtsfest und transparent. Ihr Sachverständiger aus Düsseldorf.
         </p>
 
         <div
-          class="mt-10 flex flex-wrap items-center gap-4 opacity-0"
+          class="mt-8 flex flex-wrap items-center gap-4 opacity-0"
           style="animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.68s forwards"
         >
-          <a href="/online-bewertung" class="btn-primary">Kostenlose Ersteinschätzung</a>
+          <button
+            onclick="window.dispatchEvent(new CustomEvent('open-consultation-modal'))"
+            class="btn-primary"
+          >
+            Kostenlose Ersteinschätzung
+          </button>
           <a href={SITE.phoneHref} class="link-underline text-sm font-medium">{SITE.phone} anrufen →</a>
+        </div>
+
+        {/* Trust row */}
+        <div
+          class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm opacity-0"
+          style="color: var(--color-mute); animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.82s forwards"
+        >
+          <span class="flex items-center gap-1.5">
+            <span style="color: #f59e0b">★★★★★</span>
+            <span>4.9 · 50+ Bewertungen</span>
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-green"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Festpreis-Angebot</span>
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-green"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Gerichtsfest seit 2018</span>
+          </span>
         </div>
       </div>
 
       {/* Right: 3D Scene */}
-      <div class="relative aspect-square w-full lg:aspect-[4/5]">
+      <div class="relative h-60 w-full sm:h-72 md:h-80 lg:h-auto lg:aspect-[4/5]">
         <HeroScene client:only="react" />
         <noscript>
           <div class="absolute inset-0 grid place-items-center text-mute">
@@ -63,9 +94,9 @@ import { SITE } from '~/lib/site';
     </div>
   </div>
 
-  {/* Scroll indicator */}
+  {/* Scroll indicator — desktop only */}
   <div
-    class="relative z-10 flex justify-center pb-10 opacity-0"
+    class="relative z-10 hidden justify-center pb-10 opacity-0 lg:flex"
     style="animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 1.1s forwards"
     aria-hidden="true"
   >

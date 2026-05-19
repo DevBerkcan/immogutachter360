@@ -18,7 +18,8 @@ export const SITE = {
 export const NAV = [
   { label: 'Start', href: '/' },
   { label: 'Leistungen', href: '/leistungen' },
-  { label: 'Online-Bewertung', href: '/online-bewertung' },
+  { label: 'Vor Ort', href: '/einzugsgebiet' },
+  { label: 'Preise', href: '/preise' },
   { label: 'Ratgeber', href: '/ratgeber' },
   { label: 'Über uns', href: '/ueber-uns' },
   { label: 'Blog', href: '/blog' },

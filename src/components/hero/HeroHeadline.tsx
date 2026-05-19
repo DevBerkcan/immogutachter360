@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 const lines = [
   { text: 'Der wahre Wert', accent: false },
   { text: 'Ihrer Immobilie.', accent: false },
-  { text: 'Belastbar belegt.', accent: true },
+  { text: 'In 7 Tagen. Festpreis.', accent: true },
 ];
 
 export default function HeroHeadline() {

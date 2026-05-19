@@ -5,6 +5,7 @@ import Footer from '~/components/layout/Footer.astro';
 import MagneticCursor from '~/components/ui/MagneticCursor.tsx';
 import StickyContactCTA from '~/components/ui/StickyContactCTA.tsx';
 import CookieBanner from '~/components/ui/CookieBanner.tsx';
+import ConsultationModal from '~/components/ui/ConsultationModal.tsx';
 import { SITE } from '~/lib/site';
 import { buildTitle, localBusinessJsonLd } from '~/lib/seo';
 import { ClientRouter } from 'astro:transitions';
@@ -121,6 +122,7 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   <MagneticCursor client:only="react" />
   <StickyContactCTA client:only="react" />
   <CookieBanner client:only="react" />
+  <ConsultationModal client:idle />
 </body>
 </html>
 

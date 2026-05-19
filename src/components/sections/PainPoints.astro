@@ -1,0 +1,59 @@
+---
+---
+<section class="section-y bg-ink" style="color: var(--color-paper)">
+  <div class="container-x">
+    <div class="max-w-xl">
+      <p class="eyebrow" style="color: var(--color-green)">Kennen Sie das?</p>
+      <h2 class="display-2 mt-4" style="color: var(--color-paper)">
+        Vier Situationen,<br/>
+        <span class="italic text-green">die ein falscher Wert kostet.</span>
+      </h2>
+    </div>
+    <div class="mt-14 grid gap-6 md:grid-cols-2">
+      {[
+        {
+          icon: '⚖️',
+          title: 'Erbschaft & Schenkung',
+          pain: 'Das Finanzamt setzt den Wert zu hoch an — Sie zahlen tausende Euro zu viel Erbschaftsteuer.',
+          fix: 'Ein Verkehrswertgutachten belegt den tatsächlichen Wert und senkt Ihre Steuerlast nachweislich.',
+        },
+        {
+          icon: '💔',
+          title: 'Scheidung',
+          pain: 'Ohne unabhängiges Gutachten entscheidet der Partner — oder das Gericht — welcher Wert gilt.',
+          fix: 'Wir liefern eine gerichtsfeste, neutrale Wertermittlung, die beide Seiten akzeptieren müssen.',
+        },
+        {
+          icon: '🏷️',
+          title: 'Verkauf unter Wert',
+          pain: 'Sie glauben dem Makler — oder dem Käufer — und lassen zehntausende Euro auf dem Tisch.',
+          fix: 'Kennen Sie Ihren echten Marktwert, verhandeln Sie auf Augenhöhe und erzielen den richtigen Preis.',
+        },
+        {
+          icon: '🔍',
+          title: 'Kauf ohne Prüfung',
+          pain: 'Verborgene Mängel, überhöhter Preis, unterschätzter Sanierungsbedarf — Fehler die Jahre kosten.',
+          fix: 'Unsere Kaufberatung deckt Mängel auf und gibt Ihnen eine belastbare Verhandlungsbasis.',
+        },
+      ].map(item => (
+        <div class="rounded-2xl p-6 md:p-8" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04)">
+          <div class="text-3xl">{item.icon}</div>
+          <h3 class="mt-5 font-display text-xl" style="color: var(--color-paper)">{item.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed" style="color: rgba(250,246,240,0.55)">{item.pain}</p>
+          <div class="mt-4 flex gap-2.5">
+            <svg class="mt-0.5 shrink-0 text-green" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p class="text-sm leading-relaxed text-green">{item.fix}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="mt-10 text-center">
+      <button
+        onclick="window.dispatchEvent(new CustomEvent('open-consultation-modal'))"
+        class="btn-primary"
+      >
+        Kostenlose Ersteinschätzung anfragen
+      </button>
+    </div>
+  </div>
+</section>

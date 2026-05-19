@@ -1,0 +1,41 @@
+---
+const quotes = [
+  {
+    text: '"Das Gutachten wurde vom Finanzamt sofort anerkannt — wir haben mehrere tausend Euro Erbschaftsteuer gespart."',
+    name: 'Familie Kaufmann',
+    context: 'Erbschaft, Meerbusch',
+  },
+  {
+    text: '"Dank der Kaufberatung haben wir verdeckte Mängel entdeckt und 35.000 € vom Kaufpreis verhandelt."',
+    name: 'Tobias R.',
+    context: 'Kaufberatung, Düsseldorf',
+  },
+  {
+    text: '"Im Scheidungsverfahren war das unabhängige Gutachten das entscheidende Argument vor Gericht."',
+    name: 'Anonym',
+    context: 'Scheidung, Ratingen',
+  },
+];
+---
+<section class="border-y border-line bg-cream py-12">
+  <div class="container-x">
+    <div class="grid gap-8 md:grid-cols-3">
+      {quotes.map(q => (
+        <div class="flex flex-col gap-3">
+          <div class="flex gap-0.5">
+            {Array.from({ length: 5 }).map(() => (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-green">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            ))}
+          </div>
+          <p class="flex-1 text-sm leading-relaxed italic" style="color: var(--color-mute)">{q.text}</p>
+          <div>
+            <p class="text-sm font-medium text-ink">{q.name}</p>
+            <p class="text-xs" style="color: var(--color-mute)">{q.context}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

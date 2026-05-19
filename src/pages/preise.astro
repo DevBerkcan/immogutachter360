@@ -1,0 +1,187 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+import Reveal from '~/components/animations/Reveal.tsx';
+import { FAQ_CATEGORIES } from '~/lib/faqs';
+
+const costFaqs = FAQ_CATEGORIES.find(c => c.id === 'kosten')?.faqs ?? [];
+---
+<BaseLayout
+  title="Preise & Honorare — Immobiliengutachten Düsseldorf"
+  description="Transparente Honorarübersicht für Immobiliengutachten und -bewertungen. Festpreise, keine versteckten Kosten. DEKRA-zertifizierter Sachverständiger Erdem Tanrikulu, Düsseldorf."
+>
+
+  {/* ── Hero ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x max-w-3xl">
+      <Reveal client:visible>
+        <p class="eyebrow">Preise & Honorare</p>
+        <h1 class="display-1 mt-6">
+          Transparent,<br/>
+          <span class="italic text-green">ohne Überraschungen.</span>
+        </h1>
+        <p class="mt-6 text-xl leading-relaxed" style="color: var(--color-mute)">
+          Sie erhalten vor Auftragserteilung immer ein verbindliches Festpreisangebot — keine Stundensätze, keine Nachforderungen. Die folgenden Richtwerte geben Ihnen eine erste Orientierung.
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+  {/* ── Preistabelle ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x">
+      <Reveal client:visible>
+        <div class="max-w-xl">
+          <p class="eyebrow">Honorar-Richtwerte</p>
+          <h2 class="display-2 mt-4">
+            Was kostet ein<br/>
+            <span class="italic text-green">Gutachten?</span>
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed" style="color: var(--color-mute)">
+            Die tatsächlichen Kosten hängen von Objekttyp, Größe und Komplexität ab. Das konkrete Angebot erhalten Sie kostenlos und unverbindlich.
+          </p>
+        </div>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-2">
+        {[
+          {
+            title: 'Kompakte Immobilienbewertung',
+            price: 'ab 500 €',
+            description: 'Markteinschätzung für private Entscheidungen — Verkauf, Schenkung, Finanzierungsgespräch.',
+            ideal: 'Ideal bei: Verkauf, Schenkung, persönliche Entscheidung',
+            highlight: false,
+          },
+          {
+            title: 'Kurzgutachten',
+            price: 'ab 800 €',
+            description: 'Komprimiertes Wertgutachten für Banken und Makler. Mit Kurzbegründung und Marktanalyse.',
+            ideal: 'Ideal bei: Bankgespräch, Maklernachweis, Preisfindung',
+            highlight: false,
+          },
+          {
+            title: 'Verkehrswertgutachten EFH/ETW',
+            price: 'ab 1.500 €',
+            description: 'Vollständiges Gutachten nach §194 BauGB und ImmoWertV — gerichtsfest, finanzamtsfest.',
+            ideal: 'Ideal bei: Erbschaft, Scheidung, Steuer, Gericht',
+            highlight: true,
+          },
+          {
+            title: 'Verkehrswertgutachten MFH/Gewerbe',
+            price: 'ab 2.000 €',
+            description: 'Vollständige Wertermittlung für Mehrfamilienhäuser und Gewerbeimmobilien nach ImmoWertV.',
+            ideal: 'Ideal bei: Kapitalanlage, Erbschaft, Gerichtsverfahren',
+            highlight: false,
+          },
+          {
+            title: 'Restnutzungsdauer-Gutachten',
+            price: 'ab 600 €',
+            description: 'Ermittlung der wirtschaftlichen Restnutzungsdauer für steuerliche AfA-Optimierung.',
+            ideal: 'Ideal bei: Vermietete Immobilien, Steuererklärung',
+            highlight: false,
+          },
+          {
+            title: 'Kaufberatung vor dem Notar',
+            price: 'ab 350 €',
+            description: 'Vor-Ort-Besichtigung mit schriftlichem Protokoll: Mängelübersicht, Zustandsbewertung, Marktpreiseinschätzung.',
+            ideal: 'Ideal bei: Geplanter Immobilienkauf',
+            highlight: false,
+          },
+        ].map((item, i) => (
+          <Reveal client:visible delay={i * 0.06}>
+            <div class:list={['card flex h-full flex-col gap-4', item.highlight ? 'border-green' : '']}>
+              {item.highlight && (
+                <span class="inline-flex w-fit rounded-full bg-green px-3 py-0.5 text-xs font-medium text-ink">Häufigste Anfrage</span>
+              )}
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="font-display text-xl leading-snug">{item.title}</h3>
+                <span class="shrink-0 font-display text-2xl font-light text-green">{item.price}</span>
+              </div>
+              <p class="flex-1 text-sm leading-relaxed" style="color: var(--color-mute)">{item.description}</p>
+              <p class="text-xs" style="color: var(--color-mute); opacity: 0.7">{item.ideal}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      {/* Hinweise */}
+      <Reveal client:visible delay={0.15}>
+        <div class="mt-10 rounded-2xl border border-line bg-cream p-6 md:p-8">
+          <p class="eyebrow text-xs">Wichtige Hinweise</p>
+          <div class="mt-4 grid gap-3 md:grid-cols-2">
+            {[
+              'Alle Preise zzgl. der gesetzlichen MwSt. (19 %)',
+              'Verbindliches Festpreisangebot vor Auftragserteilung',
+              'Keine versteckten Kosten, keine Stundensätze',
+              'Für komplexe Objekte (Denkmal, Erbbaurecht, Sonderfälle) auf Anfrage',
+            ].map(h => (
+              <div class="flex gap-3">
+                <svg class="mt-0.5 shrink-0 text-green" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <p class="text-sm leading-relaxed" style="color: var(--color-mute)">{h}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  {/* ── Kosten-FAQ ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x max-w-3xl">
+      <Reveal client:visible>
+        <p class="eyebrow">Häufige Fragen zu den Kosten</p>
+        <h2 class="display-2 mt-4">
+          Kosten &<br/>
+          <span class="italic text-green">Preise.</span>
+        </h2>
+      </Reveal>
+      <div class="mt-10 space-y-0">
+        {costFaqs.map((faq, i) => (
+          <Reveal client:visible delay={i * 0.06}>
+            <div class="border-t border-line py-6">
+              <h3 class="font-display text-lg">{faq.q}</h3>
+              <p class="mt-3 text-mute leading-relaxed">{faq.a}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <Reveal client:visible delay={0.2}>
+        <div class="mt-4 border-t border-line pt-6">
+          <a href="/faq" class="link-underline text-sm font-medium">Alle Fragen ansehen →</a>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  {/* ── CTA ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x max-w-3xl text-center">
+      <Reveal client:visible>
+        <div class="rounded-2xl border border-line p-8 md:p-12">
+          <p class="eyebrow justify-center">Kostenloses Angebot</p>
+          <h2 class="display-2 mt-4">
+            Ihr persönliches<br/>
+            <span class="italic text-green">Festpreisangebot.</span>
+          </h2>
+          <p class="mt-6 text-xl leading-relaxed" style="color: var(--color-mute)">
+            Schildern Sie uns kurz Ihr Objekt — wir nennen Ihnen innerhalb von 24 Stunden einen verbindlichen Festpreis. Kostenlos, unverbindlich, ohne Verpflichtung.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-4">
+            <button
+              onclick="window.dispatchEvent(new CustomEvent('open-consultation-modal'))"
+              class="btn-primary"
+            >
+              Kostenloses Angebot anfragen
+            </button>
+            <a href="/kontakt" class="link-underline text-sm font-medium">Kontaktseite →</a>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>

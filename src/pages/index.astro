@@ -1,19 +1,23 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Hero from '~/components/hero/Hero.astro';
+import VideoSection from '~/components/sections/VideoSection.astro';
+import PainPoints from '~/components/sections/PainPoints.astro';
 import TrustBar from '~/components/sections/TrustBar.astro';
+import About from '~/components/sections/About.astro';
+import MiniTestimonials from '~/components/sections/MiniTestimonials.astro';
 import Services from '~/components/sections/Services.astro';
+import Process from '~/components/sections/Process.astro';
 import Referenzen from '~/components/sections/Referenzen.astro';
 import MarketData from '~/components/sections/MarketData.astro';
-import Process from '~/components/sections/Process.astro';
 import UseCases from '~/components/sections/UseCases.astro';
-import About from '~/components/sections/About.astro';
-import BlogTeaser from '~/components/sections/BlogTeaser.astro';
 import Testimonials from '~/components/sections/Testimonials.astro';
+import ReviewsSection from '~/components/sections/ReviewsSection.astro';
 import FAQ from '~/components/sections/FAQ.tsx';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
 import { faqJsonLd, webSiteJsonLd, personJsonLd } from '~/lib/seo';
-import { FAQS } from '~/lib/faqs';
+import { FAQS, FAQ_CATEGORIES } from '~/lib/faqs';
+import { CITIES } from '~/lib/cities';
 ---
 <BaseLayout
   title="Immobiliengutachter Düsseldorf — DEKRA-zertifiziert"
@@ -21,15 +25,45 @@ import { FAQS } from '~/lib/faqs';
   jsonLd={[webSiteJsonLd(), personJsonLd(), faqJsonLd(FAQS)]}
 >
   <Hero />
+  <VideoSection />
+  <PainPoints />
   <TrustBar />
+  <About />
+  <MiniTestimonials />
   <Services />
+  <Process />
   <Referenzen />
   <MarketData />
-  <Process />
   <UseCases />
-  <About />
-  <BlogTeaser />
-  <Testimonials />
+
+  {/* ── Einzugsgebiet-Teaser ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x text-center">
+      <p class="eyebrow justify-center">Unser Einzugsgebiet</p>
+      <h2 class="display-2 mt-4">
+        Persönlich vor Ort —<br/>
+        <span class="italic text-green">in ganz NRW.</span>
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed mx-auto max-w-2xl" style="color: var(--color-mute)">
+        Als DEKRA-zertifizierter Sachverständiger bin ich persönlich in der gesamten Metropolregion Rhein-Ruhr tätig.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        {CITIES.map(c => (
+          <a
+            href={`/immobiliengutachter-${c.slug}`}
+            class="rounded-full border border-line px-4 py-2 text-sm transition-colors hover:border-green hover:text-green"
+            style="color: var(--color-mute)"
+          >
+            {c.name}
+          </a>
+        ))}
+      </div>
+      <a href="/einzugsgebiet" class="link-underline mt-8 inline-block text-sm font-medium">
+        Alle Standorte ansehen →
+      </a>
+    </div>
+  </section>
+
   <section class="section-y bg-paper">
     <div class="container-x">
       <div class="mx-auto max-w-2xl text-center">
@@ -39,7 +73,15 @@ import { FAQS } from '~/lib/faqs';
       <div class="mt-16">
         <FAQ client:visible />
       </div>
+      <div class="mt-10 text-center">
+        <a href="/faq" class="link-underline text-sm font-medium">
+          Alle {FAQ_CATEGORIES.flatMap(c => c.faqs).length} Fragen ansehen →
+        </a>
+      </div>
     </div>
   </section>
+
+  <Testimonials />
+  <ReviewsSection />
   <FinalCTA />
 </BaseLayout>

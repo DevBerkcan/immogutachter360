@@ -1,0 +1,162 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+import Reveal from '~/components/animations/Reveal.tsx';
+import MapEmbed from '~/components/ui/MapEmbed.tsx';
+import { CITIES } from '~/lib/cities';
+import { localBusinessJsonLd } from '~/lib/seo';
+---
+<BaseLayout
+  title="Immobiliengutachter in NRW — Unser Einzugsgebiet"
+  description="DEKRA-zertifizierter Immobiliengutachter persönlich vor Ort in Düsseldorf, Meerbusch, Ratingen, Neuss, Krefeld, Mönchengladbach, Duisburg, Essen und Wuppertal."
+  jsonLd={[localBusinessJsonLd()]}
+>
+
+  {/* ── Hero ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x max-w-3xl">
+      <Reveal client:visible>
+        <p class="eyebrow">Unser Einzugsgebiet</p>
+        <h1 class="display-1 mt-6">
+          Persönlich vor Ort —<br/>
+          <span class="italic text-green">in ganz NRW.</span>
+        </h1>
+        <p class="mt-6 text-xl leading-relaxed" style="color: var(--color-mute)">
+          Als DEKRA-zertifizierter Sachverständiger mit Sitz in Düsseldorf bin ich persönlich in der gesamten Metropolregion Rhein-Ruhr tätig. Durch mein qualifiziertes Partnernetzwerk sind wir darüber hinaus auch bundesweit vertreten.
+        </p>
+      </Reveal>
+
+      <Reveal client:visible delay={0.1}>
+        <div class="mt-8 flex flex-wrap gap-3">
+          {CITIES.map(c => (
+            <a
+              href={`/immobiliengutachter-${c.slug}`}
+              class="rounded-full border border-line px-4 py-1.5 text-sm transition-colors hover:border-green hover:text-green"
+              style="color: var(--color-mute)"
+            >
+              {c.name}
+            </a>
+          ))}
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  {/* ── Stadt-Grid ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x">
+      <Reveal client:visible>
+        <div class="max-w-xl">
+          <p class="eyebrow">10 Städte</p>
+          <h2 class="display-2 mt-4">
+            Lokale Expertise,<br/>
+            <span class="italic text-green">regionale Kenntnis.</span>
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed" style="color: var(--color-mute)">
+            Der Immobilienmarkt ist lokal. Jede Stadt hat ihre eigenen Preisniveaus, Trendlagen und Besonderheiten — die wir kennen und in unsere Bewertungen einbeziehen.
+          </p>
+        </div>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {CITIES.map((c, i) => (
+          <Reveal client:visible delay={i * 0.05}>
+            <a
+              href={`/immobiliengutachter-${c.slug}`}
+              class="card flex h-full flex-col gap-4 transition-colors hover:border-green"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <span class="text-3xl">{c.icon}</span>
+                <span class="rounded-full border border-line px-2 py-0.5 text-xs" style="color: var(--color-mute)">{c.distanceFromDuesseldorf}</span>
+              </div>
+              <div>
+                <h3 class="font-display text-xl">{c.name}</h3>
+                <p class="mt-0.5 text-sm" style="color: var(--color-mute)">{c.region}</p>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                {c.dominantPropertyTypes.map(t => (
+                  <span class="rounded-full bg-cream px-2 py-0.5 text-xs" style="color: var(--color-mute)">{t}</span>
+                ))}
+              </div>
+              <span class="mt-auto text-sm font-medium text-green">Gutachter in {c.name} →</span>
+            </a>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Karte + Kontakt ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x grid gap-12 lg:grid-cols-2 lg:items-start">
+      <Reveal client:visible>
+        <div>
+          <p class="eyebrow">Unser Standort</p>
+          <h2 class="display-2 mt-4">
+            Düsseldorf —<br/>
+            <span class="italic text-green">unser Zuhause.</span>
+          </h2>
+          <p class="mt-6 text-lg leading-relaxed" style="color: var(--color-mute)">
+            Unser Büro befindet sich in Düsseldorf-Derendorf. Von hier aus sind wir täglich persönlich in der gesamten Metropolregion im Einsatz.
+          </p>
+          <div class="mt-8 space-y-4 border-t border-line pt-8">
+            <div class="flex gap-3">
+              <svg class="mt-0.5 shrink-0 text-green" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+              </svg>
+              <div>
+                <p class="font-medium text-ink">Metzer Str. 70</p>
+                <p class="text-sm" style="color: var(--color-mute)">40476 Düsseldorf</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <svg class="mt-0.5 shrink-0 text-green" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.79-1.79a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <div>
+                <p class="font-medium text-ink">+49 174 3012443</p>
+                <p class="text-sm" style="color: var(--color-mute)">Mo–Fr 08:00–19:00 · Sa nach Vereinbarung</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8">
+            <button
+              onclick="window.dispatchEvent(new CustomEvent('open-consultation-modal'))"
+              class="btn-primary"
+            >
+              Kostenlose Erstanfrage
+            </button>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal client:visible delay={0.1}>
+        <MapEmbed client:idle />
+      </Reveal>
+    </div>
+  </section>
+
+  {/* ── Bundesweit ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x max-w-3xl text-center">
+      <Reveal client:visible>
+        <div class="rounded-2xl border border-line p-8 md:p-12">
+          <p class="eyebrow justify-center">Außerhalb NRW?</p>
+          <h2 class="display-2 mt-4">
+            Bundesweit tätig —<br/>
+            <span class="italic text-green">durch unser Netzwerk.</span>
+          </h2>
+          <p class="mt-6 text-xl leading-relaxed" style="color: var(--color-mute)">
+            Für Aufträge außerhalb des Rhein-Ruhr-Gebiets arbeiten wir mit qualifizierten, unabhängigen Sachverständigen zusammen. Alle Partner erfüllen die gleichen Qualifikationsstandards (DEKRA/IHK) — und wir bleiben Ihr zentraler Ansprechpartner.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-4">
+            <a href="/kontakt" class="btn-primary">Anfrage stellen</a>
+            <a href="/leistungen" class="link-underline text-sm font-medium">Alle Leistungen →</a>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>

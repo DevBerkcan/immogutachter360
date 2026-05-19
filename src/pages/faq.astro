@@ -1,0 +1,133 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import FAQFull from '~/components/sections/FAQFull.tsx';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+import Reveal from '~/components/animations/Reveal.tsx';
+import { faqJsonLd } from '~/lib/seo';
+import { FAQ_CATEGORIES } from '~/lib/faqs';
+import { CHECKLISTS } from '~/lib/checklists';
+
+const allFaqs = FAQ_CATEGORIES.flatMap(c => c.faqs);
+---
+<BaseLayout
+  title="Häufige Fragen zur Immobilienbewertung — FAQ"
+  description="Alle Antworten zu Kosten, Ablauf, Anerkennung und Gutachtenarten — von DEKRA-zertifiziertem Sachverständiger Erdem Tanrikulu aus Düsseldorf."
+  jsonLd={[faqJsonLd(allFaqs)]}
+>
+
+  {/* ── Hero ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x max-w-3xl">
+      <Reveal client:visible>
+        <p class="eyebrow">FAQ</p>
+        <h1 class="display-1 mt-6">Häufige Fragen.</h1>
+        <p class="mt-6 text-xl leading-relaxed" style="color: var(--color-mute)">
+          Hier finden Sie Antworten auf die wichtigsten Fragen rund um Immobilienbewertung, Gutachten und Sachverständigenleistungen — klar, ehrlich und ohne Fachjargon.
+        </p>
+      </Reveal>
+
+      <Reveal client:visible delay={0.1}>
+        <div class="mt-8 flex flex-wrap gap-3">
+          {FAQ_CATEGORIES.map(cat => (
+            <span class="rounded-full border border-line px-3 py-1 text-sm" style="color: var(--color-mute)">
+              {cat.label}
+            </span>
+          ))}
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  {/* ── Full FAQ mit Kategorie-Tabs ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x max-w-3xl">
+      <FAQFull client:load />
+    </div>
+  </section>
+
+  {/* ── Checklisten-Download ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x">
+      <Reveal client:visible>
+        <div class="max-w-xl">
+          <p class="eyebrow">Kostenlos herunterladen</p>
+          <h2 class="display-2 mt-4">
+            Checklisten für<br/>
+            <span class="italic text-green">Ihren Gutachtenauftrag.</span>
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed" style="color: var(--color-mute)">
+            Sammeln Sie alle nötigen Unterlagen vorab — das spart Zeit und beschleunigt Ihre Bewertung. Einfach öffnen, im Browser als PDF speichern.
+          </p>
+        </div>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {CHECKLISTS.map((c, i) => (
+          <Reveal client:visible delay={i * 0.06}>
+            <a
+              href={`/checkliste/${c.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="card flex h-full flex-col gap-4 transition-colors hover:border-green"
+            >
+              <span class="text-3xl">{c.icon}</span>
+              <h3 class="font-display text-lg leading-snug">{c.title}</h3>
+              <p class="flex-1 text-sm leading-relaxed" style="color: var(--color-mute)">{c.description}</p>
+              <span class="flex items-center gap-1.5 text-sm font-medium text-green">
+                Als PDF herunterladen
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+              </span>
+            </a>
+          </Reveal>
+        ))}
+      </div>
+
+      {/* Modal-Trigger CTA */}
+      <Reveal client:visible delay={0.2}>
+        <div class="mt-14 rounded-2xl bg-paper border border-line p-8 md:p-10 flex flex-col md:flex-row md:items-center gap-6">
+          <div class="flex-1">
+            <p class="eyebrow">Kostenlose Beratung</p>
+            <h3 class="font-display mt-2 text-2xl">Unterlagen zusammen?</h3>
+            <p class="mt-2 text-mute">
+              Senden Sie uns eine kurze Nachricht — wir prüfen Ihre Unterlagen und melden uns innerhalb von 24 Stunden mit einer ersten Einschätzung.
+            </p>
+          </div>
+          <button
+            onclick="window.dispatchEvent(new CustomEvent('open-consultation-modal'))"
+            class="btn-primary shrink-0"
+          >
+            Jetzt kostenlos anfragen
+          </button>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  {/* ── Kontakt-Prompt ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x max-w-3xl">
+      <Reveal client:visible>
+        <div class="rounded-2xl border border-line p-8 md:p-12">
+          <p class="eyebrow">Noch Fragen?</p>
+          <h2 class="display-2 mt-4">Sprechen Sie uns an.</h2>
+          <p class="mt-4 text-xl leading-relaxed" style="color: var(--color-mute)">
+            Ihre Frage ist nicht dabei? Wir antworten innerhalb von 24 Stunden — kostenlos und unverbindlich.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <button
+              onclick="window.dispatchEvent(new CustomEvent('open-consultation-modal'))"
+              class="btn-primary"
+            >
+              Kostenlose Beratung anfragen
+            </button>
+            <a href="tel:+491743012443" class="link-underline text-sm font-medium">Direkt anrufen →</a>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>

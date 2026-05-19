@@ -1,0 +1,29 @@
+---
+import PrintLayout from '~/layouts/PrintLayout.astro';
+import { CHECKLISTS } from '~/lib/checklists';
+
+export function getStaticPaths() {
+  return CHECKLISTS.map((c) => ({
+    params: { slug: c.slug },
+    props: { checklist: c },
+  }));
+}
+
+const { checklist } = Astro.props;
+---
+<PrintLayout title={checklist.title} subtitle={checklist.subtitle}>
+  {checklist.sections.map((section) => (
+    <div class="checklist-section">
+      <h2 class="checklist-section-title">{section.title}</h2>
+      {section.items.map((item) => (
+        <div class="checklist-item">
+          <div class="checkbox" aria-hidden="true"></div>
+          <div>
+            <div class="item-text">{item.text}</div>
+            {item.hint && <div class="item-hint">{item.hint}</div>}
+          </div>
+        </div>
+      ))}
+    </div>
+  ))}
+</PrintLayout>

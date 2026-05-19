@@ -1,0 +1,148 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import TrustBar from '~/components/sections/TrustBar.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+import Reveal from '~/components/animations/Reveal.tsx';
+import Breadcrumb from '~/components/ui/Breadcrumb.astro';
+import { CITIES } from '~/lib/cities';
+import { SERVICES } from '~/lib/services';
+import { localBusinessJsonLd } from '~/lib/seo';
+
+export function getStaticPaths() {
+  return CITIES.map((city) => ({
+    params: { city: city.slug },
+    props: { city },
+  }));
+}
+
+const { city } = Astro.props;
+
+const breadcrumbItems = [
+  { name: 'Start', href: '/' },
+  { name: 'Vor Ort', href: '/einzugsgebiet' },
+  { name: city.name, href: `/immobiliengutachter-${city.slug}` },
+];
+
+const testimonials = [
+  { quote: 'Die Beratung war professionell, die Kommunikation transparent und das Ergebnis sehr zufriedenstellend.', author: 'Markus H.', role: 'Privatverkauf, Düsseldorf' },
+  { quote: 'Von der ersten Kontaktaufnahme bis zur finalen Bewertung war der gesamte Prozess reibungslos und effizient.', author: 'Sabine W.', role: 'Erbschaftsangelegenheit' },
+];
+---
+<BaseLayout
+  title={`Immobiliengutachter ${city.name} — DEKRA-zertifiziert`}
+  description={`DEKRA-zertifizierter Immobiliengutachter in ${city.name} — Verkehrswertgutachten, Immobilienbewertung und Kaufberatung. Festpreis, schnell, bundesweit anerkannt. Erste Einschätzung kostenlos.`}
+  jsonLd={[localBusinessJsonLd()]}
+>
+
+  {/* ── Hero ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x">
+      <Breadcrumb items={breadcrumbItems} />
+      <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p class="eyebrow">Immobiliengutachter {city.name}</p>
+          <h1 class="display-1 mt-6">
+            DEKRA-zertifizierter<br/>
+            Gutachter in<br/>
+            <span class="italic text-green">{city.name}.</span>
+          </h1>
+          <p class="mt-8 text-xl leading-relaxed" style="color: var(--color-mute)">
+            {city.intro}
+          </p>
+          <div class="mt-10 flex flex-wrap gap-4">
+            <button
+              onclick="window.dispatchEvent(new CustomEvent('open-consultation-modal'))"
+              class="btn-primary"
+            >
+              Kostenlose Erstanfrage
+            </button>
+            <a href="/online-bewertung" class="link-underline text-sm font-medium">
+              Online-Bewertung starten →
+            </a>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-2">
+            {city.dominantPropertyTypes.map(t => (
+              <span class="rounded-full border border-line px-3 py-1 text-xs font-medium" style="color: var(--color-mute)">{t}</span>
+            ))}
+            <span class="rounded-full border border-line px-3 py-1 text-xs font-medium" style="color: var(--color-mute)">{city.region}</span>
+          </div>
+        </div>
+
+        <Reveal client:visible>
+          <div class="rounded-2xl border border-line bg-paper p-8 space-y-5">
+            <p class="eyebrow text-xs">Marktmerkmale {city.name}</p>
+            {city.characteristics.map((c) => (
+              <div class="flex gap-3 border-t border-line pt-5">
+                <svg class="mt-0.5 shrink-0 text-green" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <p class="text-sm leading-relaxed" style="color: var(--color-mute)">{c}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  <TrustBar />
+
+  {/* ── Leistungen ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x">
+      <Reveal client:visible>
+        <div class="max-w-xl">
+          <p class="eyebrow">Unsere Leistungen in {city.name}</p>
+          <h2 class="display-2 mt-4">
+            Alle Gutachtenarten —<br/>
+            <span class="italic text-green">aus einer Hand.</span>
+          </h2>
+        </div>
+      </Reveal>
+      <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {SERVICES.map((s, i) => (
+          <Reveal client:visible delay={i * 0.04}>
+            <a href={`/leistungen/${s.slug}`} class="card flex h-full flex-col gap-3 transition-colors hover:border-green">
+              <h3 class="font-display text-lg">{s.title}</h3>
+              <p class="flex-1 text-sm leading-relaxed" style="color: var(--color-mute)">{s.short}</p>
+              <span class="text-sm font-medium text-green">Mehr erfahren →</span>
+            </a>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Testimonials Snippet ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x">
+      <Reveal client:visible>
+        <div class="max-w-xl">
+          <p class="eyebrow">Kundenstimmen</p>
+          <h2 class="display-2 mt-4">
+            Was unsere Kunden<br/>
+            <span class="italic text-green">sagen.</span>
+          </h2>
+        </div>
+      </Reveal>
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {testimonials.map((t, i) => (
+          <Reveal client:visible delay={i * 0.1}>
+            <div class="card flex h-full flex-col gap-4">
+              <svg width="28" height="20" viewBox="0 0 28 20" fill="none" aria-hidden="true">
+                <path d="M0 20V12.8C0 9.6 0.8 6.93333 2.4 4.8C4 2.66667 6.4 1.06667 9.6 0L11.2 2.4C9.86667 2.93333 8.8 3.73333 8 4.8C7.2 5.86667 6.8 7.06667 6.8 8.4H11.2V20H0ZM16.8 20V12.8C16.8 9.6 17.6 6.93333 19.2 4.8C20.8 2.66667 23.2 1.06667 26.4 0L28 2.4C26.6667 2.93333 25.6 3.73333 24.8 4.8C24 5.86667 23.6 7.06667 23.6 8.4H28V20H16.8Z" fill="currentColor" style="color: var(--color-green); opacity: 0.3"/>
+              </svg>
+              <p class="flex-1 text-lg leading-relaxed" style="color: var(--color-mute)">{t.quote}</p>
+              <div>
+                <p class="font-medium text-ink">{t.author}</p>
+                <p class="text-sm" style="color: var(--color-mute)">{t.role}</p>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>

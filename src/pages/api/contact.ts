@@ -6,8 +6,16 @@ import { contactSchema } from '~/lib/schemas';
 import { SITE } from '~/lib/site';
 
 export const POST: APIRoute = async ({ request, redirect }) => {
-  const formData = await request.formData();
-  const raw = Object.fromEntries(formData);
+  const contentType = request.headers.get('content-type') ?? '';
+  const isJson = contentType.includes('application/json');
+
+  let raw: Record<string, unknown>;
+  if (isJson) {
+    raw = await request.json();
+  } else {
+    const formData = await request.formData();
+    raw = Object.fromEntries(formData);
+  }
 
   const parsed = contactSchema.safeParse(raw);
   if (!parsed.success) {
@@ -43,6 +51,13 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       JSON.stringify({ error: 'E-Mail konnte nicht gesendet werden. Bitte rufen Sie uns an.' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
+  }
+
+  if (isJson) {
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   return redirect('/kontakt?success=1', 303);
