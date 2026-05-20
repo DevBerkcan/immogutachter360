@@ -98,6 +98,8 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   <link rel="dns-prefetch" href="https://maps.googleapis.com" />
   <link rel="dns-prefetch" href="https://maps.gstatic.com" />
   <link rel="dns-prefetch" href="https://plausible.io" />
+  <link rel="dns-prefetch" href="https://www.provenexpert.com" />
+  <link rel="dns-prefetch" href="https://s.provenexpert.net" />
 
   {/* ── RSS Feed ── */}
   <link rel="alternate" type="application/rss+xml" title={`${SITE.name} Blog`} href="/rss.xml" />
@@ -106,6 +108,9 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   {allJsonLd.map((ld) => (
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   ))}
+
+  {/* ── ProvenExpert Rich Snippets (Schema.org für Google-Sternebewertungen) ── */}
+  <script type="text/javascript" src="https://www.provenexpert.com/widget/richsnippet.js?u=24TZkWaph9TZ2Lwp0RmZjLwpjZ3AlVKA&v=2" async is:inline></script>
 
   {/* ── Analytics (cookieless) ── */}
   <script defer data-domain="immogutachter360.de" src="https://plausible.io/js/script.js"></script>
@@ -123,6 +128,35 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   <StickyContactCTA client:only="react" />
   <CookieBanner client:only="react" />
   <ConsultationModal client:idle />
+
+  {/* ── ProvenExpert Rich Snippets Placeholder ── */}
+  <div class="pe-richsnippets"></div>
+
+  {/* ── ProvenExpert ProSeal — sticky links unten ── */}
+  <noscript>
+    <a href="https://www.provenexpert.com/immogutachter360/?utm_source=seals&utm_campaign=proseal&utm_medium=profile&utm_content=283075f5-ee3e-47e5-a662-b9bb5b602957" target="_blank" title="Customer reviews & experiences for Immogutachter360" class="pe-pro-seal-more-infos">More info</a>
+  </noscript>
+  <script id="proSeal" is:inline>
+    window.loadProSeal = function(){
+      window.provenExpert.proSeal({
+        widgetId: "283075f5-ee3e-47e5-a662-b9bb5b602957",
+        language: "de-DE",
+        usePageLanguage: false,
+        bannerColor: "#097E92",
+        textColor: "#FFFFFF",
+        showReviews: true,
+        hideDate: true,
+        hideName: false,
+        hideOnMobile: false,
+        bottom: "30px",
+        stickyToSide: "left",
+        googleStars: true,
+        zIndex: "9999",
+        displayReviewerLastName: false,
+      });
+    };
+  </script>
+  <script src="https://s.provenexpert.net/seals/proseal-v2.js" onload="loadProSeal()" is:inline></script>
 </body>
 </html>
 
