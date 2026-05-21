@@ -12,6 +12,7 @@ import Referenzen from '~/components/sections/Referenzen.astro';
 import MarketData from '~/components/sections/MarketData.astro';
 import UseCases from '~/components/sections/UseCases.astro';
 import Testimonials from '~/components/sections/Testimonials.astro';
+import ValuationFunnel from '~/components/forms/ValuationFunnel.tsx';
 import ReviewsSection from '~/components/sections/ReviewsSection.astro';
 import FAQ from '~/components/sections/FAQ.tsx';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
@@ -26,9 +27,29 @@ import { CITIES } from '~/lib/cities';
 >
   <Hero />
   <VideoSection />
+
+  {/* ── Bewertungs-Funnel ── */}
+  <section class="section-y bg-cream">
+    <div class="container-x max-w-3xl">
+      <div class="mx-auto max-w-xl text-center">
+        <p class="eyebrow justify-center">Kostenlose Ersteinschätzung</p>
+        <h2 class="display-2 mt-4">
+          Wie viel ist Ihre<br/>
+          <span class="italic text-green">Immobilie wert?</span>
+        </h2>
+        <p class="mt-4 text-lg leading-relaxed" style="color: var(--color-mute)">
+          In wenigen Schritten zur kostenlosen Ersteinschätzung — unverbindlich und ohne Verpflichtung.
+        </p>
+      </div>
+      <div class="mt-12">
+        <ValuationFunnel client:visible />
+      </div>
+    </div>
+  </section>
+
+  <About />
   <PainPoints />
   <TrustBar />
-  <About />
   <MiniTestimonials />
   <Services />
   <Process />

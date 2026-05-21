@@ -2,47 +2,49 @@
 ---
 <section class="section-y bg-paper overflow-hidden">
   <div class="container-x">
+    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
 
-    {/* Headline-Block */}
-    <div class="mx-auto max-w-2xl text-center">
-      <p class="eyebrow justify-center">Einblick in unsere Arbeit</p>
-      <h2 class="display-2 mt-4">
-        Wie ein Gutachten<br/>
-        <span class="italic text-green">wirklich entsteht.</span>
-      </h2>
-      <p class="mt-6 text-xl leading-relaxed" style="color: var(--color-mute)">
-        Von der ersten Besichtigung bis zum rechtssicheren Gutachten —
-        sehen Sie unseren Prozess im Video.
-      </p>
-    </div>
-
-    {/* Video-Container */}
-    <div class="mx-auto mt-14 max-w-5xl">
-      <div class="relative" style="aspect-ratio: 16/9">
-
-        {/* Dekorativer Offset-Rahmen */}
-        <div
-          class="absolute -bottom-4 -right-4 h-full w-full rounded-2xl"
-          style="background: rgba(140,188,148,0.08); border: 1px solid rgba(140,188,148,0.2)"
-          aria-hidden="true"
-        ></div>
-
-        {/* Video */}
-        <div class="absolute inset-0 overflow-hidden rounded-2xl shadow-2xl">
-          <video
-            class="h-full w-full object-cover"
-            src="/video-intro.mp4"
-            poster="/video-poster.jpg"
-            controls
-            preload="metadata"
-            aria-label="Einblick in die Arbeit von immogutachter360 — Erdem Tanrikulu"
-          >
-            Ihr Browser unterstützt das Video-Format leider nicht.
-          </video>
-        </div>
-
+      {/* Text — links */}
+      <div>
+        <p class="eyebrow">Einblick in unsere Arbeit</p>
+        <h2 class="display-2 mt-4">
+          Wie ein Gutachten<br/>
+          <span class="italic text-green">wirklich entsteht.</span>
+        </h2>
+        <p class="mt-6 text-xl leading-relaxed" style="color: var(--color-mute)">
+          Von der ersten Besichtigung bis zum rechtssicheren Gutachten —
+          sehen Sie unseren Prozess im Video.
+        </p>
       </div>
-    </div>
 
+      {/* Video — rechts */}
+      <div class="mt-10 lg:mt-0">
+        <div class="relative" style="aspect-ratio: 16/9">
+
+          {/* Dekorativer Offset-Rahmen */}
+          <div
+            class="absolute -bottom-4 -right-4 h-full w-full rounded-2xl"
+            style="background: rgba(140,188,148,0.08); border: 1px solid rgba(140,188,148,0.2)"
+            aria-hidden="true"
+          ></div>
+
+          {/* Video */}
+          <div class="absolute inset-0 overflow-hidden rounded-2xl shadow-2xl">
+            <video
+              class="h-full w-full object-cover"
+              src="/video-intro.mp4"
+              poster="/video-poster.jpg"
+              controls
+              preload="metadata"
+              aria-label="Einblick in die Arbeit von immogutachter360 — Erdem Tanrikulu"
+            >
+              Ihr Browser unterstützt das Video-Format leider nicht.
+            </video>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
