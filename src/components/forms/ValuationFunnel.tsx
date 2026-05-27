@@ -17,7 +17,7 @@ type Data = {
 const steps = ['Objekttyp', 'Adresse', 'Daten', 'Zustand', 'Anlass', 'Kontakt'];
 
 const btnActive = 'rounded-xl border-2 p-6 text-left transition-all border-green hover:-translate-y-0.5';
-const btnStyle  = 'rounded-xl border-2 p-6 text-left transition-all border-line hover:border-green hover:-translate-y-0.5';
+const btnStyle = 'rounded-xl border-2 p-6 text-left transition-all border-line hover:border-green hover:-translate-y-0.5';
 const inputStyle = 'w-full border-b-2 border-line bg-transparent py-3 text-lg outline-none focus:border-green transition-colors';
 
 export default function ValuationFunnel() {
@@ -80,12 +80,11 @@ export default function ValuationFunnel() {
 
   return (
     <div>
-      {/* Progress bar */}
       <div className="mb-10 flex items-center gap-2">
         {steps.map((s, i) => (
           <div key={i} className="flex-1">
             <div className={`h-1 rounded-full transition-colors duration-500 ${i <= step ? 'bg-green' : 'bg-line'}`} />
-            <div className={`mt-2 text-[10px] uppercase tracking-wider hidden md:block ${i === step ? 'text-green' : 'text-mute'}`}>{s}</div>
+            <div className={`mt-2 hidden text-[10px] uppercase tracking-wider md:block ${i === step ? 'text-green' : 'text-mute'}`}>{s}</div>
           </div>
         ))}
       </div>
@@ -118,7 +117,9 @@ export default function ValuationFunnel() {
 
           {step === 1 && (
             <div>
-              <h3 className="font-display text-3xl">Wo befindet sich die Immobilie?</h3>
+              <h3 className="font-display text-3xl">
+                {data.type === 'Grundstück' ? 'Wo befindet sich das Grundstück?' : 'Wo befindet sich die Immobilie?'}
+              </h3>
               <input
                 autoFocus
                 placeholder="Straße, PLZ, Ort"
@@ -136,7 +137,9 @@ export default function ValuationFunnel() {
                 <div>
                   <label className="text-xs uppercase tracking-[0.2em] text-mute">Wohnfläche: {data.size} m²</label>
                   <input
-                    type="range" min="20" max="500"
+                    type="range"
+                    min="20"
+                    max="500"
                     value={data.size}
                     onChange={(e) => setData({ ...data, size: +e.target.value })}
                     className="mt-2 w-full accent-green-600"
@@ -145,7 +148,9 @@ export default function ValuationFunnel() {
                 <div>
                   <label className="text-xs uppercase tracking-[0.2em] text-mute">Baujahr: {data.year}</label>
                   <input
-                    type="range" min="1900" max="2026"
+                    type="range"
+                    min="1900"
+                    max="2026"
                     value={data.year}
                     onChange={(e) => setData({ ...data, year: +e.target.value })}
                     className="mt-2 w-full accent-green-600"
@@ -219,7 +224,7 @@ export default function ValuationFunnel() {
           <button
             onClick={submit}
             disabled={!data.name || !data.email || !data.consent || isSubmitting}
-            className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSubmitting ? 'Wird gesendet…' : 'Kostenlose Einschätzung anfordern →'}
           </button>

@@ -38,11 +38,11 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
     faqs: [
       {
         q: 'Was kostet ein Verkehrswertgutachten?',
-        a: 'Die Kosten richten sich nach Objekttyp, Größe und Komplexität. Für ein durchschnittliches Einfamilienhaus liegen die Kosten meist zwischen 1.500 € und 2.500 €. Sie erhalten von uns immer einen verbindlichen Festpreis vor Auftragserteilung — ohne versteckte Kosten oder Nachforderungen.',
+        a: 'Die Kosten richten sich nach Objekttyp, Größe und Komplexität. Für ein durchschnittliches Einfamilienhaus liegen die Kosten meist zwischen 1.500\u00A0€ und 2.500\u00A0€. Sie erhalten von uns immer einen verbindlichen Festpreis vor Auftragserteilung — ohne versteckte Kosten oder Nachforderungen.',
       },
       {
         q: 'Was kostet eine kompakte Immobilienbewertung?',
-        a: 'Für eine marktgerechte Immobilienbewertung ohne Gerichtsfestigkeit rechnen Sie grob mit 500 € bis 900 €, je nach Objektart und Aufwand. Diese eignet sich gut für private Verkaufsentscheidungen, Schenkungen oder Finanzierungsgespräche.',
+        a: 'Für eine marktgerechte Immobilienbewertung ohne Gerichtsfestigkeit rechnen Sie grob mit 500\u00A0€ bis 900\u00A0€, je nach Objektart und Aufwand. Diese eignet sich gut für private Verkaufsentscheidungen, Schenkungen oder Finanzierungsgespräche.',
       },
       {
         q: 'Welche Faktoren beeinflussen den Preis?',
