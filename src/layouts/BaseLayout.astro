@@ -6,6 +6,7 @@ import MagneticCursor from '~/components/ui/MagneticCursor.tsx';
 import StickyContactCTA from '~/components/ui/StickyContactCTA.tsx';
 import CookieBanner from '~/components/ui/CookieBanner.tsx';
 import ConsultationModal from '~/components/ui/ConsultationModal.tsx';
+import ProSealDismissible from '~/components/ui/ProSealDismissible.tsx';
 import { SITE } from '~/lib/site';
 import { buildTitle, localBusinessJsonLd } from '~/lib/seo';
 import { ClientRouter } from 'astro:transitions';
@@ -128,6 +129,7 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   <StickyContactCTA client:only="react" />
   <CookieBanner client:only="react" />
   <ConsultationModal client:idle />
+  <ProSealDismissible client:only="react" />
 
   {/* ── ProvenExpert Rich Snippets Placeholder ── */}
   <div class="pe-richsnippets"></div>
@@ -149,7 +151,7 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
         hideName: false,
         hideOnMobile: false,
         bottom: "30px",
-        stickyToSide: "left",
+        stickyToSide: "right",
         googleStars: true,
         zIndex: "9999",
         displayReviewerLastName: false,

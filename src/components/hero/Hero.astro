@@ -8,27 +8,37 @@ import { SITE } from '~/lib/site';
   {/* Animated grain noise */}
   <div class="noise-overlay" aria-hidden="true"></div>
 
-  {/* Ambient glow blobs — animated */}
+  {/* Ambient glow blobs — mouse-parallax via JS */}
   <div
-    class="hero-glow-1 pointer-events-none absolute -right-32 -top-32 h-[500px] w-[500px] rounded-full blur-[120px]"
+    id="hero-glow-1"
+    class="hero-glow-1 pointer-events-none absolute -right-32 -top-32 h-[300px] w-[300px] sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px] rounded-full blur-[120px] transition-transform duration-700 ease-out"
     style="background: radial-gradient(circle, rgba(140,188,148,0.15), transparent 70%)"
     aria-hidden="true"
   ></div>
   <div
-    class="hero-glow-2 pointer-events-none absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full blur-[100px]"
+    id="hero-glow-2"
+    class="hero-glow-2 pointer-events-none absolute -bottom-32 -left-32 h-[250px] w-[250px] sm:h-[320px] sm:w-[320px] lg:h-[400px] lg:w-[400px] rounded-full blur-[100px] transition-transform duration-700 ease-out"
     style="background: radial-gradient(circle, rgba(197,222,201,0.18), transparent 70%)"
     aria-hidden="true"
   ></div>
 
-  {/* Decorative dot grid — right half only */}
-  <div
-    class="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-[0.04]"
-    style="background-image: radial-gradient(circle, var(--color-ink) 1px, transparent 1px); background-size: 28px 28px;"
+  {/* Blueprint grid — right half, desktop only */}
+  <svg
+    class="pointer-events-none absolute right-0 top-0 hidden h-full w-1/2 lg:block"
+    xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
-  ></div>
+  >
+    <defs>
+      <pattern id="blueprint" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+        <path d="M 48 0 L 0 0 0 48" fill="none" stroke="rgba(24,27,49,0.055)" stroke-width="0.5"/>
+        <circle cx="0" cy="0" r="1.2" fill="rgba(24,27,49,0.07)"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#blueprint)"/>
+  </svg>
 
   {/* Main content */}
-  <div class="container-x relative z-10 flex flex-1 items-center py-20 md:py-28 lg:py-24">
+  <div class="container-x relative z-10 flex flex-1 items-start pt-10 pb-16 md:pt-12 md:pb-20 lg:pt-10 lg:pb-24">
     <div class="grid w-full items-center gap-8 md:gap-12 lg:grid-cols-[1fr_44%]">
 
       {/* Left: Copy */}
@@ -46,7 +56,7 @@ import { SITE } from '~/lib/site';
           class="mt-6 max-w-lg text-lg leading-relaxed opacity-0"
           style="color: var(--color-mute); animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.55s forwards"
         >
-          Verkehrswertgutachten, Immobilienbewertungen und Kaufberatung — präzise, gerichtsfest und transparent. Ihr Sachverständiger aus Düsseldorf.
+          Verkehrswertgutachten, Immobilienbewertungen und Kaufberatung — präzise, gerichtsfest und transparent.<br />Ihr Sachverständiger aus Düsseldorf.
         </p>
 
         <div
@@ -105,3 +115,35 @@ import { SITE } from '~/lib/site';
     </div>
   </div>
 </section>
+
+<script>
+  // Mouse parallax for hero glow blobs
+  const g1 = document.getElementById('hero-glow-1');
+  const g2 = document.getElementById('hero-glow-2');
+  if (g1 && g2 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let tx1 = 0, ty1 = 0, tx2 = 0, ty2 = 0;
+    let cx1 = 0, cy1 = 0, cx2 = 0, cy2 = 0;
+    let raf = 0;
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const tick = () => {
+      cx1 = lerp(cx1, tx1, 0.06);
+      cy1 = lerp(cy1, ty1, 0.06);
+      cx2 = lerp(cx2, tx2, 0.06);
+      cy2 = lerp(cy2, ty2, 0.06);
+      g1.style.transform = `translate(${cx1}px, ${cy1}px)`;
+      g2.style.transform = `translate(${cx2}px, ${cy2}px)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    window.addEventListener('mousemove', (e) => {
+      const nx = (e.clientX / window.innerWidth - 0.5);
+      const ny = (e.clientY / window.innerHeight - 0.5);
+      // blobs move opposite to each other for depth
+      tx1 = nx * -28;
+      ty1 = ny * -20;
+      tx2 = nx * 22;
+      ty2 = ny * 18;
+    }, { passive: true });
+    document.addEventListener('astro:before-preparation', () => cancelAnimationFrame(raf));
+  }
+</script>

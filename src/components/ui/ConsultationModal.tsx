@@ -87,7 +87,7 @@ export default function ConsultationModal() {
             role="dialog"
             aria-modal="true"
             aria-label="Kostenlose Beratung anfragen"
-            className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-paper shadow-2xl"
+            className="relative flex w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-paper shadow-2xl max-h-[90dvh]"
             initial={{ opacity: 0, scale: 0.95, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 16 }}
@@ -96,7 +96,7 @@ export default function ConsultationModal() {
             {/* Green accent bar */}
             <div className="h-1 w-full bg-green" />
 
-            <div className="p-8">
+            <div className="overflow-y-auto p-6 sm:p-8">
               {/* Close */}
               <button
                 onClick={close}

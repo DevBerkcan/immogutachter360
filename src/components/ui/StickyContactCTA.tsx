@@ -31,7 +31,7 @@ export default function StickyContactCTA() {
     <AnimatePresence>
       {visible && !hidden && (
         <motion.div
-          className="fixed bottom-6 right-6 z-[8000]"
+          className="fixed bottom-4 right-4 z-[8000] sm:bottom-6 sm:right-6"
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0, opacity: 0 }}
