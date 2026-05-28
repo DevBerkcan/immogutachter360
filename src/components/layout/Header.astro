@@ -2,7 +2,25 @@
 import { NAV, SITE } from '~/lib/site';
 const path = Astro.url.pathname;
 ---
-<header id="site-header" class="fixed inset-x-0 top-0 z-40 transition-all duration-500 ease-premium">
+<style>
+  #site-header[data-theme="dark"] nav a {
+    color: rgba(250, 246, 240, 0.8);
+  }
+  #site-header[data-theme="dark"] nav a:hover,
+  #site-header[data-theme="dark"] nav a.text-green {
+    color: #8CBC94;
+  }
+  #site-header[data-theme="dark"] .header-phone {
+    color: rgba(250, 246, 240, 0.7);
+  }
+  #site-header[data-theme="dark"] .header-phone:hover {
+    color: #8CBC94;
+  }
+  #site-header[data-theme="dark"] #mobile-menu-btn {
+    color: rgba(250, 246, 240, 0.8);
+  }
+</style>
+<header id="site-header" data-theme="light" class="fixed inset-x-0 top-0 z-40 transition-all duration-500 ease-premium">
   <div class="container-x flex h-20 items-center justify-between">
     <a href="/" class="flex items-center">
       <img src="/logo_immo.png" alt="immogutachter360°" height="64" class="h-16 w-auto" />
@@ -21,7 +39,7 @@ const path = Astro.url.pathname;
       ))}
     </nav>
     <div class="flex items-center gap-3">
-      <a href={SITE.phoneHref} class="hidden text-sm text-ink hover:text-green md:inline" aria-label={SITE.phone}>
+      <a href={SITE.phoneHref} class="header-phone hidden text-sm text-ink hover:text-green md:inline" aria-label={SITE.phone}>
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M13.8 4.2a6 6 0 0 1 6 6" />
           <path d="M13.8 8.2a2 2 0 0 1 2 2" />
@@ -60,14 +78,43 @@ const path = Astro.url.pathname;
 </header>
 <div class="h-20"></div>
 <script>
-  const header = document.getElementById('site-header');
-  const onScroll = () => {
+  const header = document.getElementById('site-header') as HTMLElement | null;
+  const HEADER_H = 80;
+
+  const update = () => {
     if (!header) return;
-    if (window.scrollY > 20) header.classList.add('bg-cream/90', 'backdrop-blur-md', 'border-b', 'border-line', 'shadow-sm');
-    else header.classList.remove('bg-cream/90', 'backdrop-blur-md', 'border-b', 'border-line', 'shadow-sm');
+    const scrolled = window.scrollY > 20;
+
+    if (!scrolled) {
+      header.classList.remove('border-b', 'border-line', 'shadow-sm', 'backdrop-blur-md');
+      header.style.background = '';
+      header.dataset.theme = 'light';
+      return;
+    }
+
+    const darkSections = document.querySelectorAll('[data-header-dark]');
+    const isDark = [...darkSections].some(s => {
+      const r = s.getBoundingClientRect();
+      return r.top < HEADER_H && r.bottom > 0;
+    });
+
+    header.classList.add('border-b', 'shadow-sm', 'backdrop-blur-md');
+    header.dataset.theme = isDark ? 'dark' : 'light';
+
+    if (isDark) {
+      header.style.background = 'rgba(24, 27, 49, 0.92)';
+      header.classList.remove('border-line');
+      header.style.borderColor = 'rgba(255,255,255,0.08)';
+    } else {
+      header.style.background = 'rgba(250, 246, 240, 0.95)';
+      header.classList.add('border-line');
+      header.style.borderColor = '';
+    }
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+
+  window.addEventListener('scroll', update, { passive: true });
+  document.addEventListener('astro:page-load', update);
+  update();
 
   const btn = document.getElementById('mobile-menu-btn');
   const close = document.getElementById('mobile-menu-close');
