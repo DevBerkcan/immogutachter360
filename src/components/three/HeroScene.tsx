@@ -48,7 +48,7 @@ function Chip({
 }
 
 function PropertyCard({ prefersReduced }: { prefersReduced: boolean }) {
-  const count = useCounter(685000, 1.4, true);
+  const count = useCounter(785000, 1.4, true);
   const formatted = count.toLocaleString('de-DE');
 
   // Tilt on mouse move
@@ -138,7 +138,7 @@ function PropertyCard({ prefersReduced }: { prefersReduced: boolean }) {
           <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor" aria-hidden="true">
             <path d="M4 0C2.07 0 .5 1.57.5 3.5 .5 6.13 4 10 4 10s3.5-3.87 3.5-6.5C7.5 1.57 5.93 0 4 0Zm0 4.75a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5Z" />
           </svg>
-          Oberkassel
+          Unterrath
         </div>
       </div>
 
