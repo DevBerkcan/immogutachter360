@@ -48,7 +48,7 @@ function Chip({
 }
 
 function PropertyCard({ prefersReduced }: { prefersReduced: boolean }) {
-  const count = useCounter(785000, 1.4, true);
+  const count = useCounter(852000, 1.4, true);
   const formatted = count.toLocaleString('de-DE');
 
   // Tilt on mouse move
