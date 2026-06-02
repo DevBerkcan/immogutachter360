@@ -44,7 +44,7 @@ export default function TestimonialsQuote() {
       {/* Decorative open-quote */}
       <div
         aria-hidden
-        className="mb-6 select-none text-center font-display text-[7rem] leading-none"
+        className="mb-6 select-none text-center font-display text-[3rem] md:text-[5rem] lg:text-[7rem] leading-none"
         style={{ color: 'rgba(140,188,148,0.18)' }}
       >
         "
@@ -74,7 +74,7 @@ export default function TestimonialsQuote() {
       </AnimatePresence>
 
       {/* Controls */}
-      <div className="mt-12 flex items-center justify-center gap-6">
+      <div className="mt-12 flex items-center justify-center gap-3 md:gap-6">
         <button
           onClick={() => go(-1)}
           aria-label="Vorheriges Testimonial"

@@ -48,7 +48,7 @@ const path = Astro.url.pathname;
         <span class="sr-only">{SITE.phone}</span>
       </a>
       <a href="/kontakt" class="btn-primary">Kostenlose Anfrage</a>
-      <button id="mobile-menu-btn" aria-label="Menü öffnen" class="lg:hidden p-1">
+      <button id="mobile-menu-btn" aria-label="Menü öffnen" class="lg:hidden p-2">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
@@ -56,11 +56,11 @@ const path = Astro.url.pathname;
   <div id="mobile-menu" class="fixed inset-0 z-50 bg-cream lg:hidden" style="transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);">
     <div class="container-x flex h-20 items-center justify-between">
       <img src="/logo_immo.png" alt="immogutachter360°" height="56" class="h-14 w-auto" />
-      <button id="mobile-menu-close" aria-label="Menü schließen" class="p-1">
+      <button id="mobile-menu-close" aria-label="Menü schließen" class="p-2">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M6 18L18 6"/></svg>
       </button>
     </div>
-    <nav class="container-x flex flex-col gap-6 pt-12 text-3xl font-display">
+    <nav class="container-x flex flex-col gap-6 pt-12 text-2xl sm:text-3xl font-display">
       {NAV.map((item) => <a href={item.href} class="hover:text-green transition-colors">{item.label}</a>)}
     </nav>
     <div class="container-x mt-12">

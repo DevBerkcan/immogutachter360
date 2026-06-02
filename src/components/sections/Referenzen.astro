@@ -31,7 +31,7 @@ const cases = [
       </div>
       <a href="/referenzen" class="hidden link-underline text-sm font-medium md:inline-flex">Alle Referenzen →</a>
     </div>
-    <div class="mt-16 grid gap-8 md:grid-cols-3">
+    <div class="mt-16 grid gap-4 md:gap-8 md:grid-cols-3">
       {cases.map((c, i) => (
         <Reveal client:visible delay={i * 0.08}>
           <div class="card h-full">

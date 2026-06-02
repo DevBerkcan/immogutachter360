@@ -14,7 +14,7 @@ export default function ProcessScroll() {
           className="border-t-2 pt-6"
           style={{ borderColor: 'rgba(140,188,148,0.4)' }}
         >
-          <div className="font-display text-5xl font-light" style={{ color: '#8CBC94' }}>
+          <div className="font-display text-3xl md:text-5xl font-light" style={{ color: '#8CBC94' }}>
             {s.n}
           </div>
           <h3 className="mt-5 font-display text-2xl text-paper">{s.title}</h3>

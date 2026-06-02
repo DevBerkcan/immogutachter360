@@ -18,7 +18,7 @@ const steps = ['Objekttyp', 'Adresse', 'Daten', 'Zustand', 'Anlass', 'Kontakt'];
 
 const btnActive = 'rounded-xl border-2 p-6 text-left transition-all border-green hover:-translate-y-0.5';
 const btnStyle = 'rounded-xl border-2 p-6 text-left transition-all border-line hover:border-green hover:-translate-y-0.5';
-const inputStyle = 'w-full border-b-2 border-line bg-transparent py-3 text-lg outline-none focus:border-green transition-colors';
+const inputStyle = 'w-full border-b-2 border-line bg-transparent px-1 py-3 text-lg outline-none focus:border-green transition-colors';
 
 export default function ValuationFunnel() {
   const [step, setStep] = useState(0);
