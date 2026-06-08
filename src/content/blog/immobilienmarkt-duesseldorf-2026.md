@@ -1,8 +1,8 @@
----
+﻿---
 title: "Immobilienmarkt Düsseldorf 2026: Preise, Trends und was Eigentümer jetzt wissen müssen"
 description: "Ein nüchterner Blick auf den Düsseldorfer Immobilienmarkt in 2026: Wo liegen die Preise, welche Lagen gewinnen und was bedeutet das für Eigentümer?"
 date: 2026-03-05
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Markt"
 ---
 

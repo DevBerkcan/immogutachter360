@@ -56,6 +56,8 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="de" href={canonical} />
+  <link rel="alternate" hreflang="x-default" href={canonical} />
   {noindex && <meta name="robots" content="noindex, nofollow" />}
   {!noindex && <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
   {authorName && <meta name="author" content={authorName} />}
@@ -92,15 +94,13 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   {/* ── Fonts ── */}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500&display=swap" />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@400;500&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
-  {/* ── DNS Prefetch for third-party resources ── */}
+  {/* ── DNS Prefetch ── */}
   <link rel="dns-prefetch" href="https://maps.googleapis.com" />
   <link rel="dns-prefetch" href="https://maps.gstatic.com" />
   <link rel="dns-prefetch" href="https://plausible.io" />
-  <link rel="dns-prefetch" href="https://www.provenexpert.com" />
-  <link rel="dns-prefetch" href="https://s.provenexpert.net" />
 
   {/* ── RSS Feed ── */}
   <link rel="alternate" type="application/rss+xml" title={`${SITE.name} Blog`} href="/rss.xml" />
@@ -110,10 +110,7 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   ))}
 
-  {/* ── ProvenExpert Rich Snippets (Schema.org für Google-Sternebewertungen) ── */}
-  <script type="text/javascript" src="https://www.provenexpert.com/widget/richsnippet.js?u=24TZkWaph9TZ2Lwp0RmZjLwpjZ3AlVKA&v=2" async is:inline></script>
-
-  {/* ── Analytics (cookieless) ── */}
+  {/* ── Analytics (cookieless, keine Einwilligung erforderlich § 25 Abs. 2 Nr. 2 TDDDG) ── */}
   <script defer data-domain="immogutachter360.de" src="https://plausible.io/js/script.js"></script>
 
   <ClientRouter />
@@ -131,34 +128,51 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   <ConsultationModal client:idle />
   <ProSealDismissible client:only="react" />
 
-  {/* ── ProvenExpert Rich Snippets Placeholder ── */}
-  <div class="pe-richsnippets"></div>
+  {/* ── ProvenExpert ProSeal — consent-gesteuert (§ 25 TDDDG) ── */}
+  <script is:inline>
+    // ProSeal-Konfiguration (wird nur ausgeführt wenn proseal-v2.js geladen hat)
+    // ProSeal deaktiviert bis Bewertungen vorhanden (Widget zeigt sonst "0 Bewertungen")
+    window.loadProSeal = function () {};
 
-  {/* ── ProvenExpert ProSeal — sticky links unten ── */}
-  <noscript>
-    <a href="https://www.provenexpert.com/immogutachter360/?utm_source=seals&utm_campaign=proseal&utm_medium=profile&utm_content=283075f5-ee3e-47e5-a662-b9bb5b602957" target="_blank" title="Customer reviews & experiences for Immogutachter360" class="pe-pro-seal-more-infos">More info</a>
-  </noscript>
-  <script id="proSeal" is:inline>
-    window.loadProSeal = function(){
-      window.provenExpert.proSeal({
-        widgetId: "283075f5-ee3e-47e5-a662-b9bb5b602957",
-        language: "de-DE",
-        usePageLanguage: false,
-        bannerColor: "#097E92",
-        textColor: "#FFFFFF",
-        showReviews: true,
-        hideDate: true,
-        hideName: false,
-        hideOnMobile: false,
-        bottom: "30px",
-        stickyToSide: "right",
-        googleStars: true,
-        zIndex: "9999",
-        displayReviewerLastName: false,
-      });
-    };
+    function loadAllProvenExpert() {
+      if (window.__peLoaded) return;
+      window.__peLoaded = true;
+
+      // ProSeal (Bewertungssiegel)
+      var s1 = document.createElement('script');
+      s1.async = true;
+      s1.src = 'https://s.provenexpert.net/seals/proseal-v2.js';
+      s1.onload = function () { window.loadProSeal && window.loadProSeal(); };
+      document.body.appendChild(s1);
+    }
+
+    function hasValidConsent() {
+      var c = localStorage.getItem('cookie-consent');
+      var ts = parseInt(localStorage.getItem('cookie-consent-ts') || '0', 10);
+      return c === 'all' && (Date.now() - ts < 365 * 24 * 60 * 60 * 1000);
+    }
+
+    // Rückkehrbesucher: sofort laden wenn Einwilligung vorhanden
+    if (hasValidConsent()) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadAllProvenExpert);
+      } else {
+        loadAllProvenExpert();
+      }
+    }
+
+    // Neue Einwilligung via CookieBanner
+    window.addEventListener('cookie-consent-update', function (e) {
+      if (e && e.detail && e.detail.type === 'all') loadAllProvenExpert();
+    });
+
+    // Nach Astro View Transition neu prüfen
+    document.addEventListener('astro:page-load', function () {
+      window.__peLoaded = false;
+      window.__proSealLoaded = false;
+      if (hasValidConsent()) loadAllProvenExpert();
+    });
   </script>
-  <script src="https://s.provenexpert.net/seals/proseal-v2.js" onload="loadProSeal()" is:inline></script>
 </body>
 </html>
 

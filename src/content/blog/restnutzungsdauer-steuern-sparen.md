@@ -1,8 +1,8 @@
----
+﻿---
 title: "Restnutzungsdauer-Gutachten: Steuern sparen als Vermieter"
 description: "Wie ein Sachverständigengutachten zur Restnutzungsdauer Ihre jährliche Abschreibung (AfA) drastisch erhöhen und Ihre Steuerlast dauerhaft senken kann."
 date: 2026-02-25
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Recht"
 ---
 

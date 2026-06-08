@@ -1,8 +1,8 @@
----
+﻿---
 title: "Energieausweis 2026: Pflicht, Fristen und was sich geändert hat"
 description: "Wer braucht welchen Energieausweis, welche Fristen gelten und was droht, wenn er fehlt? Die wichtigsten Informationen für Eigentümer und Vermieter."
 date: 2026-04-02
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Energie"
 ---
 

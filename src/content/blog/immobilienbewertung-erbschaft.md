@@ -1,8 +1,8 @@
----
+﻿---
 title: "Immobilienbewertung bei Erbschaft: Finanzamt-sicher bewertet"
 description: "Wann das Finanzamt eine Immobilienbewertung akzeptiert, wie Sie die Steuerlast legal minimieren und warum ein unabhängiges Gutachten oft tausende Euro spart."
 date: 2026-02-18
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Recht"
 ---
 

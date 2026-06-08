@@ -1,104 +1,190 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
 import Reveal from '~/components/animations/Reveal.tsx';
+import { webPageJsonLd, breadcrumbJsonLd } from '~/lib/seo';
 
-const guides = [
-  {
-    title: 'Was kostet ein Verkehrswertgutachten?',
-    description: 'Kosten, Einflussfaktoren und was in einem Festpreisangebot enthalten sein sollte.',
-    href: '/blog/verkehrswertgutachten-kosten',
-    category: 'Kosten & Preise',
-    icon: '💶',
-  },
-  {
-    title: 'Immobilienbewertung bei Erbschaft',
-    description: 'Wann ein Gutachten Pflicht ist und wie Sie die Steuerlast legal minimieren.',
-    href: '/blog/immobilienbewertung-erbschaft',
-    category: 'Recht & Steuer',
-    icon: '📜',
-  },
-  {
-    title: 'Kaufberatung: Checkliste vor dem Notar',
-    description: 'Was Sie vor dem Kauf prüfen sollten — und warum ein Sachverständiger schützt.',
-    href: '/blog/kaufberatung-checkliste',
-    category: 'Kaufen',
-    icon: '🔑',
-  },
-  {
-    title: 'Restnutzungsdauer: Steuern sparen als Vermieter',
-    description: 'Wie ein Gutachten Ihre jährliche Abschreibung drastisch erhöhen kann.',
-    href: '/blog/restnutzungsdauer-steuern-sparen',
-    category: 'Recht & Steuer',
-    icon: '🏛️',
-  },
-  {
-    title: 'Schimmelpilz: Wer haftet wirklich?',
-    description: 'Mieter, Vermieter, Bausubstanz — die rechtliche und technische Einordnung.',
-    href: '/blog/schimmelgutachten-haftung',
-    category: 'Baumängel',
-    icon: '🔬',
-  },
-  {
-    title: 'Immobilienbewertung bei Scheidung',
-    description: 'Neutrale Bewertung als Basis für faire Einigung — was Sie wissen müssen.',
-    href: '/blog/scheidung-immobilienbewertung',
-    category: 'Recht & Steuer',
-    icon: '⚖️',
-  },
-  {
-    title: 'Energieausweis 2026: Pflicht & Fristen',
-    description: 'Wer braucht welchen Energieausweis — und was droht ohne ihn.',
-    href: '/blog/energieausweis-pflicht-2026',
-    category: 'Energie',
-    icon: '⚡',
-  },
-  {
-    title: 'Bausachverständiger beauftragen',
-    description: 'Wann lohnt sich ein Gutachter vor dem Kauf, bei Mängeln oder im Streit.',
-    href: '/blog/bausachverstaendiger-wann',
-    category: 'Baumängel',
-    icon: '🏗️',
-  },
-];
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const categoryMap: Record<string, string> = {
+  Bewertung: 'Bewertung',
+  Recht: 'Recht & Steuer',
+  Markt: 'Markt',
+  Sanierung: 'Baumängel',
+  Energie: 'Energie',
+  Bau: 'Baumängel',
+};
+
+const categoryIcons: Record<string, string> = {
+  Bewertung: '📊',
+  Recht: '⚖️',
+  Markt: '📈',
+  Sanierung: '🔧',
+  Energie: '⚡',
+  Bau: '🏗️',
+};
+
+const displayCategories = ['Alle', 'Bewertung', 'Recht & Steuer', 'Markt', 'Baumängel', 'Energie'];
 ---
 <BaseLayout
-  title="Ratgeber & Checklisten — Immobilien verstehen"
-  description="Praxisratgeber zu Immobilienbewertung, Recht, Steuer und Baumängeln. Kostenlos, von Sachverständigen geschrieben."
+  title="Ratgeber & Fachwissen — Immobilienbewertung erklärt"
+  description="Praxisratgeber zu Immobilienbewertung, Recht, Steuer und Baumängeln. Kostenlos, von DEKRA-zertifiziertem Sachverständiger Erdem Tanrikulu, Düsseldorf."
+  jsonLd={[
+    webPageJsonLd({
+      url: '/ratgeber',
+      type: 'CollectionPage',
+      title: 'Ratgeber & Fachwissen — Immobilienbewertung erklärt',
+      description: 'Praxisratgeber zu Immobilienbewertung, Recht, Steuer und Baumängeln. Kostenlos, von DEKRA-zertifiziertem Sachverständiger Erdem Tanrikulu, Düsseldorf.',
+    }),
+    breadcrumbJsonLd([
+      { name: 'Start', url: '/' },
+      { name: 'Ratgeber', url: '/ratgeber' },
+    ]),
+  ]}
 >
+
+  {/* ── Hero ── */}
   <section class="section-y bg-cream">
     <div class="container-x">
-      <p class="eyebrow">Ratgeber</p>
-      <h1 class="display-1 mt-6 max-w-4xl">Immobilien verstehen.<br/><span class="italic text-green">Klug entscheiden.</span></h1>
-      <p class="mt-8 text-xl text-mute max-w-2xl leading-relaxed">Praxisnahes Fachwissen für Eigentümer, Käufer, Erben und Vermieter. Geschrieben von DEKRA-zertifizierten Sachverständigen.</p>
+      <Reveal client:visible>
+        <p class="eyebrow">Ratgeber & Fachwissen</p>
+        <h1 class="display-1 mt-6 max-w-4xl">
+          Immobilien verstehen.<br/>
+          <span class="italic text-green">Klug entscheiden.</span>
+        </h1>
+        <p class="mt-8 max-w-2xl text-xl leading-relaxed" style="color: var(--color-mute)">
+          Praxisnahes Fachwissen für Eigentümer, Käufer, Erben und Vermieter. Geschrieben von DEKRA-zertifizierten Sachverständigen — ohne Werbung, ohne Algorithmen.
+        </p>
+      </Reveal>
     </div>
   </section>
-  <section class="section-y bg-paper">
+
+  {/* ── Kategorie-Filter ── */}
+  <section class="border-b border-line bg-paper sticky top-16 z-30">
     <div class="container-x">
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-        {guides.map((g, i) => (
-          <Reveal client:visible delay={i * 0.04}>
-            <a href={g.href} class="card card-hover group flex h-full flex-col">
-              <div class="text-4xl">{g.icon}</div>
-              <span class="mt-6 text-xs uppercase tracking-[0.2em] text-green">{g.category}</span>
-              <h2 class="mt-3 font-display text-xl group-hover:text-green transition-colors">{g.title}</h2>
-              <p class="mt-3 flex-1 text-mute text-sm leading-relaxed">{g.description}</p>
-              <span class="mt-6 inline-flex items-center gap-1 text-sm text-green">Lesen →</span>
-            </a>
-          </Reveal>
+      <div class="flex gap-2 overflow-x-auto py-4 scrollbar-hide" id="filter-tabs">
+        {displayCategories.map((cat) => (
+          <button
+            data-filter={cat}
+            class:list={[
+              'filter-btn shrink-0 rounded-full px-4 py-1.5 text-sm transition-colors',
+              cat === 'Alle'
+                ? 'bg-ink text-paper'
+                : 'border border-line bg-transparent hover:border-ink',
+            ]}
+          >
+            {cat}
+          </button>
         ))}
       </div>
     </div>
   </section>
+
+  {/* ── Artikel Grid ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3" id="article-grid">
+        {posts.map((post, i) => {
+          const displayCat = categoryMap[post.data.category] ?? post.data.category;
+          const icon = categoryIcons[post.data.category] ?? '📄';
+          return (
+            <Reveal client:visible delay={i * 0.04}>
+              <article
+                data-category={displayCat}
+                class="article-card card card-hover group flex h-full flex-col"
+              >
+                <div class="text-3xl">{icon}</div>
+                <span class="mt-5 text-xs uppercase tracking-[0.2em] text-green">{displayCat}</span>
+                <h2 class="mt-3 font-display text-xl leading-snug group-hover:text-green transition-colors">
+                  <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+                </h2>
+                <p class="mt-3 flex-1 text-sm leading-relaxed" style="color: var(--color-mute)">
+                  {post.data.description}
+                </p>
+                <div class="mt-6 flex items-center justify-between">
+                  <time class="text-xs" style="color: var(--color-mute)">
+                    {post.data.date.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' })}
+                  </time>
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="inline-flex items-center gap-1 text-sm text-green hover:gap-2 transition-all"
+                  >
+                    Lesen →
+                  </a>
+                </div>
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+
+      {/* Empty state */}
+      <p id="no-results" class="mt-16 hidden text-center text-mute">
+        Keine Artikel in dieser Kategorie gefunden.
+      </p>
+    </div>
+  </section>
+
+  {/* ── Checklisten CTA ── */}
   <section class="section-y bg-cream">
     <div class="container-x">
-      <div class="mx-auto max-w-2xl rounded-2xl border border-line bg-paper p-10 text-center">
-        <div class="text-4xl">📋</div>
-        <h2 class="mt-6 font-display text-3xl">Kostenlose Online-Bewertung</h2>
-        <p class="mt-4 text-mute leading-relaxed">In 2 Minuten zu einer unverbindlichen Ersteinschätzung Ihrer Immobilie. Persönlich geprüft — keine Algorithmen.</p>
-        <a href="/online-bewertung" class="btn-primary mt-8 inline-flex">Jetzt starten →</a>
+      <div class="grid gap-8 md:grid-cols-2">
+        <Reveal client:visible>
+          <div class="rounded-2xl border border-line bg-paper p-10">
+            <div class="text-4xl">📋</div>
+            <h2 class="mt-6 font-display text-2xl">Kostenlose Online-Bewertung</h2>
+            <p class="mt-4 leading-relaxed" style="color: var(--color-mute)">
+              In 2 Minuten zur unverbindlichen Ersteinschätzung Ihrer Immobilie. Persönlich geprüft — keine Algorithmen.
+            </p>
+            <a href="/online-bewertung" class="btn-primary mt-8 inline-flex">Jetzt starten →</a>
+          </div>
+        </Reveal>
+        <Reveal client:visible delay={0.1}>
+          <div class="rounded-2xl border border-line bg-paper p-10">
+            <div class="text-4xl">❓</div>
+            <h2 class="mt-6 font-display text-2xl">Alle Fragen & Antworten</h2>
+            <p class="mt-4 leading-relaxed" style="color: var(--color-mute)">
+              100 Antworten zu Kosten, Ablauf, Recht und Markt — direkt von DEKRA-zertifiziertem Sachverständigen.
+            </p>
+            <a href="/faq" class="btn-secondary mt-8 inline-flex">Zum FAQ →</a>
+          </div>
+        </Reveal>
       </div>
     </div>
   </section>
+
   <FinalCTA />
 </BaseLayout>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const articles = document.querySelectorAll<HTMLElement>('.article-card');
+  const noResults = document.getElementById('no-results');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'Alle';
+
+      // Update active button style
+      filterBtns.forEach((b) => {
+        b.classList.remove('bg-ink', 'text-paper');
+        b.classList.add('border', 'border-line', 'bg-transparent');
+      });
+      btn.classList.add('bg-ink', 'text-paper');
+      btn.classList.remove('border', 'border-line', 'bg-transparent');
+
+      // Filter articles — direkt am Card-Element
+      let visible = 0;
+      articles.forEach((article) => {
+        const cat = article.dataset.category ?? '';
+        const show = filter === 'Alle' || cat === filter;
+        article.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      if (noResults) noResults.classList.toggle('hidden', visible > 0);
+    });
+  });
+</script>

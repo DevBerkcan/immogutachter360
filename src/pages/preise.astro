@@ -3,13 +3,28 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
 import Reveal from '~/components/animations/Reveal.tsx';
 import { FAQ_CATEGORIES } from '~/lib/faqs';
+import { faqJsonLd, offerCatalogJsonLd, webPageJsonLd } from '~/lib/seo';
 
 const costFaqs = FAQ_CATEGORIES.find(c => c.id === 'kosten')?.faqs ?? [];
 ---
 <BaseLayout
   title="Preise & Honorare — Immobiliengutachten Düsseldorf"
   description="Transparente Honorarübersicht für Immobiliengutachten und -bewertungen. Festpreise, keine versteckten Kosten. DEKRA-zertifizierter Sachverständiger Erdem Tanrikulu, Düsseldorf."
->
+  jsonLd={[
+    webPageJsonLd({
+      url: '/preise',
+      title: 'Preise & Honorare — Immobiliengutachten Düsseldorf',
+      description: 'Transparente Honorarübersicht für Immobiliengutachten und -bewertungen. Festpreise, keine versteckten Kosten.',
+    }),
+    offerCatalogJsonLd([
+      { name: 'Kurzgutachten', description: 'Komprimiertes Wertgutachten für Banken und Makler. Mit Kurzbegründung und Marktanalyse.', lowPrice: 1299, highPrice: 1299 },
+      { name: 'Verkehrswertgutachten EFH/ETW', description: 'Vollständiges Gutachten nach §194 BauGB und ImmoWertV — gerichtsfest, finanzamtsfest.', lowPrice: 2499 },
+      { name: 'Verkehrswertgutachten MFH/Gewerbe', description: 'Vollständige Wertermittlung für Mehrfamilienhäuser und Gewerbeimmobilien nach ImmoWertV.', lowPrice: 3499 },
+      { name: 'Restnutzungsdauer-Gutachten', description: 'Ermittlung der wirtschaftlichen Restnutzungsdauer für steuerliche AfA-Optimierung.', lowPrice: 1199, highPrice: 1199 },
+      { name: 'Kaufberatung vor dem Notar', description: 'Vor-Ort-Besichtigung mit schriftlichem Protokoll: Mängelübersicht, Zustandsbewertung, Marktpreiseinschätzung.', lowPrice: 599 },
+    ]),
+    faqJsonLd(costFaqs),
+  ]}
 
   {/* ── Hero ── */}
   <section class="section-y bg-cream">

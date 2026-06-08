@@ -3,13 +3,16 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 import TrustBar from '~/components/sections/TrustBar.astro';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
 import Reveal from '~/components/animations/Reveal.tsx';
-import { personJsonLd } from '~/lib/seo';
+import { personJsonLd, webPageJsonLd } from '~/lib/seo';
 ---
 <BaseLayout
   title="Über uns — Ihr Sachverständiger aus Düsseldorf"
   description="DEKRA-zertifizierter Immobiliengutachter aus Düsseldorf — persönlich, präzise, verlässlich. Mehr als 500 Gutachten, 8+ Jahre Erfahrung."
   image="/me.jpeg"
-  jsonLd={[personJsonLd()]}
+  jsonLd={[
+    personJsonLd(),
+    webPageJsonLd({ url: '/ueber-uns', type: 'AboutPage', title: 'Über uns — Ihr Sachverständiger aus Düsseldorf', description: 'DEKRA-zertifizierter Immobiliengutachter aus Düsseldorf — persönlich, präzise, verlässlich. Mehr als 500 Gutachten, 8+ Jahre Erfahrung.' }),
+  ]}
 >
 
   {/* ── Hero ── */}
@@ -119,6 +122,45 @@ import { personJsonLd } from '~/lib/seo';
           </Reveal>
         ))}
       </div>
+
+      {/* ── Verifiable Credential Links (E-E-A-T) ── */}
+      <Reveal client:visible delay={0.15}>
+        <div class="mt-10 rounded-2xl border border-line bg-paper p-6 md:p-8">
+          <p class="eyebrow text-xs">Zertifizierungen & Nachweise</p>
+          <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-mute)">
+            Alle Zertifizierungen sind öffentlich überprüfbar. Als öffentlich bestellter Sachverständiger sind wir in der IHK-Sachverständigendatenbank eingetragen.
+          </p>
+          <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a
+              href="https://www.dekra.de/de/zertifizierung/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2.5 text-sm transition-colors hover:border-green hover:text-green"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-green shrink-0"></span>
+              DEKRA-Zertifizierung DIN EN ISO/IEC 17024 →
+            </a>
+            <a
+              href="https://svv.ihk.de/svv/app/index?form_key=IHK_SUCHE&activeProfile=IHK"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2.5 text-sm transition-colors hover:border-green hover:text-green"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-green shrink-0"></span>
+              IHK-Sachverständigensuche — öffentlich bestellt & vereidigt →
+            </a>
+            <a
+              href="https://www.provenexpert.com/immogutachter360/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2.5 text-sm transition-colors hover:border-green hover:text-green"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-green shrink-0"></span>
+              Kundenbewertungen auf ProvenExpert →
+            </a>
+          </div>
+        </div>
+      </Reveal>
     </div>
   </section>
 

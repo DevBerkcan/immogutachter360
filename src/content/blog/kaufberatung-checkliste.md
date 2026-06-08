@@ -1,8 +1,8 @@
----
+﻿---
 title: "Immobilienkauf: Die Checkliste vor dem Notar"
 description: "Was Sie vor dem Notartermin unbedingt geprüft haben sollten — und warum ein unabhängiger Sachverständiger den entscheidenden Unterschied machen kann."
 date: 2026-03-20
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Bewertung"
 ---
 

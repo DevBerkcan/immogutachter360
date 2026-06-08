@@ -1,8 +1,8 @@
----
+﻿---
 title: "Was kostet ein Verkehrswertgutachten 2026?"
 description: "Kosten, Einflussfaktoren und was ein seriöses Festpreisangebot beinhalten sollte. Eine ehrliche Übersicht für Eigentümer und Kaufinteressenten."
 date: 2026-02-10
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Bewertung"
 ---
 

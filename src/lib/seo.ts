@@ -58,18 +58,35 @@ export const localBusinessJsonLd = () => ({
     contactType: 'customer service',
     availableLanguage: ['German'],
   },
+  // UPDATE MONTHLY: sync with https://www.provenexpert.com/immogutachter360/
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: '47',
+    bestRating: '5',
+    worstRating: '1',
+  },
   hasCredential: [
     {
       '@type': 'EducationalOccupationalCredential',
       name: 'DEKRA-Zertifizierung Sachverständiger für Immobilienbewertung (DIN EN ISO/IEC 17024)',
       credentialCategory: 'certificate',
-      recognizedBy: { '@type': 'Organization', name: 'DEKRA SE' },
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'DEKRA SE',
+        url: 'https://www.dekra.de',
+        sameAs: 'https://www.wikidata.org/wiki/Q882094',
+      },
     },
     {
       '@type': 'EducationalOccupationalCredential',
       name: 'Öffentlich bestellter und vereidigter Sachverständiger',
       credentialCategory: 'certificate',
-      recognizedBy: { '@type': 'Organization', name: 'IHK Düsseldorf' },
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'IHK Düsseldorf',
+        url: 'https://www.ihk.de/duesseldorf',
+      },
     },
   ],
   knowsAbout: [
@@ -122,18 +139,37 @@ export const personJsonLd = () => ({
     {
       '@type': 'EducationalOccupationalCredential',
       name: 'DEKRA-Zertifizierung Sachverständiger für Immobilienbewertung',
-      recognizedBy: { '@type': 'Organization', name: 'DEKRA SE' },
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'DEKRA SE',
+        url: 'https://www.dekra.de',
+        sameAs: 'https://www.wikidata.org/wiki/Q882094',
+      },
     },
     {
       '@type': 'EducationalOccupationalCredential',
       name: 'Öffentlich bestellter und vereidigter Sachverständiger',
-      recognizedBy: { '@type': 'Organization', name: 'IHK Düsseldorf' },
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'IHK Düsseldorf',
+        url: 'https://www.ihk.de/duesseldorf',
+      },
     },
     {
       '@type': 'EducationalOccupationalCredential',
       name: 'Zugelassener Energieberater (BAFA/KfW)',
     },
   ],
+  sameAs: [
+    SITE.social.instagram,
+    SITE.social.linkedin,
+    'https://www.provenexpert.com/immogutachter360/',
+  ].filter((s) => s && !s.startsWith('#')),
+  alumniOf: {
+    '@type': 'Organization',
+    name: 'IHK Düsseldorf',
+    url: 'https://www.ihk.de/duesseldorf',
+  },
 });
 
 // ── FAQPage ───────────────────────────────────────────────────────────────────
@@ -244,6 +280,85 @@ export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
       position: i + 1,
       name: item.name,
       item: `${SITE.url}${item.url}`,
+    })),
+  };
+}
+
+// ── WebPage ───────────────────────────────────────────────────────────────────
+export function webPageJsonLd(opts: {
+  url: string;
+  title: string;
+  description: string;
+  type?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'FAQPage' | 'CollectionPage';
+  dateModified?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': opts.type ?? 'WebPage',
+    '@id': `${SITE.url}${opts.url}`,
+    url: `${SITE.url}${opts.url}`,
+    name: opts.title,
+    description: opts.description,
+    inLanguage: 'de-DE',
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    about: { '@id': `${SITE.url}/#organization` },
+    ...(opts.dateModified ? { dateModified: opts.dateModified } : {}),
+  };
+}
+
+// ── HowTo ─────────────────────────────────────────────────────────────────────
+export function howToJsonLd(opts: {
+  name: string;
+  description: string;
+  url: string;
+  totalTime?: string;
+  steps: { name: string; text: string; url?: string }[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: opts.name,
+    description: opts.description,
+    url: `${SITE.url}${opts.url}`,
+    inLanguage: 'de-DE',
+    ...(opts.totalTime ? { totalTime: opts.totalTime } : {}),
+    step: opts.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      ...(s.url ? { url: `${SITE.url}${s.url}` } : {}),
+    })),
+  };
+}
+
+// ── OfferCatalog (Preisseite) ─────────────────────────────────────────────────
+export function offerCatalogJsonLd(
+  offers: { name: string; description: string; lowPrice: number; highPrice?: number }[]
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'OfferCatalog',
+    '@id': `${SITE.url}/preise/#offerCatalog`,
+    name: 'Leistungen & Honorare — immogutachter360',
+    itemListElement: offers.map((o, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Offer',
+        name: o.name,
+        description: o.description,
+        priceCurrency: 'EUR',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          minPrice: o.lowPrice,
+          ...(o.highPrice ? { maxPrice: o.highPrice } : {}),
+          priceCurrency: 'EUR',
+        },
+        seller: { '@id': `${SITE.url}/#organization` },
+        areaServed: { '@type': 'State', name: 'Nordrhein-Westfalen' },
+        availability: 'https://schema.org/InStock',
+      },
     })),
   };
 }

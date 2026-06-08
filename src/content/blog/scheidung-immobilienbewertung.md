@@ -1,8 +1,8 @@
----
+﻿---
 title: "Immobilienbewertung bei Scheidung: Was Sie jetzt wissen müssen"
 description: "Wie der Immobilienwert bei einer Scheidung ermittelt wird, welche Rechte beide Parteien haben und warum ein neutrales Gutachten die beste Strategie ist."
 date: 2026-04-18
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Recht"
 ---
 

@@ -1,16 +1,30 @@
 'use client';
 import { useState, useEffect } from 'react';
 
+const TTL_MS = 365 * 24 * 60 * 60 * 1000;
+
+function hasValidConsent(): boolean {
+  const c = localStorage.getItem('cookie-consent');
+  const ts = parseInt(localStorage.getItem('cookie-consent-ts') || '0', 10);
+  return c === 'all' && Date.now() - ts < TTL_MS;
+}
+
 export default function MapEmbed() {
   const [consented, setConsented] = useState(false);
 
   useEffect(() => {
-    setConsented(localStorage.getItem('maps-consent') === '1');
+    setConsented(hasValidConsent());
+
+    const handler = () => setConsented(hasValidConsent());
+    window.addEventListener('cookie-consent-update', handler);
+    return () => window.removeEventListener('cookie-consent-update', handler);
   }, []);
 
   const handleConsent = () => {
-    localStorage.setItem('maps-consent', '1');
-    setConsented(true);
+    // Öffnet Cookie-Banner damit Nutzer bewusst "Alle akzeptieren" wählt
+    if (typeof (window as any).__showCookieBanner === 'function') {
+      (window as any).__showCookieBanner();
+    }
   };
 
   if (consented) {
@@ -41,11 +55,11 @@ export default function MapEmbed() {
       <div>
         <p className="font-display text-xl">Karte anzeigen</p>
         <p className="mt-2 text-sm max-w-xs" style={{ opacity: 0.6 }}>
-          Google Maps lädt Daten von Google-Servern. Mit dem Klick stimmen Sie der Datenübertragung zu.
+          Google Maps lädt Daten von Google-Servern (USA). Einwilligung über Cookie-Einstellungen erforderlich.
         </p>
       </div>
       <button onClick={handleConsent} className="btn-primary">
-        Karte laden (Google Maps)
+        Cookie-Einstellungen öffnen
       </button>
     </div>
   );

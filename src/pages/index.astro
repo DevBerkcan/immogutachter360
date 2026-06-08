@@ -16,14 +16,46 @@ import ValuationFunnel from '~/components/forms/ValuationFunnel.tsx';
 import ReviewsSection from '~/components/sections/ReviewsSection.astro';
 import FAQ from '~/components/sections/FAQ.tsx';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
-import { faqJsonLd, webSiteJsonLd, personJsonLd } from '~/lib/seo';
+import { faqJsonLd, webSiteJsonLd, personJsonLd, howToJsonLd } from '~/lib/seo';
 import { FAQS, FAQ_CATEGORIES } from '~/lib/faqs';
 import { CITIES } from '~/lib/cities';
 ---
 <BaseLayout
   title="Immobiliengutachter Düsseldorf — DEKRA-zertifiziert"
   description="DEKRA-zertifizierte Immobiliengutachten, Verkehrswertgutachten und Kaufberatung aus Düsseldorf. Festpreis, schnell, bundesweit anerkannt."
-  jsonLd={[webSiteJsonLd(), personJsonLd(), faqJsonLd(FAQS)]}
+  jsonLd={[
+    webSiteJsonLd(),
+    personJsonLd(),
+    faqJsonLd(FAQS),
+    howToJsonLd({
+      name: 'Immobiliengutachten beauftragen — Schritt für Schritt',
+      description: 'So läuft ein Immobiliengutachten bei immogutachter360 ab — von der Anfrage bis zur Übergabe.',
+      url: '/',
+      totalTime: 'P14D',
+      steps: [
+        {
+          name: 'Anfrage stellen',
+          text: 'Kostenlose erste Einschätzung per Telefon, E-Mail oder Online-Formular — Antwort binnen 24 Stunden.',
+          url: '/kontakt',
+        },
+        {
+          name: 'Ortstermin vereinbaren',
+          text: 'Wir vereinbaren einen Besichtigungstermin und klären vorab die benötigten Unterlagen.',
+          url: '/faq',
+        },
+        {
+          name: 'Begehung & Dokumentation',
+          text: 'Der Sachverständige besichtigt die Immobilie persönlich und erfasst alle wertrelevanten Faktoren.',
+          url: '/ueber-uns',
+        },
+        {
+          name: 'Gutachten erhalten',
+          text: 'Innerhalb von 7–14 Werktagen erhalten Sie das fertige Gutachten mit persönlicher Erläuterung.',
+          url: '/leistungen',
+        },
+      ],
+    }),
+  ]}
 >
   <Hero />
   <VideoSection />

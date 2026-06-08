@@ -1,8 +1,8 @@
----
+﻿---
 title: "Schimmelpilz in der Wohnung: Wer haftet wirklich?"
 description: "Die Haftungsfrage bei Schimmel ist komplexer als oft gedacht. Ein Sachverständigengutachten klärt die Ursache — und entscheidet, wer zahlt."
 date: 2026-03-12
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Recht"
 ---
 

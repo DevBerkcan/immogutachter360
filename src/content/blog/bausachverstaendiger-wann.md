@@ -1,8 +1,8 @@
----
+﻿---
 title: "Bausachverständiger beauftragen: Wann und wie?"
 description: "Wann lohnt sich ein Bausachverständiger wirklich — und worauf sollten Sie bei der Auswahl achten? Ein praxisnaher Leitfaden."
 date: 2026-04-10
-author: "Sachverständigenbüro immogutachter360"
+author: "Erdem Tanrikulu"
 category: "Bau"
 ---
 

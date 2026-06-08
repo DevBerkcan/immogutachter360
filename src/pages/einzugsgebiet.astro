@@ -4,12 +4,15 @@ import FinalCTA from '~/components/sections/FinalCTA.astro';
 import Reveal from '~/components/animations/Reveal.tsx';
 import MapEmbed from '~/components/ui/MapEmbed.tsx';
 import { CITIES } from '~/lib/cities';
-import { localBusinessJsonLd } from '~/lib/seo';
+import { localBusinessJsonLd, webPageJsonLd } from '~/lib/seo';
 ---
 <BaseLayout
   title="Immobiliengutachter in NRW — Unser Einzugsgebiet"
   description="DEKRA-zertifizierter Immobiliengutachter persönlich vor Ort in Düsseldorf, Meerbusch, Ratingen, Neuss, Krefeld, Mönchengladbach, Duisburg, Essen und Wuppertal."
-  jsonLd={[localBusinessJsonLd()]}
+  jsonLd={[
+    localBusinessJsonLd(),
+    webPageJsonLd({ url: '/einzugsgebiet', title: 'Immobiliengutachter in NRW — Unser Einzugsgebiet', description: 'DEKRA-zertifizierter Immobiliengutachter persönlich vor Ort in Düsseldorf und der gesamten Metropolregion NRW.' }),
+  ]}
 >
 
   {/* ── Hero ── */}

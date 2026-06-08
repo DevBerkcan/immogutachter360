@@ -9,6 +9,7 @@ export default function ConsultationModal() {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [consent, setConsent] = useState(false);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -44,7 +45,7 @@ export default function ConsultationModal() {
       phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
       reason: (form.elements.namedItem('reason') as HTMLSelectElement).value,
       message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
-      consent: 'on',
+      consent: consent ? 'on' : 'off',
     };
 
     try {
@@ -164,10 +165,23 @@ export default function ConsultationModal() {
                       style={{ resize: 'none' }}
                     />
 
-                    <p className="text-xs" style={{ color: 'rgba(0,0,0,0.4)' }}>
-                      Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage gemäß unserer{' '}
-                      <a href="/datenschutz" className="underline" target="_blank">Datenschutzerklärung</a> zu.
-                    </p>
+                    {/* Consent-Checkbox — DSGVO Art. 7 / EuGH C-673/17 */}
+                    <label className="flex cursor-pointer items-start gap-3 text-xs" style={{ color: 'var(--color-mute)' }}>
+                      <input
+                        type="checkbox"
+                        checked={consent}
+                        onChange={(e) => setConsent(e.target.checked)}
+                        className="mt-0.5 h-4 w-4 shrink-0 accent-green"
+                        required
+                      />
+                      <span>
+                        Ich stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage gemäß der{' '}
+                        <a href="/datenschutz" className="underline hover:text-ink transition-colors" target="_blank">
+                          Datenschutzerklärung
+                        </a>{' '}
+                        zu. *
+                      </span>
+                    </label>
 
                     {status === 'error' && (
                       <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-red-700">{errorMsg}</p>
@@ -175,7 +189,7 @@ export default function ConsultationModal() {
 
                     <button
                       type="submit"
-                      disabled={status === 'sending'}
+                      disabled={status === 'sending' || !consent}
                       className="btn-primary w-full justify-center disabled:opacity-60"
                     >
                       {status === 'sending' ? 'Wird gesendet …' : 'Anfrage senden'}

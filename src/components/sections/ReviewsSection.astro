@@ -12,20 +12,12 @@
       </p>
     </div>
 
-    {/* ProvenExpert Landing-Page-Widget */}
-    <div class="mt-14">
+    {/* ProvenExpert Landing-Page-Widget — consent-gesteuert (§ 25 TDDDG) */}
+    <div class="mt-14" id="pe-reviews-wrapper">
       <div id="pewl"></div>
-      <script is:inline>
-        (function(){
-          var pw = document.createElement("script");
-          pw.type = "text/javascript";
-          pw.async = true;
-          pw.src = "https://www.provenexpert.com/widget/landing/24TZkWaph9TZ2Lwp0RmZjLwpjZ3AlVKA/?feedback=1&avatar=1&competence=1&style=white";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(pw, s);
-        })();
-      </script>
-      <noscript>
+
+      {/* Platzhalter bis Einwilligung gegeben */}
+      <div id="pe-consent-placeholder" class="hidden">
         <div class="grid gap-6 md:grid-cols-3">
           {[
             { quote: 'Die Beratung war professionell, die Kommunikation transparent und das Ergebnis sehr zufriedenstellend.', author: 'Markus H.', role: 'Privatverkauf, Düsseldorf' },
@@ -48,7 +40,16 @@
             </div>
           ))}
         </div>
-      </noscript>
+        <p class="mt-6 text-center text-xs" style="color: var(--color-mute); opacity: 0.65">
+          Alle Bewertungen auf{' '}
+          <button
+            onclick="window.__showCookieBanner && window.__showCookieBanner()"
+            class="underline hover:text-ink transition-colors"
+          >
+            ProvenExpert anzeigen (Einwilligung erforderlich)
+          </button>
+        </p>
+      </div>
     </div>
 
     <div class="mt-10 text-center">
@@ -56,3 +57,48 @@
     </div>
   </div>
 </section>
+
+<script>
+  function loadPEWidget() {
+    var placeholder = document.getElementById('pe-consent-placeholder');
+    if (placeholder) placeholder.style.display = 'none';
+
+    var pewl = document.getElementById('pewl');
+    if (!pewl || pewl.dataset.loaded) return;
+    pewl.dataset.loaded = '1';
+
+    var pw = document.createElement('script');
+    pw.async = true;
+    pw.src =
+      'https://www.provenexpert.com/widget/landing/24TZkWaph9TZ2Lwp0RmZjLwpjZ3AlVKA/?feedback=1&avatar=1&competence=1&style=white';
+    pewl.appendChild(pw);
+  }
+
+  function hasValidConsent() {
+    var c = localStorage.getItem('cookie-consent');
+    var ts = parseInt(localStorage.getItem('cookie-consent-ts') || '0', 10);
+    return c === 'all' && Date.now() - ts < 365 * 24 * 60 * 60 * 1000;
+  }
+
+  function init() {
+    if (hasValidConsent()) {
+      loadPEWidget();
+    } else {
+      var placeholder = document.getElementById('pe-consent-placeholder');
+      if (placeholder) placeholder.style.display = 'block';
+    }
+  }
+
+  init();
+
+  window.addEventListener('cookie-consent-update', function (e: Event) {
+    var ev = e as CustomEvent;
+    if (ev.detail && ev.detail.type === 'all') loadPEWidget();
+  });
+
+  document.addEventListener('astro:page-load', function () {
+    var pewl = document.getElementById('pewl');
+    if (pewl) delete (pewl as HTMLElement & { dataset: DOMStringMap }).dataset.loaded;
+    init();
+  });
+</script>

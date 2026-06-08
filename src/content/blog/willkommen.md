@@ -1,4 +1,4 @@
----
+﻿---
 title: "Willkommen im immogutachter360°-Blog"
 description: "Fachwissen zu Immobilienbewertung, Recht und Markt — von Sachverständigen für Eigentümer."
 date: 2026-01-15

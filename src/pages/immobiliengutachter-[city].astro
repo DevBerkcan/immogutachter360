@@ -6,7 +6,7 @@ import Reveal from '~/components/animations/Reveal.tsx';
 import Breadcrumb from '~/components/ui/Breadcrumb.astro';
 import { CITIES } from '~/lib/cities';
 import { SERVICES } from '~/lib/services';
-import { localBusinessJsonLd } from '~/lib/seo';
+import { localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } from '~/lib/seo';
 
 export function getStaticPaths() {
   return CITIES.map((city) => ({
@@ -16,6 +16,29 @@ export function getStaticPaths() {
 }
 
 const { city } = Astro.props;
+
+const cityFaqs = [
+  {
+    q: `Wie viel kostet ein Immobiliengutachten in ${city.name}?`,
+    a: `Die Kosten für ein Verkehrswertgutachten in ${city.name} liegen je nach Objekttyp und Größe zwischen 1.299 € und 3.499 €. Sie erhalten vor Auftragserteilung immer ein verbindliches Festpreisangebot — keine versteckten Kosten, keine Nachforderungen.`,
+  },
+  {
+    q: `Ist der Gutachter auch persönlich in ${city.name} vor Ort?`,
+    a: `Ja — Erdem Tanrikulu ist als DEKRA-zertifizierter Sachverständiger persönlich in ${city.name} tätig (${city.distanceFromDuesseldorf}). Ein Vor-Ort-Termin ist problemlos möglich, die Anfahrt ist im Festpreis enthalten.`,
+  },
+  {
+    q: `Werden Gutachten aus ${city.name} vom Finanzamt anerkannt?`,
+    a: `Ja. Unsere Verkehrswertgutachten nach § 194 BauGB werden bundesweit von Finanzämtern anerkannt — unabhängig davon, ob das Objekt in ${city.name} oder einer anderen Stadt liegt. Als DEKRA-zertifizierter und öffentlich bestellter Sachverständiger erfüllen wir alle formalen Anforderungen.`,
+  },
+  {
+    q: `Wie schnell erhalte ich ein Gutachten für eine Immobilie in ${city.name}?`,
+    a: `Nach Ortstermin und Eingang aller Unterlagen liefern wir das fertige Gutachten in der Regel innerhalb von 7–14 Werktagen. Bei dringenden Fällen in ${city.name} bieten wir auf Anfrage eine Expressbearbeitung an.`,
+  },
+  {
+    q: `Für welche Immobilientypen erstellen Sie Gutachten in ${city.name}?`,
+    a: `Wir bewerten alle gängigen Immobilientypen in ${city.name}: Einfamilienhäuser, Doppelhäuser, Eigentumswohnungen, Mehrfamilienhäuser, Wohn- und Geschäftshäuser sowie unbebaute Grundstücke. Auch Sonderobjekte wie Denkmalimmobilien oder Erbbaurechtsgrundstücke bewerten wir.`,
+  },
+];
 
 const breadcrumbItems = [
   { name: 'Start', href: '/' },
@@ -31,7 +54,15 @@ const testimonials = [
 <BaseLayout
   title={`Immobiliengutachter ${city.name} — DEKRA-zertifiziert`}
   description={`DEKRA-zertifizierter Immobiliengutachter in ${city.name} — Verkehrswertgutachten, Immobilienbewertung und Kaufberatung. Festpreis, schnell, bundesweit anerkannt. Erste Einschätzung kostenlos.`}
-  jsonLd={[localBusinessJsonLd()]}
+  jsonLd={[
+    localBusinessJsonLd(),
+    faqJsonLd(cityFaqs),
+    breadcrumbJsonLd([
+      { name: 'Start', url: '/' },
+      { name: 'Einzugsgebiet', url: '/einzugsgebiet' },
+      { name: `Gutachter ${city.name}`, url: `/immobiliengutachter-${city.slug}` },
+    ]),
+  ]}
 >
 
   {/* ── Hero ── */}
@@ -140,6 +171,32 @@ const testimonials = [
             </div>
           </Reveal>
         ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Stadt-FAQ ── */}
+  <section class="section-y bg-paper">
+    <div class="container-x max-w-3xl">
+      <Reveal client:visible>
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="display-2 mt-4">
+          Gutachter in {city.name} —<br/>
+          <span class="italic text-green">Ihre Fragen.</span>
+        </h2>
+      </Reveal>
+      <div class="mt-10">
+        {cityFaqs.map((faq, i) => (
+          <Reveal client:visible delay={i * 0.05}>
+            <div class="border-t border-line py-6">
+              <h3 class="font-display text-lg">{faq.q}</h3>
+              <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-mute)">{faq.a}</p>
+            </div>
+          </Reveal>
+        ))}
+        <div class="border-t border-line pt-6">
+          <a href="/faq" class="text-sm text-green hover:underline">Alle Fragen & Antworten →</a>
+        </div>
       </div>
     </div>
   </section>

@@ -6,7 +6,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    author: z.string().default('Sachverständigenbüro immogutachter360'),
+    author: z.string().default('Erdem Tanrikulu'),
     category: z.enum(['Bewertung', 'Recht', 'Markt', 'Sanierung', 'Energie', 'Bau']).default('Bewertung'),
     image: z.string().optional(),
     dateModified: z.coerce.date().optional(),

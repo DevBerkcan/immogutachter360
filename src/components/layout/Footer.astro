@@ -46,6 +46,37 @@ import { SERVICES } from '~/lib/services';
           <div><a href={`mailto:${SITE.email}`} class="hover:text-paper transition-colors">{SITE.email}</a></div>
           <div class="pt-3"><a href={SITE.whatsapp} class="text-green hover:text-green-soft transition-colors">WhatsApp</a></div>
         </address>
+        {/* Siegel */}
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a href="/ueber-uns" title="DEKRA-zertifizierter Sachverständiger">
+            <img
+              src="/dekra-siegel-zertifiziert-1_ergebnis.webp"
+              alt="DEKRA-zertifiziert"
+              class="h-10 w-auto opacity-80 hover:opacity-100 transition-opacity"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <a
+            href="https://www.provenexpert.com/immogutachter360/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Kundenbewertungen auf ProvenExpert"
+            class="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors hover:text-green"
+            style="border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.55)"
+          >
+            <svg width="13" height="13" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <circle cx="20" cy="20" r="20" fill="#097E92"/>
+              <path d="M12 20.5l6 6 10-13" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            ProvenExpert
+          </a>
+        </div>
+        {/* Sterne-Bewertung */}
+        <div class="mt-3 flex items-center gap-1.5 text-xs" style="color: rgba(255,255,255,0.45)">
+          <span style="color: #f59e0b; letter-spacing: 0.05em">★★★★★</span>
+          <span>4.9 · 50+ Bewertungen</span>
+        </div>
       </div>
     </div>
     <div class="mt-16 flex flex-col items-start justify-between gap-4 border-t pt-8 text-xs md:flex-row md:items-center" style="border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4)">
@@ -54,6 +85,12 @@ import { SERVICES } from '~/lib/services';
         <a href="/impressum" class="hover:text-paper transition-colors">Impressum</a>
         <a href="/datenschutz" class="hover:text-paper transition-colors">Datenschutz</a>
         <a href="/agb" class="hover:text-paper transition-colors">AGB</a>
+        <button
+          onclick="window.__showCookieBanner && window.__showCookieBanner()"
+          class="hover:text-paper transition-colors"
+        >
+          Cookie-Einstellungen
+        </button>
       </div>
       <button
         id="back-to-top"
