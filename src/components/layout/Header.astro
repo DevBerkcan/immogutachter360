@@ -2,24 +2,6 @@
 import { NAV, SITE } from '~/lib/site';
 const path = Astro.url.pathname;
 ---
-<style>
-  #site-header[data-theme="dark"] nav a {
-    color: rgba(250, 246, 240, 0.8);
-  }
-  #site-header[data-theme="dark"] nav a:hover,
-  #site-header[data-theme="dark"] nav a.text-green {
-    color: #8CBC94;
-  }
-  #site-header[data-theme="dark"] .header-phone {
-    color: rgba(250, 246, 240, 0.7);
-  }
-  #site-header[data-theme="dark"] .header-phone:hover {
-    color: #8CBC94;
-  }
-  #site-header[data-theme="dark"] #mobile-menu-btn {
-    color: rgba(250, 246, 240, 0.8);
-  }
-</style>
 <header id="site-header" data-theme="light" class="fixed inset-x-0 top-0 z-40 transition-all duration-500 ease-premium">
   <div class="container-x flex h-20 items-center justify-between">
     <a href="/" class="flex items-center">
@@ -92,24 +74,11 @@ const path = Astro.url.pathname;
       return;
     }
 
-    const darkSections = document.querySelectorAll('[data-header-dark]');
-    const isDark = [...darkSections].some(s => {
-      const r = s.getBoundingClientRect();
-      return r.top < HEADER_H && r.bottom > 0;
-    });
-
     header.classList.add('border-b', 'shadow-sm', 'backdrop-blur-md');
-    header.dataset.theme = isDark ? 'dark' : 'light';
-
-    if (isDark) {
-      header.style.background = 'rgba(24, 27, 49, 0.92)';
-      header.classList.remove('border-line');
-      header.style.borderColor = 'rgba(255,255,255,0.08)';
-    } else {
-      header.style.background = 'rgba(250, 246, 240, 0.95)';
-      header.classList.add('border-line');
-      header.style.borderColor = '';
-    }
+    header.dataset.theme = 'light';
+    header.style.background = 'rgba(250, 246, 240, 0.95)';
+    header.classList.add('border-line');
+    header.style.borderColor = '';
   };
 
   window.addEventListener('scroll', update, { passive: true });
