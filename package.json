@@ -3,6 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "description": "immogutachter360 - DEKRA-zertifizierte Immobiliengutachten aus Düsseldorf",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
