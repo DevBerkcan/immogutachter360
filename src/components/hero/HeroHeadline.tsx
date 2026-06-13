@@ -1,5 +1,5 @@
 import { motion, useSpring, useTransform, useReducedMotion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const lines = [
   { text: 'Der wahre Wert', accent: false },
@@ -9,12 +9,14 @@ const lines = [
 
 export default function HeroHeadline() {
   const prefersReduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
 
   // Variable font: opsz animates 9 → 144 on mount (Fraunces supports this axis)
   const opsz = useSpring(prefersReduced ? 144 : 9, { damping: 28, stiffness: 55 });
   const fontVariationSettings = useTransform(opsz, (v) => `'opsz' ${Math.round(v)}`);
 
   useEffect(() => {
+    setMounted(true);
     if (!prefersReduced) opsz.set(144);
   }, []);
 
@@ -24,7 +26,7 @@ export default function HeroHeadline() {
         <span key={i} className="block overflow-hidden" style={{ lineHeight: 1.08 }}>
           <motion.span
             className={`block${line.accent ? ' italic text-green' : ''}`}
-            initial={prefersReduced ? false : { y: '110%' }}
+            initial={mounted && !prefersReduced ? { y: '110%' } : false}
             animate={{ y: '0%' }}
             transition={{
               duration: 1.0,
