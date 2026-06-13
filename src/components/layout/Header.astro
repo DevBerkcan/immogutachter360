@@ -35,7 +35,7 @@ const path = Astro.url.pathname;
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="fixed inset-0 z-50 bg-cream lg:hidden" style="transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);">
+  <div id="mobile-menu" class="fixed inset-0 z-50 bg-cream text-ink lg:hidden" style="transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);">
     <div class="container-x flex h-20 items-center justify-between">
       <img src="/logo_immo.png" alt="immogutachter360°" height="56" class="h-14 w-auto" />
       <button id="mobile-menu-close" aria-label="Menü schließen" class="p-2">
@@ -43,7 +43,7 @@ const path = Astro.url.pathname;
       </button>
     </div>
     <nav class="container-x flex flex-col gap-6 pt-12 text-2xl sm:text-3xl font-display">
-      {NAV.map((item) => <a href={item.href} class="hover:text-green transition-colors">{item.label}</a>)}
+      {NAV.map((item) => <a href={item.href} class="text-ink hover:text-green transition-colors">{item.label}</a>)}
     </nav>
     <div class="container-x mt-12">
       <a href="/kontakt" class="btn-primary w-full justify-center">Kostenlose Anfrage</a>

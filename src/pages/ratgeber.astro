@@ -54,7 +54,7 @@ const displayCategories = ['Alle', 'Bewertung', 'Recht & Steuer', 'Markt', 'Baum
           Immobilien verstehen.<br/>
           <span class="italic text-green">Klug entscheiden.</span>
         </h1>
-        <p class="mt-8 max-w-2xl text-xl leading-relaxed" style="color: var(--color-mute)">
+        <p class="mt-8 max-w-2xl text-base md:text-xl leading-relaxed" style="color: var(--color-mute)">
           Praxisnahes Fachwissen für Eigentümer, Käufer, Erben und Vermieter. Geschrieben von DEKRA-zertifizierten Sachverständigen — ohne Werbung, ohne Algorithmen.
         </p>
       </Reveal>
@@ -85,7 +85,7 @@ const displayCategories = ['Alle', 'Bewertung', 'Recht & Steuer', 'Markt', 'Baum
   {/* ── Artikel Grid ── */}
   <section class="section-y bg-paper">
     <div class="container-x">
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3" id="article-grid">
+      <div class="grid gap-4 md:gap-8 md:grid-cols-2 lg:grid-cols-3" id="article-grid">
         {posts.map((post, i) => {
           const displayCat = categoryMap[post.data.category] ?? post.data.category;
           const icon = categoryIcons[post.data.category] ?? '📄';
@@ -130,9 +130,9 @@ const displayCategories = ['Alle', 'Bewertung', 'Recht & Steuer', 'Markt', 'Baum
   {/* ── Checklisten CTA ── */}
   <section class="section-y bg-cream">
     <div class="container-x">
-      <div class="grid gap-8 md:grid-cols-2">
+      <div class="grid gap-4 md:gap-8 md:grid-cols-2">
         <Reveal client:visible>
-          <div class="rounded-2xl border border-line bg-paper p-10">
+          <div class="rounded-2xl border border-line bg-paper p-6 md:p-10">
             <div class="text-4xl">📋</div>
             <h2 class="mt-6 font-display text-2xl">Kostenlose Online-Bewertung</h2>
             <p class="mt-4 leading-relaxed" style="color: var(--color-mute)">
@@ -142,7 +142,7 @@ const displayCategories = ['Alle', 'Bewertung', 'Recht & Steuer', 'Markt', 'Baum
           </div>
         </Reveal>
         <Reveal client:visible delay={0.1}>
-          <div class="rounded-2xl border border-line bg-paper p-10">
+          <div class="rounded-2xl border border-line bg-paper p-6 md:p-10">
             <div class="text-4xl">❓</div>
             <h2 class="mt-6 font-display text-2xl">Alle Fragen & Antworten</h2>
             <p class="mt-4 leading-relaxed" style="color: var(--color-mute)">
