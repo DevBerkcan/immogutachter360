@@ -35,30 +35,31 @@ const path = Astro.url.pathname;
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="fixed inset-0 z-50 bg-cream text-ink lg:hidden" style="transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);">
-    <div class="container-x flex h-20 items-center justify-between">
-      <img src="/logo_immo.png" alt="immogutachter360°" height="56" class="h-14 w-auto" />
-      <button id="mobile-menu-close" aria-label="Menü schließen" class="p-2">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M6 18L18 6"/></svg>
-      </button>
-    </div>
-    <nav class="container-x flex flex-col gap-6 pt-12 text-2xl sm:text-3xl font-display">
-      {NAV.map((item) => <a href={item.href} class="text-ink hover:text-green transition-colors">{item.label}</a>)}
-    </nav>
-    <div class="container-x mt-12">
-      <a href="/kontakt" class="btn-primary w-full justify-center">Kostenlose Anfrage</a>
-      <a href={SITE.phoneHref} class="mt-4 block text-center text-mute hover:text-green transition-colors" aria-label={SITE.phone}>
-        <svg class="inline-block h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M13.8 4.2a6 6 0 0 1 6 6" />
-          <path d="M13.8 8.2a2 2 0 0 1 2 2" />
-          <path d="M6.6 3.8 4.3 6.1c-.6.6-.8 1.5-.5 2.3a18 18 0 0 0 11.8 11.8c.8.3 1.7.1 2.3-.5l2.3-2.3c.5-.5.5-1.3 0-1.8l-3-3c-.5-.5-1.3-.5-1.8 0l-1.2 1.2a13 13 0 0 1-4-4l1.2-1.2c.5-.5.5-1.3 0-1.8l-3-3c-.5-.5-1.3-.5-1.8 0z" />
-        </svg>
-        <span class="sr-only">{SITE.phone}</span>
-      </a>
-    </div>
-  </div>
 </header>
 <div class="h-20"></div>
+
+<div id="mobile-menu" class="fixed inset-0 z-50 bg-cream text-ink lg:hidden" style="transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);">
+  <div class="container-x flex h-20 items-center justify-between">
+    <img src="/logo_immo.png" alt="immogutachter360°" height="56" class="h-14 w-auto" />
+    <button id="mobile-menu-close" aria-label="Menü schließen" class="p-2">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
+  </div>
+  <nav class="container-x flex flex-col gap-6 pt-12 text-2xl sm:text-3xl font-display">
+    {NAV.map((item) => <a href={item.href} class="text-ink hover:text-green transition-colors">{item.label}</a>)}
+  </nav>
+  <div class="container-x mt-12">
+    <a href="/kontakt" class="btn-primary w-full justify-center">Kostenlose Anfrage</a>
+    <a href={SITE.phoneHref} class="mt-4 block text-center text-mute hover:text-green transition-colors" aria-label={SITE.phone}>
+      <svg class="inline-block h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M13.8 4.2a6 6 0 0 1 6 6" />
+        <path d="M13.8 8.2a2 2 0 0 1 2 2" />
+        <path d="M6.6 3.8 4.3 6.1c-.6.6-.8 1.5-.5 2.3a18 18 0 0 0 11.8 11.8c.8.3 1.7.1 2.3-.5l2.3-2.3c.5-.5.5-1.3 0-1.8l-3-3c-.5-.5-1.3-.5-1.8 0l-1.2 1.2a13 13 0 0 1-4-4l1.2-1.2c.5-.5.5-1.3 0-1.8l-3-3c-.5-.5-1.3-.5-1.8 0z" />
+      </svg>
+      <span class="sr-only">{SITE.phone}</span>
+    </a>
+  </div>
+</div>
 <script>
   const header = document.getElementById('site-header') as HTMLElement | null;
   const HEADER_H = 80;
