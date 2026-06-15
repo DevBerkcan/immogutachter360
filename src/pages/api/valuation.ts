@@ -1,9 +1,8 @@
 export const prerender = false;
 
 import type { APIRoute } from 'astro';
-import { Resend } from 'resend';
 import { valuationSchema } from '~/lib/schemas';
-import { SITE } from '~/lib/site';
+import { createTransporter, MAIL_FROM, MAIL_TO } from '~/lib/mailer';
 
 function escapeHtml(str: string): string {
   return str
@@ -15,8 +14,7 @@ function escapeHtml(str: string): string {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const apiKey = import.meta.env.RESEND_API_KEY;
-  if (!apiKey) {
+  if (!import.meta.env.SMTP_PASS) {
     return new Response(
       JSON.stringify({ error: 'Server-Konfigurationsfehler. Bitte versuchen Sie es erneut.' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
@@ -43,42 +41,41 @@ export const POST: APIRoute = async ({ request }) => {
 
   const d = parsed.data;
 
-  // Alle User-Eingaben vor HTML-Einbettung escapen
-  const safeType = escapeHtml(d.type);
-  const safeAddress = escapeHtml(d.address);
-  const safeSize = d.size ? escapeHtml(String(d.size)) : null;
-  const safeYear = d.year ? escapeHtml(String(d.year)) : null;
-  const safeCondition = d.condition ? escapeHtml(d.condition) : null;
-  const safeReason = d.reason ? escapeHtml(d.reason) : null;
-  const safeName = escapeHtml(d.name);
-  const safeEmail = escapeHtml(d.email);
-  const safePhone = d.phone ? escapeHtml(d.phone) : null;
+  const safeType      = escapeHtml(d.type);
+  const safeAddress   = escapeHtml(d.address);
+  const safeSize      = d.size      ? escapeHtml(String(d.size))  : null;
+  const safeYear      = d.year      ? escapeHtml(String(d.year))  : null;
+  const safeCondition = d.condition ? escapeHtml(d.condition)     : null;
+  const safeReason    = d.reason    ? escapeHtml(d.reason)        : null;
+  const safeName      = escapeHtml(d.name);
+  const safeEmail     = escapeHtml(d.email);
+  const safePhone     = d.phone     ? escapeHtml(d.phone)         : null;
 
-  const resend = new Resend(apiKey);
-  const { error } = await resend.emails.send({
-    from: `immogutachter360° <noreply@immogutachter360.de>`,
-    to: SITE.email,
-    replyTo: d.email,
-    subject: `Online-Bewertung: ${safeType} — ${safeAddress}`,
-    html: `
-      <h2>Neue Online-Bewertungsanfrage</h2>
-      <table style="border-collapse:collapse;width:100%">
-        <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Objekttyp</td><td style="padding:8px;border:1px solid #eee">${safeType}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Adresse</td><td style="padding:8px;border:1px solid #eee">${safeAddress}</td></tr>
-        ${safeSize ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Wohnfläche</td><td style="padding:8px;border:1px solid #eee">${safeSize} m²</td></tr>` : ''}
-        ${safeYear ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Baujahr</td><td style="padding:8px;border:1px solid #eee">${safeYear}</td></tr>` : ''}
-        ${safeCondition ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Zustand</td><td style="padding:8px;border:1px solid #eee">${safeCondition}</td></tr>` : ''}
-        ${safeReason ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Anlass</td><td style="padding:8px;border:1px solid #eee">${safeReason}</td></tr>` : ''}
-        <tr><td colspan="2" style="padding:8px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Kontaktdaten</td></tr>
-        <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Name</td><td style="padding:8px;border:1px solid #eee">${safeName}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">E-Mail</td><td style="padding:8px;border:1px solid #eee"><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
-        ${safePhone ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Telefon</td><td style="padding:8px;border:1px solid #eee"><a href="tel:${safePhone}">${safePhone}</a></td></tr>` : ''}
-      </table>
-    `,
-  });
-
-  if (error) {
-    console.error('Resend error:', error);
+  try {
+    const transporter = createTransporter();
+    await transporter.sendMail({
+      from: MAIL_FROM,
+      to: MAIL_TO,
+      replyTo: d.email,
+      subject: `Online-Bewertung: ${safeType} — ${safeAddress}`,
+      html: `
+        <h2>Neue Online-Bewertungsanfrage</h2>
+        <table style="border-collapse:collapse;width:100%">
+          <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Objekttyp</td><td style="padding:8px;border:1px solid #eee">${safeType}</td></tr>
+          <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Adresse</td><td style="padding:8px;border:1px solid #eee">${safeAddress}</td></tr>
+          ${safeSize      ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Wohnfläche</td><td style="padding:8px;border:1px solid #eee">${safeSize} m²</td></tr>` : ''}
+          ${safeYear      ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Baujahr</td><td style="padding:8px;border:1px solid #eee">${safeYear}</td></tr>` : ''}
+          ${safeCondition ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Zustand</td><td style="padding:8px;border:1px solid #eee">${safeCondition}</td></tr>` : ''}
+          ${safeReason    ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Anlass</td><td style="padding:8px;border:1px solid #eee">${safeReason}</td></tr>` : ''}
+          <tr><td colspan="2" style="padding:8px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Kontaktdaten</td></tr>
+          <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Name</td><td style="padding:8px;border:1px solid #eee">${safeName}</td></tr>
+          <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">E-Mail</td><td style="padding:8px;border:1px solid #eee"><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
+          ${safePhone ? `<tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Telefon</td><td style="padding:8px;border:1px solid #eee"><a href="tel:${safePhone}">${safePhone}</a></td></tr>` : ''}
+        </table>
+      `,
+    });
+  } catch (err) {
+    console.error('SMTP error:', err);
     return new Response(
       JSON.stringify({ error: 'Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut.' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }

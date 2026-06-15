@@ -1,6 +1,7 @@
 ---
 import { SITE } from '~/lib/site';
 const success = Astro.url.searchParams.get('success') === '1';
+const hasError = Astro.url.searchParams.get('error') === '1';
 ---
 <section class="bg-ink text-paper section-y" data-final-cta data-header-dark>
   <div class="container-x grid gap-6 lg:gap-12 lg:grid-cols-2 lg:items-center">
@@ -60,6 +61,11 @@ const success = Astro.url.searchParams.get('success') === '1';
             <input type="checkbox" required name="consent" class="mt-1" />
             <span>Ich stimme der Datenverarbeitung zu. <a href="/datenschutz" class="underline hover:text-green">Datenschutzerklärung</a></span>
           </label>
+          {hasError && (
+            <p class="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+              Leider ist ein Fehler aufgetreten. Bitte rufen Sie uns an oder schreiben Sie eine E-Mail.
+            </p>
+          )}
           <button type="submit" class="btn-primary w-full">Anfrage absenden →</button>
         </div>
       </form>

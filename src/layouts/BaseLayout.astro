@@ -4,7 +4,6 @@ import Header from '~/components/layout/Header.astro';
 import Footer from '~/components/layout/Footer.astro';
 import MagneticCursor from '~/components/ui/MagneticCursor.tsx';
 import StickyContactCTA from '~/components/ui/StickyContactCTA.tsx';
-import CookieBanner from '~/components/ui/CookieBanner.tsx';
 import ConsultationModal from '~/components/ui/ConsultationModal.tsx';
 import ProSealDismissible from '~/components/ui/ProSealDismissible.tsx';
 import { SITE } from '~/lib/site';
@@ -43,6 +42,7 @@ const fullTitle = buildTitle(title);
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 const ogImage = new URL(image, SITE.url).toString();
 const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
+const proSealScript = '<script type="text/plain" data-cookiecategory="Google Tag Manager" src="https://s.provenexpert.net/seals/proseal-v2.js"><\/script>';
 ---
 <!doctype html>
 <html lang="de">
@@ -113,6 +113,19 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   {/* ── Analytics (cookieless, keine Einwilligung erforderlich § 25 Abs. 2 Nr. 2 TDDDG) ── */}
   <script defer data-domain="immogutachter360.de" src="https://plausible.io/js/script.js"></script>
 
+  {/* ── Cookie-Consent (Legal Cockpit CMP) ── */}
+  <script
+    src="https://app.cockpit.legal/static/cookieconsent-v2.js?tools=Google%20Tag%20Manager,WhatsApp"
+    data-cc-tools="Google Tag Manager,WhatsApp"
+    data-cc-privacy="https://www.immogutachter360.de/datenschutz"
+    data-cc-imprint="https://www.immogutachter360.de/impressum"
+    data-cc-color=""
+    data-cc-theme="browser"
+    data-cc-language="browser"
+    data-cc-non-eu-consent="false"
+    data-cc-enable-logs="false"
+  ></script>
+
   <ClientRouter />
 </head>
 <body>
@@ -124,55 +137,12 @@ const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
   <Footer />
   <MagneticCursor client:only="react" />
   <StickyContactCTA client:only="react" />
-  <CookieBanner client:only="react" />
   <ConsultationModal client:idle />
   <ProSealDismissible client:only="react" />
 
-  {/* ── ProvenExpert ProSeal — consent-gesteuert (§ 25 TDDDG) ── */}
-  <script is:inline>
-    // ProSeal-Konfiguration (wird nur ausgeführt wenn proseal-v2.js geladen hat)
-    // ProSeal deaktiviert bis Bewertungen vorhanden (Widget zeigt sonst "0 Bewertungen")
-    window.loadProSeal = function () {};
-
-    function loadAllProvenExpert() {
-      if (window.__peLoaded) return;
-      window.__peLoaded = true;
-
-      // ProSeal (Bewertungssiegel)
-      var s1 = document.createElement('script');
-      s1.async = true;
-      s1.src = 'https://s.provenexpert.net/seals/proseal-v2.js';
-      s1.onload = function () { window.loadProSeal && window.loadProSeal(); };
-      document.body.appendChild(s1);
-    }
-
-    function hasValidConsent() {
-      var c = localStorage.getItem('cookie-consent');
-      var ts = parseInt(localStorage.getItem('cookie-consent-ts') || '0', 10);
-      return c === 'all' && (Date.now() - ts < 365 * 24 * 60 * 60 * 1000);
-    }
-
-    // Rückkehrbesucher: sofort laden wenn Einwilligung vorhanden
-    if (hasValidConsent()) {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadAllProvenExpert);
-      } else {
-        loadAllProvenExpert();
-      }
-    }
-
-    // Neue Einwilligung via CookieBanner
-    window.addEventListener('cookie-consent-update', function (e) {
-      if (e && e.detail && e.detail.type === 'all') loadAllProvenExpert();
-    });
-
-    // Nach Astro View Transition neu prüfen
-    document.addEventListener('astro:page-load', function () {
-      window.__peLoaded = false;
-      window.__proSealLoaded = false;
-      if (hasValidConsent()) loadAllProvenExpert();
-    });
-  </script>
+  {/* ── ProvenExpert ProSeal — via Legal Cockpit Consent (§ 25 TDDDG) ── */}
+  <script is:inline>window.loadProSeal = function () {};</script>
+  <Fragment set:html={proSealScript} />
 </body>
 </html>
 
