@@ -42,6 +42,14 @@ const fullTitle = buildTitle(title);
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 const ogImage = new URL(image, SITE.url).toString();
 const allJsonLd = [localBusinessJsonLd(), ...jsonLd];
+const consentTools = 'Google Tag Manager,WhatsApp,Microsoft Clarity';
+const clarityScript = `<script type="text/plain" data-cookiecategory="Microsoft Clarity">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x7k2oprbsp");
+<\/script>`;
 const proSealScript = '<script type="text/plain" data-cookiecategory="Google Tag Manager" src="https://s.provenexpert.net/seals/proseal-v2.js"><\/script>';
 ---
 <!doctype html>
@@ -101,6 +109,7 @@ const proSealScript = '<script type="text/plain" data-cookiecategory="Google Tag
   <link rel="dns-prefetch" href="https://maps.googleapis.com" />
   <link rel="dns-prefetch" href="https://maps.gstatic.com" />
   <link rel="dns-prefetch" href="https://plausible.io" />
+  <link rel="dns-prefetch" href="https://www.clarity.ms" />
 
   {/* ── RSS Feed ── */}
   <link rel="alternate" type="application/rss+xml" title={`${SITE.name} Blog`} href="/rss.xml" />
@@ -115,8 +124,8 @@ const proSealScript = '<script type="text/plain" data-cookiecategory="Google Tag
 
   {/* ── Cookie-Consent (Legal Cockpit CMP) ── */}
   <script
-    src="https://app.cockpit.legal/static/cookieconsent-v2.js?tools=Google%20Tag%20Manager,WhatsApp"
-    data-cc-tools="Google Tag Manager,WhatsApp"
+    src={`https://app.cockpit.legal/static/cookieconsent-v2.js?tools=${encodeURIComponent(consentTools)}`}
+    data-cc-tools={consentTools}
     data-cc-privacy="https://www.immogutachter360.de/datenschutz"
     data-cc-imprint="https://www.immogutachter360.de/impressum"
     data-cc-color=""
@@ -125,6 +134,7 @@ const proSealScript = '<script type="text/plain" data-cookiecategory="Google Tag
     data-cc-non-eu-consent="false"
     data-cc-enable-logs="false"
   ></script>
+  <Fragment set:html={clarityScript} />
 
   <ClientRouter />
 </head>
