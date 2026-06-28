@@ -1,24 +1,24 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
-import { SITE } from '~/lib/site';
 ---
 <BaseLayout title="Impressum" noindex={true}>
   <section class="section-y bg-cream">
     <div class="container-x mx-auto max-w-3xl prose prose-lg">
       <h1 class="display-2 not-prose mb-12">Impressum</h1>
 
-      <h2>Angaben gemäß § 5 TMG</h2>
+      <h2>Anbieter</h2>
       <p>
         <strong>immogutachter360°</strong><br/>
         Erdem Tanrikulu<br/>
-        {SITE.address.street}<br/>
-        {SITE.address.zip} {SITE.address.city}
+        Metzer Str. 70<br/>
+        40476 Düsseldorf<br/>
+        Deutschland
       </p>
 
       <h2>Kontakt</h2>
       <p>
-        Telefon: <a href={SITE.phoneHref}>{SITE.phone}</a><br/>
-        E-Mail: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        Telefonnummer: <a href="tel:+491743012443">+49 174 3012443</a><br/>
+        E-Mail-Adresse: <a href="mailto:erdtan1@gmail.com">erdtan1@gmail.com</a>
       </p>
 
       <h2>Berufsbezeichnung und berufsrechtliche Regelungen</h2>
@@ -34,8 +34,8 @@ import { SITE } from '~/lib/site';
       <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
       <p>
         Erdem Tanrikulu<br/>
-        {SITE.address.street}<br/>
-        {SITE.address.zip} {SITE.address.city}
+        Metzer Str. 70<br/>
+        40476 Düsseldorf
       </p>
 
       <h2>Streitschlichtung</h2>
@@ -45,13 +45,13 @@ import { SITE } from '~/lib/site';
       </p>
       <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
 
+      <p>Im Falle von Abweichungen zwischen der deutschen und der englischen Fassung hat die deutsche Fassung Vorrang.</p>
+
       <h2>Haftung für Inhalte</h2>
       <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
 
       <h2>Urheberrecht</h2>
       <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors.</p>
-
-      <p class="not-prose mt-12 text-sm" style="color: rgba(0,0,0,0.45)">Hinweis: Fehlende Angaben (Inhabername, USt-IdNr.) vor Go-Live ergänzen und durch einen Rechtsanwalt prüfen lassen.</p>
     </div>
   </section>
 </BaseLayout>
