@@ -70,11 +70,11 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
     faqs: [
       {
         q: 'Was kostet ein Verkehrswertgutachten?',
-        a: 'Die Kosten richten sich nach Objekttyp, Größe und Komplexität. Für ein durchschnittliches Einfamilienhaus liegen die Kosten meist zwischen 1.500 € und 2.500 €. Sie erhalten von uns immer einen verbindlichen Festpreis vor Auftragserteilung — ohne versteckte Kosten oder Nachforderungen.',
+        a: 'Die Kosten richten sich nach Objekttyp, Größe und Komplexität. Für ein durchschnittliches Einfamilienhaus beginnen die Kosten ab 1.500 € und reichen meist bis 2.500 €. Sie erhalten von uns immer einen verbindlichen Festpreis vor Auftragserteilung — ohne versteckte Kosten oder Nachforderungen.',
       },
       {
         q: 'Was kostet eine kompakte Immobilienbewertung?',
-        a: 'Für eine marktgerechte Immobilienbewertung ohne Gerichtsfestigkeit rechnen Sie grob mit 500 € bis 900 €, je nach Objektart und Aufwand. Diese eignet sich gut für private Verkaufsentscheidungen, Schenkungen oder Finanzierungsgespräche.',
+        a: 'Eine marktgerechte Immobilienbewertung ohne Gerichtsfestigkeit erhalten Sie ab 500 € und je nach Objektart und Aufwand meist bis 900 €. Diese eignet sich gut für private Verkaufsentscheidungen, Schenkungen oder Finanzierungsgespräche.',
       },
       {
         q: 'Welche Faktoren beeinflussen den Preis?',
@@ -422,7 +422,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
       },
       {
         q: 'Was kostet ein Energieausweis?',
-        a: 'Ein Verbrauchsausweis beginnt bei ca. 80 € bis 150 €, ein Bedarfsausweis liegt je nach Objektgröße zwischen 300 € und 600 €. Als zugelassene Energieberater erstellen wir beide Varianten — schnell, GEG-konform und zu einem fixen Preis, den wir Ihnen vorab nennen.',
+        a: 'Einen Verbrauchsausweis erhalten Sie ab ca. 80 € und bis 150 €, einen Bedarfsausweis je nach Objektgröße ab 300 € und bis 600 €. Als zugelassene Energieberater erstellen wir beide Varianten — schnell, GEG-konform und zu einem fixen Preis, den wir Ihnen vorab nennen.',
       },
       {
         q: 'Was ist der Unterschied zwischen Verbrauchs- und Bedarfsausweis?',
