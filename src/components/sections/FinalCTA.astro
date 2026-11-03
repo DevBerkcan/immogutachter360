@@ -1,5 +1,7 @@
 ---
 import { SITE } from '~/lib/site';
+interface Props { heading?: string; accent?: string }
+const { heading = 'Kostenlose Ersteinschätzung.', accent = 'Antwort in 24 Stunden.' } = Astro.props;
 const success = Astro.url.searchParams.get('success') === '1';
 const hasError = Astro.url.searchParams.get('error') === '1';
 ---
@@ -7,7 +9,7 @@ const hasError = Astro.url.searchParams.get('error') === '1';
   <div class="container-x grid gap-6 lg:gap-12 lg:grid-cols-2 lg:items-center">
     <div>
       <p class="eyebrow">Bereit für Klarheit?</p>
-      <h2 class="display-2 mt-4 text-paper">Kostenlose Ersteinschätzung.<br/><span class="italic text-green">Antwort in 24 Stunden.</span></h2>
+      <h2 class="display-2 mt-4 text-paper">{heading}<br/><span class="italic text-green">{accent}</span></h2>
       <p class="mt-8 text-lg text-paper/70 max-w-md">Schildern Sie uns Ihr Anliegen — wir melden uns persönlich mit einer ersten Einschätzung und einem Festpreisangebot.</p>
       <div class="mt-10 space-y-3">
         <a href={SITE.phoneHref} class="block text-paper hover:text-green transition-colors">📞 {SITE.phone}</a>

@@ -3,7 +3,9 @@ import { SERVICES } from '~/lib/services';
 import ServiceCard from '~/components/sections/ServiceCard.tsx';
 
 const bento = SERVICES.slice(0, 3);
-const rest  = SERVICES.slice(3);
+// Startseiten-spezifische Kartentitel (SEO-Headings)
+const TITLE_OVERRIDES: Record<string, string> = { 'gutachter-fur-bauschaden': 'Bauschadensgutachten' };
+const rest  = SERVICES.slice(3).map((s) => (TITLE_OVERRIDES[s.slug] ? { ...s, title: TITLE_OVERRIDES[s.slug] } : s));
 ---
 <section id="leistungen" class="section-y bg-cream">
   <div class="container-x">
@@ -11,8 +13,8 @@ const rest  = SERVICES.slice(3);
     <div class="max-w-2xl">
       <p class="eyebrow">Leistungen</p>
       <h2 class="display-2 mt-4">
-        Gutachten für jede Lebenslage —<br/>
-        <span class="italic text-green">präzise, anerkannt, Festpreis.</span>
+        Leistungen als Immobiliengutachter<br/>
+        <span class="italic text-green">in Düsseldorf</span>
       </h2>
       <p class="mt-6 text-lg text-mute">
         Von der schnellen Marktwerteinschätzung bis zum gerichtsfesten Vollgutachten. Wählen Sie die Leistung, die zu Ihrer Situation passt.

@@ -2,9 +2,9 @@ import { motion, useSpring, useTransform, useReducedMotion } from 'framer-motion
 import { useEffect, useState } from 'react';
 
 const lines = [
-  { text: 'Der wahre Wert', accent: false },
-  { text: 'Ihrer Immobilie.', accent: false },
-  { text: 'Schnell. Festpreis.', accent: true },
+  { text: 'Immobilien\u00ADgutachter Düsseldorf –', accent: false },
+  { text: 'Immobilien\u00ADbewertung', accent: false },
+  { text: 'zum Festpreis', accent: true },
 ];
 
 export default function HeroHeadline() {

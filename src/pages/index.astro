@@ -94,8 +94,8 @@ import { CITIES } from '~/lib/cities';
     <div class="container-x text-center">
       <p class="eyebrow justify-center">Unser Einzugsgebiet</p>
       <h2 class="display-2 mt-4">
-        Persönlich vor Ort —<br/>
-        <span class="italic text-green">in ganz NRW.</span>
+        Immobiliengutachter für Düsseldorf,<br/>
+        <span class="italic text-green">{CITIES.filter(c => c.slug !== 'duesseldorf').slice(0, 3).map(c => c.name).join(', ')} und ganz NRW</span>
       </h2>
       <p class="mt-6 text-lg leading-relaxed mx-auto max-w-2xl" style="color: var(--color-mute)">
         Als DEKRA-zertifizierter Sachverständiger bin ich persönlich in der gesamten Metropolregion Rhein-Ruhr tätig.
@@ -121,7 +121,7 @@ import { CITIES } from '~/lib/cities';
     <div class="container-x">
       <div class="mx-auto max-w-2xl text-center">
         <p class="eyebrow justify-center">FAQ</p>
-        <h2 class="display-2 mt-4">Häufige Fragen.</h2>
+        <h2 class="display-2 mt-4">FAQ zum Immobiliengutachten in Düsseldorf</h2>
       </div>
       <div class="mt-16">
         <FAQ client:visible />
@@ -136,5 +136,5 @@ import { CITIES } from '~/lib/cities';
 
   <Testimonials />
   <ReviewsSection />
-  <FinalCTA />
+  <FinalCTA heading="Kostenlose Ersteinschätzung Ihrer Immobilie –" accent="Antwort in 24 h" />
 </BaseLayout>

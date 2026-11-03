@@ -20,7 +20,7 @@ import { SERVICES } from '~/lib/services';
         <p class="mt-2 text-sm text-paper/70">{SITE.hours}</p>
       </div>
       <div>
-        <h4 class="text-xs uppercase tracking-[0.2em] text-green font-sans">Leistungen</h4>
+        <p class="text-xs uppercase tracking-[0.2em] text-green font-sans">Leistungen</p>
         <ul class="mt-4 space-y-2 text-sm">
           {SERVICES.slice(0, 6).map((s) => (
             <li><a href={`/leistungen/${s.slug}`} class="text-paper/70 hover:text-paper transition-colors">{s.title}</a></li>
@@ -29,7 +29,7 @@ import { SERVICES } from '~/lib/services';
         </ul>
       </div>
       <div>
-        <h4 class="text-xs uppercase tracking-[0.2em] text-green font-sans">Navigation</h4>
+        <p class="text-xs uppercase tracking-[0.2em] text-green font-sans">Navigation</p>
         <ul class="mt-4 space-y-2 text-sm">
           {NAV.map((n) => (
             <li><a href={n.href} class="text-paper/70 hover:text-paper transition-colors">{n.label}</a></li>
@@ -38,7 +38,7 @@ import { SERVICES } from '~/lib/services';
         </ul>
       </div>
       <div>
-        <h4 class="text-xs uppercase tracking-[0.2em] text-green font-sans">Kontakt</h4>
+        <p class="text-xs uppercase tracking-[0.2em] text-green font-sans">Kontakt</p>
         <address class="mt-4 not-italic text-sm text-paper/70 space-y-1">
           <div>{SITE.address.street}</div>
           <div>{SITE.address.zip} {SITE.address.city}</div>

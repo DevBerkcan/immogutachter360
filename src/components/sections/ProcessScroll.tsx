@@ -1,7 +1,7 @@
 const steps = [
   { n: '01', title: 'Anfrage', text: ['Sie schildern Ihr Anliegen telefonisch, per Mail oder über das Online-Formular. Die erste Einschätzung erhalten Sie innerhalb von 24 Stunden.'] },
   { n: '02', title: 'Termin', text: ['Wir vereinbaren zeitnah einen Vor-Ort-Termin und klären vorab, welche Unterlagen für Ihr Gutachten wichtig sind.', 'Kein langer Vorlauf.'] },
-  { n: '03', title: 'Begehung', text: ['Die Immobilie wird sorgfältig besichtigt, dokumentiert und mit den relevanten Daten für die Wertermittlung erfasst.'] },
+  { n: '03', title: 'Ortsbesichtigung', text: ['Die Immobilie wird sorgfältig besichtigt, dokumentiert und mit den relevanten Daten für die Wertermittlung erfasst.'] },
   { n: '04', title: 'Gutachten', text: ['Sie erhalten Ihr fundiertes Gutachten übersichtlich aufbereitet, plausibilisiert und persönlich erläutert.'] },
 ];
 

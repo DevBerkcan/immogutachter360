@@ -71,7 +71,7 @@ export default function ValuationFunnel() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="mt-2 font-display text-3xl">Vielen Dank!</h3>
+        <p className="mt-2 font-display text-3xl">Vielen Dank!</p>
         <p className="mt-4 text-mute">Wir melden uns innerhalb von 24 Stunden mit Ihrer kostenlosen Ersteinschätzung.</p>
         <a href="/" className="btn-primary mt-8 inline-flex">Zurück zur Startseite</a>
       </div>
@@ -99,7 +99,7 @@ export default function ValuationFunnel() {
         >
           {step === 0 && (
             <div>
-              <h3 className="font-display text-3xl">Welche Art von Immobilie?</h3>
+              <p className="font-display text-3xl">Welche Art von Immobilie?</p>
               <div className="mt-8 grid gap-4 md:grid-cols-3">
                 {['Einfamilienhaus', 'Wohnung', 'Mehrfamilienhaus', 'Gewerbeimmobilie', 'Grundstück', 'Sonstiges'].map((t) => (
                   <button
@@ -117,9 +117,9 @@ export default function ValuationFunnel() {
 
           {step === 1 && (
             <div>
-              <h3 className="font-display text-3xl">
+              <p className="font-display text-3xl">
                 {data.type === 'Grundstück' ? 'Wo befindet sich das Grundstück?' : 'Wo befindet sich die Immobilie?'}
-              </h3>
+              </p>
               <input
                 autoFocus
                 placeholder="Straße, PLZ, Ort"
@@ -132,7 +132,7 @@ export default function ValuationFunnel() {
 
           {step === 2 && (
             <div>
-              <h3 className="font-display text-3xl">Eckdaten</h3>
+              <p className="font-display text-3xl">Eckdaten</p>
               <div className="mt-8 space-y-8">
                 <div>
                   <label className="text-xs uppercase tracking-[0.2em] text-mute">Wohnfläche: {data.size} m²</label>
@@ -162,7 +162,7 @@ export default function ValuationFunnel() {
 
           {step === 3 && (
             <div>
-              <h3 className="font-display text-3xl">Allgemeiner Zustand</h3>
+              <p className="font-display text-3xl">Allgemeiner Zustand</p>
               <div className="mt-8 grid gap-4 md:grid-cols-3">
                 {['Renoviert / Top', 'Gepflegt', 'Renovierungsbedürftig'].map((c) => (
                   <button
@@ -180,7 +180,7 @@ export default function ValuationFunnel() {
 
           {step === 4 && (
             <div>
-              <h3 className="font-display text-3xl">Anlass für die Bewertung</h3>
+              <p className="font-display text-3xl">Anlass für die Bewertung</p>
               <div className="mt-8 grid gap-4 md:grid-cols-2">
                 {['Verkauf', 'Kauf', 'Erbschaft', 'Scheidung', 'Finanzamt', 'Allgemeines Interesse'].map((r) => (
                   <button
@@ -198,7 +198,7 @@ export default function ValuationFunnel() {
 
           {step === 5 && (
             <div>
-              <h3 className="font-display text-3xl">Wohin schicken wir die Einschätzung?</h3>
+              <p className="font-display text-3xl">Wohin schicken wir die Einschätzung?</p>
               <div className="mt-8 space-y-6">
                 <input placeholder="Name *" value={data.name ?? ''} onChange={(e) => setData({ ...data, name: e.target.value })} className={inputStyle} />
                 <input placeholder="E-Mail *" type="email" value={data.email ?? ''} onChange={(e) => setData({ ...data, email: e.target.value })} className={inputStyle} />
