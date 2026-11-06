@@ -24,7 +24,8 @@ export default function HeroHeadline() {
   return (
     <motion.h1 className="display-1 mt-6" style={{ fontVariationSettings, fontSize: 'clamp(2.25rem, 4.2vw, 4.5rem)' }}>
       {lines.map((line, i) => (
-        <span key={i} className="block overflow-hidden" style={{ lineHeight: 1.08 }}>
+        // Padding/negativer Margin: Platz für Unterlängen (g, p), ohne den Zeilenabstand zu ändern
+        <span key={i} className="block overflow-hidden" style={{ lineHeight: 1.08, paddingBottom: '0.15em', marginBottom: '-0.15em' }}>
           <motion.span
             className={`block${line.accent ? ' italic text-green' : ''}`}
             initial={mounted && !prefersReduced ? { y: '110%' } : false}
