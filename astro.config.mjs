@@ -36,6 +36,8 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    // Dev: react-dom/client wird sonst nicht vorgebündelt → "does not provide an export named 'createRoot'"
+    optimizeDeps: { include: ['react-dom/client'] },
   },
   prefetch: { prefetchAll: true },
   build: { inlineStylesheets: 'auto' },

@@ -2,7 +2,7 @@ import { motion, useSpring, useTransform, useReducedMotion } from 'framer-motion
 import { useEffect, useState } from 'react';
 
 const lines = [
-  { text: 'Immobilien\u00ADgutachter Düsseldorf –', accent: false },
+  { text: 'Immobilien\u00ADgutachter Düsseldorf –', accent: false },
   { text: 'Immobilien\u00ADbewertung', accent: false },
   { text: 'zum Festpreis', accent: true },
 ];
@@ -20,8 +20,9 @@ export default function HeroHeadline() {
     if (!prefersReduced) opsz.set(144);
   }, []);
 
+  // Kleiner als display-1, damit die längere SEO-H1 ohne Scrollen in den Hero passt
   return (
-    <motion.h1 className="display-1 mt-6" style={{ fontVariationSettings }}>
+    <motion.h1 className="display-1 mt-6" style={{ fontVariationSettings, fontSize: 'clamp(2.25rem, 4.2vw, 4.5rem)' }}>
       {lines.map((line, i) => (
         <span key={i} className="block overflow-hidden" style={{ lineHeight: 1.08 }}>
           <motion.span
