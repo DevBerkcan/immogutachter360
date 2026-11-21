@@ -28,7 +28,7 @@ export const SERVICES: Service[] = [
       { q: 'Was ist der Unterschied zwischen Bewertung und Gutachten?', a: 'Die Immobilienbewertung ist eine kompakte Markteinschätzung für private Zwecke. Das Gutachten ist die vollständige, normkonforme Variante nach § 194 BauGB — Pflicht bei Erbschaft, Scheidung und Steuerverfahren.' },
       { q: 'Wie lange dauert eine Immobilienbewertung?', a: 'Nach Ortstermin und Unterlagenübergabe erhalten Sie das Ergebnis in der Regel nach 7–14 Werktagen. Für dringende Fälle ist eine Expressbearbeitung möglich.' },
       { q: 'Was kostet eine Immobilienbewertung in Düsseldorf?', a: 'Eine kompakte Bewertung beginnt ab 500 €, ein vollständiges Verkehrswertgutachten ab 1.299 €. Sie erhalten vor Auftragserteilung immer ein verbindliches Festpreisangebot.' },
-      { q: 'Für welche Immobilien führen Sie Bewertungen durch?', a: 'Wir bewerten Einfamilienhäuser, Eigentumswohnungen, Mehrfamilienhäuser, Gewerbeimmobilien und unbebaute Grundstücke in ganz NRW und auf Anfrage bundesweit.' },
+      { q: 'Für welche Immobilien führen Sie Bewertungen durch?', a: 'Wir bewerten Einfamilienhäuser, Eigentumswohnungen, Mehrfamilienhäuser, Gewerbeimmobilien und unbebaute Grundstücke in Düsseldorf und Umgebung.' },
     ],
   },
   {

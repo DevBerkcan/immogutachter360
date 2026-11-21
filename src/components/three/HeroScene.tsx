@@ -199,7 +199,7 @@ export default function HeroScene() {
       <div className="relative w-full max-w-xs lg:max-w-sm" style={{ perspective: '1000px' }}>
         <PropertyCard prefersReduced={!!prefersReduced} />
         <Chip
-          label="500+ Gutachten erstellt"
+          label="Festpreis"
           delay={1.05}
           className="-right-2 -top-4 lg:-right-6"
           prefersReduced={!!prefersReduced}

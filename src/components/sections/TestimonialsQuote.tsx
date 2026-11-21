@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
-const testimonials = [
-  { quote: 'Die Beratung war professionell, die Kommunikation transparent und das Ergebnis sehr zufriedenstellend.', author: 'Markus H.', role: 'Privatverkauf, Düsseldorf' },
-  { quote: 'Von der ersten Kontaktaufnahme bis zur finalen Bewertung war der gesamte Prozess reibungslos und effizient.', author: 'Sabine W.', role: 'Erbschaftsangelegenheit' },
-  { quote: 'Ein vertrauenswürdiger Partner für Immobilienfragen. Sehr erfahren und nahm sich Zeit für alle meine Fragen.', author: 'Thomas K.', role: 'Gewerbeimmobilie, Köln' },
-  { quote: 'Dank der fachkundigen Beratung konnte ich eine Immobilie kaufen, die perfekt zu meinen Bedürfnissen passt.', author: 'Lisa M.', role: 'Kaufberatung, Meerbusch' },
-  { quote: 'Das Gutachten wurde gründlich und gewissenhaft erstellt. Zu jeder Zeit fühlte ich mich bestens informiert.', author: 'David B.', role: 'Verkehrswertgutachten, Düsseldorf' },
-];
+const testimonials: { quote: string; author: string; role: string }[] = [];
 
 export default function TestimonialsQuote() {
   const [current, setCurrent] = useState(0);

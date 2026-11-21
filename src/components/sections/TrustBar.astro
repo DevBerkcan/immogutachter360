@@ -1,17 +1,15 @@
 ---
-import Counter from '~/components/animations/Counter.tsx';
 const items = [
-  { value: 500, suffix: '+', label: 'Gutachten erstellt' },
-  { value: 8, suffix: '+', label: 'Jahre Erfahrung' },
-  { value: 100, suffix: '%', label: 'DEKRA-zertifiziert' },
-  { value: 24, suffix: 'h', label: 'Erstantwort' },
+  { value: '8+', label: 'Jahre Erfahrung' },
+  { value: '24 h', label: 'Erstantwort' },
+  { value: 'DEKRA', label: 'Sachverständiger' },
 ];
 ---
 <section class="border-y border-line bg-paper">
-  <div class="container-x grid grid-cols-2 gap-4 py-8 md:grid-cols-4 md:gap-8 md:py-16">
+  <div class="container-x grid grid-cols-3 gap-4 py-8 md:gap-8 md:py-16">
     {items.map((it) => (
       <div class="text-center">
-        <div class="font-display text-4xl md:text-5xl text-ink"><Counter client:visible to={it.value} suffix={it.suffix} /></div>
+        <div class="font-display text-4xl md:text-5xl text-ink">{it.value}</div>
         <p class="mt-2 text-xs uppercase tracking-[0.2em] text-mute">{it.label}</p>
       </div>
     ))}
