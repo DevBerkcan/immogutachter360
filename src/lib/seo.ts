@@ -40,8 +40,10 @@ export const localBusinessJsonLd = () => ({
   },
   areaServed: [
     { '@type': 'City', name: 'Düsseldorf' },
-    { '@type': 'State', name: 'Nordrhein-Westfalen' },
-    { '@type': 'Country', name: 'Deutschland' },
+    { '@type': 'City', name: 'Meerbusch' },
+    { '@type': 'City', name: 'Neuss' },
+    { '@type': 'City', name: 'Ratingen' },
+    { '@type': 'City', name: 'Kaarst' },
   ],
   openingHoursSpecification: [
     {
@@ -57,14 +59,6 @@ export const localBusinessJsonLd = () => ({
     email: SITE.email,
     contactType: 'customer service',
     availableLanguage: ['German'],
-  },
-  // UPDATE MONTHLY: sync with https://www.provenexpert.com/immogutachter360/
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '47',
-    bestRating: '5',
-    worstRating: '1',
   },
   hasCredential: [
     {

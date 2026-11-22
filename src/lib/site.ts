@@ -1,7 +1,7 @@
 export const SITE = {
   name: 'immogutachter360',
   url: 'https://www.immogutachter360.de',
-  description: 'DEKRA-zertifizierte Immobiliengutachten, Verkehrswertgutachten und Kaufberatung aus Düsseldorf — bundesweit.',
+  description: 'DEKRA-zertifizierte Immobiliengutachten, Verkehrswertgutachten und Kaufberatung in Düsseldorf und Umgebung.',
   phone: '+49 174 3012443',
   phoneHref: 'tel:+491743012443',
   whatsapp: 'https://wa.me/491743012443',

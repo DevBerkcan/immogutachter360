@@ -20,7 +20,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
       },
       {
         q: 'Sind Sie auch außerhalb von Düsseldorf tätig?',
-        a: 'Ja. Unser Schwerpunkt liegt in Düsseldorf und der Metropolregion Rhein-Ruhr, wir arbeiten aber in ganz NRW und auf Anfrage auch bundesweit. Durch unser Partnernetzwerk stellen wir auch überregional eine qualifizierte Bearbeitung sicher.',
+        a: 'Ja. Unser Schwerpunkt liegt in Düsseldorf und den Nachbarstädten Meerbusch, Neuss, Ratingen und Kaarst. Weitere Orte auf Anfrage.',
       },
       {
         q: 'Muss ich beim Ortstermin persönlich anwesend sein?',
@@ -106,7 +106,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
       },
       {
         q: 'Gibt es einen Unterschied bei den Kosten für Düsseldorf vs. andere Städte?',
-        a: 'Nein. Die Honorare richten sich nach Objektart und Gutachtenaufwand, nicht nach dem Standort. Die Anfahrt ist im Festpreis für unsere Hauptregion (Düsseldorf und Metropolregion NRW) enthalten. Bei entfernteren Standorten sprechen wir ggf. eine Reisekostenpauschale im Angebot offen aus.',
+        a: 'Nein. Die Honorare richten sich nach Objektart und Gutachtenaufwand, nicht nach dem Standort. Die Anfahrt ist im Festpreis für unsere Hauptregion (Düsseldorf, Meerbusch, Neuss, Ratingen, Kaarst) enthalten. Bei entfernteren Standorten sprechen wir ggf. eine Reisekostenpauschale im Angebot offen aus.',
       },
     ],
   },

@@ -5,13 +5,11 @@ import VideoSection from '~/components/sections/VideoSection.astro';
 import PainPoints from '~/components/sections/PainPoints.astro';
 import TrustBar from '~/components/sections/TrustBar.astro';
 import About from '~/components/sections/About.astro';
-import MiniTestimonials from '~/components/sections/MiniTestimonials.astro';
 import Services from '~/components/sections/Services.astro';
 import Process from '~/components/sections/Process.astro';
 import Referenzen from '~/components/sections/Referenzen.astro';
 import MarketData from '~/components/sections/MarketData.astro';
 import UseCases from '~/components/sections/UseCases.astro';
-import Testimonials from '~/components/sections/Testimonials.astro';
 import ValuationFunnel from '~/components/forms/ValuationFunnel.tsx';
 import ReviewsSection from '~/components/sections/ReviewsSection.astro';
 import FAQ from '~/components/sections/FAQ.tsx';
@@ -22,7 +20,7 @@ import { CITIES } from '~/lib/cities';
 ---
 <BaseLayout
   title="Immobiliengutachter Düsseldorf — DEKRA-zertifiziert"
-  description="DEKRA-zertifizierte Immobiliengutachten, Verkehrswertgutachten und Kaufberatung aus Düsseldorf. Festpreis, schnell, bundesweit anerkannt."
+  description="DEKRA-zertifizierte Immobiliengutachten, Verkehrswertgutachten und Kaufberatung in Düsseldorf. Festpreis, persönlich vor Ort, Antwort in 24 h."
   jsonLd={[
     webSiteJsonLd(),
     personJsonLd(),
@@ -82,7 +80,6 @@ import { CITIES } from '~/lib/cities';
   <About />
   <PainPoints />
   <TrustBar />
-  <MiniTestimonials />
   <Services />
   <Process />
   <Referenzen />
@@ -95,10 +92,13 @@ import { CITIES } from '~/lib/cities';
       <p class="eyebrow justify-center">Unser Einzugsgebiet</p>
       <h2 class="display-2 mt-4">
         Immobiliengutachter für Düsseldorf,<br/>
-        <span class="italic text-green">{CITIES.filter(c => c.slug !== 'duesseldorf').slice(0, 3).map(c => c.name).join(', ')} und ganz NRW</span>
+        <span class="italic text-green">alle Stadtteile & Umgebung</span>
       </h2>
       <p class="mt-6 text-lg leading-relaxed mx-auto max-w-2xl" style="color: var(--color-mute)">
-        Als DEKRA-zertifizierter Sachverständiger bin ich persönlich in der gesamten Metropolregion Rhein-Ruhr tätig.
+        Mit Büro in Düsseldorf-Derendorf bewerte ich Immobilien persönlich vor Ort in allen Düsseldorfer Stadtteilen, darunter Oberkassel, Niederkassel, Lörick, Heerdt, Pempelfort, Golzheim, Derendorf, Stockum, Kaiserswerth, Angermund, Flingern, Düsseltal, Grafenberg, Gerresheim, Bilk, Unterbilk, Friedrichstadt, Hafen, Oberbilk, Benrath, Urdenbach, Wersten, Holthausen, Eller, Vennhausen, Unterbach, Hamm, Volmerswerth, Wittlaer und Lohausen.
+      </p>
+      <p class="mt-4 text-lg leading-relaxed mx-auto max-w-2xl" style="color: var(--color-mute)">
+        Außerdem bin ich in den Nachbarstädten im Einsatz:
       </p>
       <div class="mt-10 flex flex-wrap justify-center gap-3">
         {CITIES.map(c => (
@@ -134,7 +134,6 @@ import { CITIES } from '~/lib/cities';
     </div>
   </section>
 
-  <Testimonials />
   <ReviewsSection />
   <FinalCTA heading="Kostenlose Ersteinschätzung Ihrer Immobilie –" accent="Antwort in 24 h" />
 </BaseLayout>

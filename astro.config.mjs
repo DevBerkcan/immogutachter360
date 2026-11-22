@@ -8,6 +8,27 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://www.immogutachter360.de',
   output: 'static',
+  // Düsseldorf = Startseite; Umland auf echte Einsatzorte reduziert
+  redirects: {
+    '/immobiliengutachter-duesseldorf': { status: 301, destination: '/' },
+    '/immobiliengutachter-krefeld': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-moenchengladbach': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-duisburg': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-essen': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-wuppertal': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-bochum': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-dortmund': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-oberhausen': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-koeln': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-solingen': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-remscheid': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-leverkusen': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-bergisch-gladbach': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-velbert': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-muelheim-an-der-ruhr': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-hagen': { status: 301, destination: '/einzugsgebiet' },
+    '/immobiliengutachter-bottrop': { status: 301, destination: '/einzugsgebiet' },
+  },
   adapter: vercel(),
   integrations: [
     react(),

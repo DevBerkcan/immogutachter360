@@ -8,7 +8,7 @@
         Kundenbewertungen unseres <span class="italic text-green">Immobiliengutachters</span>
       </h2>
       <p class="mt-4 text-lg leading-relaxed" style="color: var(--color-mute)">
-        Über 500 abgeschlossene Gutachten — lesen Sie, was Eigentümer, Erben und Käufer über unsere Arbeit berichten.
+        Die Bewertungen unserer Kunden werden auf ProvenExpert veröffentlicht und dort geprüft.
       </p>
     </div>
 
@@ -18,28 +18,6 @@
 
       {/* Platzhalter bis Einwilligung gegeben */}
       <div id="pe-consent-placeholder" class="hidden">
-        <div class="grid gap-6 md:grid-cols-3">
-          {[
-            { quote: 'Die Beratung war professionell, die Kommunikation transparent und das Ergebnis sehr zufriedenstellend.', author: 'Markus H.', role: 'Privatverkauf, Düsseldorf' },
-            { quote: 'Von der ersten Kontaktaufnahme bis zur finalen Bewertung war der gesamte Prozess reibungslos und effizient.', author: 'Sabine W.', role: 'Erbschaftsangelegenheit' },
-            { quote: 'Das Gutachten wurde gründlich und gewissenhaft erstellt. Zu jeder Zeit fühlte ich mich bestens informiert.', author: 'David B.', role: 'Verkehrswertgutachten, Düsseldorf' },
-          ].map(t => (
-            <div class="card flex flex-col gap-4">
-              <div class="flex gap-0.5">
-                {Array.from({ length: 5 }).map(() => (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-green">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                ))}
-              </div>
-              <p class="flex-1 text-lg leading-relaxed" style="color: var(--color-mute)">{t.quote}</p>
-              <div>
-                <p class="font-medium text-ink">{t.author}</p>
-                <p class="text-sm" style="color: var(--color-mute)">{t.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
         <p class="mt-6 text-center text-xs" style="color: var(--color-mute); opacity: 0.65">
           Alle Bewertungen auf{' '}
           <button
